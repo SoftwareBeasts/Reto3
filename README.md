@@ -3,9 +3,9 @@
   <br/>
   Software Beasts - Reto 3
   <br/>
-  <img src=https://img.shields.io/github/license/SoftwareBeasts/Reto3.svg alt=Licencia />
-  <img src=https://img.shields.io/github/issues/SoftwareBeasts/Reto3.svg alt=Issues />
-  <img scr=https://img.shields.io/github/stars/SoftwareBeasts/Reto3.svg alt=Stars />
+  <img src=https://img.shields.io/github/license/SoftwareBeasts/Reto3.svg alt=Licencia/>
+  <img src=https://img.shields.io/github/issues/SoftwareBeasts/Reto3.svg alt=Issues/>
+  <img scr='https://img.shields.io/github/stars/SoftwareBeasts/Reto3.svg'/>
 </h1>
 <h5 align="center">Página web para la realización de pedidos para la Escuela de Hosterería de Egibide</h5>
 
