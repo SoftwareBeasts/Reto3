@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="/Documentaci%C3%B3n/media/software_beasts_icon_color.png" height="200" width="200" alt="Logo"/>
+  <img src="/docs/media/software_beasts_icon_color.png" height="200" width="200" alt="Logo"/>
   <br/>
   Software Beasts - Reto 3
   <br/>
