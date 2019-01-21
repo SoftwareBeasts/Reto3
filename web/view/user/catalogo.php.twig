@@ -1,0 +1,40 @@
+{% extends "../base.html.twig" %}
+
+{% block titulo %}
+    Cat&aacute;logo de productos
+{% endblock %}
+
+{% block navbarContent%}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        {% for categoria in categorias %}
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn-link" type="button" data-toggle="collapse" data-target="categoria{{ categoria.id }}" aria-expanded="false" aria-controls="categoria{{ categoria.id }}" >{{ categoria.nombre }}</button>
+                </div>
+            </div>
+            <div class="row collapse" id="categoria{{ categoria.id }}">
+                {% for producto in categoria.productos %}
+                    <div class="col-12 col-md-4">
+                        <figure class="figure float-left">
+                            <img src="#" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                            <figcaption class="figure-caption">
+                                {{ producto.nombre }}
+                            </figcaption>
+                        </figure>
+                        <span>{{ producto.descripcion }}</span>
+                        <span>{{ producto.precio }}€</span>
+                        <span>M&iacute;nimo de {{ producto.minimo }}</span>
+                        <form action="#" method="post">
+                            <input type="number" id="spinner{{ producto.id }}" min="{{ producto.minimo }}" value="{{ producto.minimo }}" name="spinner{{ producto.id }}">
+                            <button type="submit" value="enviar">Enviar</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+         {% endfor %}
+    </div>
+{% endblock %}
