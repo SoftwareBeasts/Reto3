@@ -1,0 +1,73 @@
+{% extends "../base.html.twig" %}
+    {#Esta vista necesita un array de productos con los productos que el
+    usuario haya añadido al carrito de la compra, ademas de la cantidad
+    de ese producto#}
+{% block titulo %}
+    Revisa tu pedido
+{% endblock %}
+
+{% block navbarContent%}
+
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form action="#" method="post">
+                {% for producto in productos %}
+                <tr>
+                    <th scope="row">{{ producto.nombre }}</th>
+                    <td><input class="form-control" type="number" min="{{ producto.minimo }}" name="cantidad{{ producto.nombre }}" value="{{ producto.cantidad }}"></td>
+                    <td class="precios">{{ producto.precio }}</td>
+                    <td><a href="#" class="btn btn-danger">Borrar</a></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th scope="row">Precio Total:</th>
+                    <td id="precioTotal"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr rowspan="3">
+                    <th colspan="4">
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="col">
+                                    <label for="fecha">Fecha de Recogida</label>
+                                    <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Fecha" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                                </div>
+                                <div class="col">
+                                    <label for="telefono">Telefono</label>
+                                    <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <button class="btn btn-success" type="submit">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </form>
+        </tbody>
+    </table>
+{% endblock %}
