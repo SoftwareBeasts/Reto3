@@ -14,48 +14,42 @@ class Administrador {
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return mixed
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
     /**
      * @param mixed $nombre
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
 
     /**
      * @return mixed
      */
-    public function getPass()
-    {
+    public function getPass() {
         return $this->pass;
     }
 
     /**
      * @param mixed $pass
      */
-    public function setPass($pass)
-    {
+    public function setPass($pass) {
         $this->pass = $pass;
     }
 

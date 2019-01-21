@@ -15,64 +15,56 @@ class Pedido {
     /**
      * @return mixed
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
     /**
      * @return mixed
      */
-    public function getFecha()
-    {
+    public function getFecha() {
         return $this->fecha;
     }
 
     /**
      * @param mixed $fecha
      */
-    public function setFecha($fecha)
-    {
+    public function setFecha($fecha) {
         $this->fecha = $fecha;
     }
 
     /**
      * @return mixed
      */
-    public function getEstado()
-    {
+    public function getEstado() {
         return $this->estado;
     }
 
     /**
      * @param mixed $estado
      */
-    public function setEstado($estado)
-    {
+    public function setEstado($estado) {
         $this->estado = $estado;
     }
 
     /**
      * @return mixed
      */
-    public function getPrecioTotal()
-    {
+    public function getPrecioTotal() {
         return $this->precioTotal;
     }
 
     /**
      * @param mixed $precioTotal
      */
-    public function setPrecioTotal($precioTotal)
-    {
+    public function setPrecioTotal($precioTotal) {
         $this->precioTotal = $precioTotal;
     }
 
