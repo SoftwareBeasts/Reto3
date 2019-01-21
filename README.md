@@ -6,6 +6,7 @@
   <img src=https://img.shields.io/github/license/SoftwareBeasts/Reto3.svg />
   <img src=https://img.shields.io/github/issues/SoftwareBeasts/Reto3.svg />  
   <img src=https://img.shields.io/github/stars/SoftwareBeasts/Reto3.svg />
+  <img src=https://img.shields.io/badge/dependencies-twig-81005d.svg />
 </h1>
 <h5 align="center">Página web para la realización de pedidos para la Escuela de Hosterería de Egibide</h5>
 
