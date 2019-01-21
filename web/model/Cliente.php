@@ -1,6 +1,6 @@
 <?php
 class Cliente {
-    private $table = "pedidoshosteleria";
+    private $table = "cliente";
     private $conexion;
 
     private $id;

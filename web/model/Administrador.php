@@ -1,6 +1,6 @@
 <?php
 class Administrador {
-    private $table = "pedidoshosteleria";
+    private $table = "admin";
     private $conexion;
 
     private $id;
@@ -64,7 +64,7 @@ class Administrador {
     }
 
     public function getByID($id){
-        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE id = :id");
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idadmin = :id");
         $res = $consulta->execute(array(
             "id" => $id
         ));
@@ -87,7 +87,7 @@ class Administrador {
     }
 
     public function deleteByID($id){
-        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE id = :id");
+        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idadmin = :id");
         $del = $consulta->execute(array(
             "id" => $id
         ));
