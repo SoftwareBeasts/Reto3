@@ -17,24 +17,29 @@
         {% for categoria in categorias %}
             <div class="card">
                 <div class="card-body">
-                    <button class="btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                 </div>
             </div>
             <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
-                    <div class="col-12 col-md-4">
-                        <figure class="figure float-left">
-                            <img src="{{ producto.rutaImg }}" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                    <div class="col-12 text-center col-md-4">
+                        <figure class="figure">
+                            <img src="./view/media/Faltranes.png" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
                                 {{ producto.nombre }}
                             </figcaption>
                         </figure>
-                        <span>{{ producto.descripcion }}</span>
-                        <span>{{ producto.precio }}€</span>
-                        <span>M&iacute;nimo de {{ producto.pedidoMin }}</span>
-                        <form action="#" method="post">
-                            <input type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="spinner{{ producto.idproducto }}">
-                            <button type="submit" value="enviar">Enviar</button>
+                        <br>
+                        <div class="text-wrap badge badge-primary">{{ producto.descripcion }}</div>
+                        <div class="text-wrap badge badge-primary">{{ producto.precio }}€</div>
+                        <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
+                        <br><br>
+                        <form action="index.php?controller=producto&action=addcarrito" method="post" class="form-inline">
+                            <div class="form-group mx-auto">
+                                <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
+                                <input type="hidden" name="id" value="{{ producto.idproducto }}">
+                                <button type="submit" class="btn btn-primary" value="enviar">A&ntilde;adir</button>
+                            </div>
                         </form>
                     </div>
                 {% endfor %}
