@@ -25,7 +25,7 @@
                 {% for producto in productos %}
                 <tr>
                     <th scope="row">{{ producto.nombre }}</th>
-                    <td><input class="form-control" type="number" min="{{ producto.minimo }}" name="cantidad{{ producto.nombre }}" value="{{ producto.cantidad }}"></td>
+                    <td><input class="form-control" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ producto.cantidad }}"></td>
                     <td class="precios">{{ producto.precio }}</td>
                     <td><a href="#" class="btn btn-danger">Borrar</a></td>
                 </tr>
