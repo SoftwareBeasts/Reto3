@@ -99,7 +99,7 @@ class Producto {
     }
 
     public function getAll(){
-        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table);
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table . " ORDER BY categoria_idcategoria");
         $consulta->execute();
         $resultados = $consulta->fetchAll();
 
