@@ -1,25 +1,35 @@
-{% extends "../base.html.twig" %}
-    {# Requiere los siguientes datos:
-        un array con todas las categorias, que contengan id, nombre y
-        cada una de ellas, un array con todos los datos de los productos
-        que contienen
-    #}
-{% block titulo %}
-    Cat&aacute;logo de productos
-{% endblock %}
+{% extends "../adminbase.html.twig" %}
 
-{% block navbarContent%}
+{% block titulo %}Cat&aacute;logo{% endblock %}
 
-{% endblock %}
+{% block navbarContent %}{% endblock %}
 
-{% block content %}
+{% block contentIzq %}
     <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <a href="#" class="btn btn-warning">A&ntilde;adir categoría</a>
+            </div>
+        </div>
         {% for categoria in categorias %}
             <div class="card">
                 <div class="card-body">
                     <button class="btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.id }}" aria-expanded="false" aria-controls="categoria{{ categoria.id }}" >{{ categoria.nombre }}</button>
+                    <a href="#" class="btn btn-warning">Cambiar</a>
                 </div>
             </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block contentDer %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <a href="#" class="btn btn-warning">A&ntilde;adir producto</a>
+            </div>
+        </div>
+        {% for categoria in categorias %}
             <div class="row collapse" id="categoria{{ categoria.id }}">
                 {% for producto in categoria.productos %}
                     <div class="col-12 col-md-4">
@@ -32,13 +42,11 @@
                         <span>{{ producto.descripcion }}</span>
                         <span>{{ producto.precio }}€</span>
                         <span>M&iacute;nimo de {{ producto.minimo }}</span>
-                        <form action="#" method="post">
-                            <input type="number" id="spinner{{ producto.id }}" min="{{ producto.minimo }}" value="{{ producto.minimo }}" name="spinner{{ producto.id }}">
-                            <button type="submit" value="enviar">Enviar</button>
-                        </form>
+                        <a href="#" class="btn btn-success">Editar</a>
+                        <a href="#" class="btn btn-danger">Borrar</a>
                     </div>
                 {% endfor %}
             </div>
-         {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}
