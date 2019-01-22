@@ -32,7 +32,7 @@ class ProductoController extends Controller
         $producto = new Producto($this->conexion);
         $productos = $producto->getAll();
         $categorias = $this->formatData($categorias, $productos);
-        $this->twigView('catalogo.php.twig', $categorias);
+        $this->twigView('catalogo.php.twig', ["categorias"=>$categorias]);
 
     }
 
