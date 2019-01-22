@@ -16,7 +16,7 @@ class ProductoController extends Controller
         require_once __DIR__ . '/../model/Categoria.php';
     }
 
-    public function run($action = null, $id = null)
+    public function run($action = 'defaultCase', $id = null)
     {
         parent::run($action, $id);
     }
@@ -68,7 +68,20 @@ class ProductoController extends Controller
             }
             $categorias[$x]['productos'] = $array;
         }
-        //echo json_encode($categorias);
         return $categorias;
+    }
+
+    public function addCart(){
+        if(!isset($_COOKIE['cart']))
+        {
+            $cart = ['0' => ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']]];
+        }
+        else
+        {
+            $cart = unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
+            $key = max(array_keys($cart)) + 1;
+            $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
+        }
+        setcookie('cookie', serialize($cart), time()+604800);
     }
 }
