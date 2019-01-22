@@ -16,8 +16,9 @@ abstract class controller
 
         $this->connection = new Connection();
         $this->conexion = $this->connection->conexion();
-        $loader = new Twig_Loader_Filesystem('view');
-        $this->twig = new Twig_Environment($loader);
+        $loader = new Twig_Loader_Filesystem('./view/templates');
+        $this->twig = new Twig_Environment($loader, ["debug"=>true]);
+        $this->twig->addExtension(new Twig_Extension_Debug());
     }
 
     public function cargarArchivos()
