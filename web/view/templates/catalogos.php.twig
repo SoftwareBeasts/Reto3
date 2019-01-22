@@ -14,7 +14,7 @@
         {% for categoria in categorias %}
             <div class="card">
                 <div class="card-body">
-                    <button class="btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.id }}" aria-expanded="false" aria-controls="categoria{{ categoria.id }}" >{{ categoria.nombre }}</button>
+                    <button class="btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                     <a href="#" class="btn btn-warning">Cambiar</a>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
         {% for categoria in categorias %}
-            <div class="row collapse" id="categoria{{ categoria.id }}">
+            <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
                     <div class="col-12 col-md-4">
                         <figure class="figure float-left">
