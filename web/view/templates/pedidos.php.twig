@@ -17,10 +17,10 @@
     <div class="container-fluid">
         <div class="row collapse" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
-                    <div class="col-12 col-md-4" id="{{ pedido.id }}">
+                    <div class="col-12 col-md-4" id="{{ pedido.idpedido }}">
                         <div class="card w-100">
                             <div class="card-body">
-                                <h5 class="card-title">{{ pedido.id }}</h5>
+                                <h5 class="card-title">{{ pedido.idpedido }}</h5>
                                 <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
                                 <span>{{ pedido.email }}</span>
                                 <span>{{ pedido.tel }}</span>
@@ -36,10 +36,10 @@
         </div>
         <div class="collapse" id="Confirmados">
             {% for pedido in pedidos.Confirmados %}
-                <div class="col-12 col-md-4" id="{{ pedido.id }}">
+                <div class="col-12 col-md-4" id="{{ pedido.idpedido }}">
                     <div class="card w-100">
                         <div class="card-body">
-                            <h5 class="card-title">{{ pedido.id }}</h5>
+                            <h5 class="card-title">{{ pedido.idpedido }}</h5>
                             <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
                             <span>{{ pedido.email }}</span>
                             <span>{{ pedido.tel }}</span>
