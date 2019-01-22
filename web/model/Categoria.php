@@ -1,6 +1,6 @@
 <?php
 class Categoria {
-    private $table = "pedidoshosteleria";
+    private $table = "categoria";
     private $conexion;
 
     private $id;
@@ -38,5 +38,57 @@ class Categoria {
         $this->nombre = $nombre;
     }
 
+    public function getAll(){
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table);
+        $consulta->execute();
+        $resultados = $consulta->fetchAll();
 
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
+    public function getByID($id){
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idcategoria = :id");
+        $res = $consulta->execute(array(
+            "id" => $id
+        ));
+        $resultados = $consulta->fetch();
+
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
+    public function save(){
+        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre) VALUES (:nombre)");
+        $save = $consulta->execute(array(
+            "nombre" => $this->nombre
+        ));
+        $this->conexion = null;
+
+        return $save;
+    }
+
+    public function deleteByID($id){
+        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idcategoria = :id");
+        $del = $consulta->execute(array(
+            "id" => $id
+        ));
+        $this->conexion = null;
+
+        return $del;
+    }
+
+    public function update(){
+        $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET nombre = :nombre WHERE idcategoria = :id");
+        $update = $consulta->execute(array(
+            "nombre" => $this->nombre,
+            "id" => $this->id
+        ));
+
+        $this->conexion = null;
+
+        return $update;
+    }
 }
