@@ -1,0 +1,23 @@
+{% extends "../base.html.twig" %}
+
+{% block titulo %}Login Administrador{% endblock %}
+
+{% block navbarContent %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="formusuario">Usuario</label>
+                <input type="text" class="form-control" name="usuario" id="formusuario" placeholder="Usuario">
+            </div>
+            <div class="form-group">
+                <label for="formpassword">Contraseña</label>
+                <input type="password" class="form-control" name="password" id="formpassword">
+            </div>
+            <button type="submit" class="btn btn-success" id="formacceder" value="acceder">Acceder</button>
+        </form>
+    </div>
+{% endblock %}

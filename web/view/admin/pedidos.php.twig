@@ -1,0 +1,56 @@
+{% extends "adminbase.html.twig" %}
+
+{% block titulo %}Gesti&oacute;n{% endblock %}
+
+{% block navbarContent %}
+
+{% endblock %}
+
+{% block contentIzq %}
+    <div class="container-fluid">
+        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="sinConfirmar">Sin Confirmar</button>
+        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="Confirmados">Confirmados</button>
+    </div>
+{% endblock %}
+
+{% block contentDer %}
+    <div class="container-fluid">
+        <div class="row collapse" id="sinConfirmar">
+            {% for pedido in pedidos.sinConfirmar %}
+                    <div class="col-12 col-md-4" id="{{ pedido.id }}">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ pedido.id }}</h5>
+                                <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
+                                <span>{{ pedido.email }}</span>
+                                <span>{{ pedido.tel }}</span>
+                                {% for producto in pedido.productos %}
+                                    <span>{{ producto.nombre }}  x {{ producto.cantidad }}</span>
+                                {% endfor %}
+                                <button class="btn btn-danger" id="btnBorrar">Borrar</button>
+                                <button class="btn btn-success" id="btnAceptar">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+        <div class="collapse" id="Confirmados">
+            {% for pedido in pedidos.Confirmados %}
+                <div class="col-12 col-md-4" id="{{ pedido.id }}">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pedido.id }}</h5>
+                            <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
+                            <span>{{ pedido.email }}</span>
+                            <span>{{ pedido.tel }}</span>
+                            {% for producto in pedido.productos %}
+                                <span>{{ producto.nombre }}  x {{ producto.cantidad }}</span>
+                            {% endfor %}
+                            <button class="btn btn-success" id="btnEntregado">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
