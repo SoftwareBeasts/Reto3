@@ -32,28 +32,50 @@ class PedidoController extends Controller
         $pedidos = $pedido->getAll();
         $producto = new Producto();
         $productos = $producto->getAll();
+        $productoPedido = new Producto();
+        $productosdePedidos = $productoPedido->getAll();
+        $productos = $producto->getAll();
         $cliente = new Cliente();
         $clientes = $cliente->getAll();
 
-        $sinConfirmar = $this->formatData($pedidos,$productos,$clientes);
+        $sinConfirmar = $this->separarPedidos($pedidos,$productos,$clientes,$productosdePedidos);
         $confirmados = $this->formatData();
 
         $this->twigView('pedidos.php.twig', ["sinConfirmar"=>$sinConfirmar, "confirmados"=>$confirmados]);
     }
 
-    public function formatData($pedidos,$productos,$clientes)
+    public function separarPedidos($pedidos,$productos,$clientes,$productosdePedidos)
     {
-        $sinConfirmar = array();
+        $pedidosSeparados = array();
+
         foreach ($pedidos as $x => $pedido){
-            $array = array();
-            foreach ($productos as $y => $producto){
-                if($pedidos['idcliente'] == $producto['categoria_idcategoria']){
-                    array_push($array, $producto);
-                    unset($productos[$y]);
+
+            foreach ($clientes as $y => $cliente){
+                if($pedido['cliente_idcliente'] == $cliente['idcliente']){
+                    $pedidos[$x]['clientes'] = $cliente;
                 }
             }
-            $categorias[$x]['productos'] = $array;
+
+            $pedidos[$x]['productos'] = array();
+            foreach ($productosdePedidos as $i => $producto){
+                if($pedido['idpedido'] == $producto['pedido_idpedido']){
+                    array_push($pedidos[$x]['productos'], $producto);
+//                    end() coge el último elemento de el array o FALSE si es NULL
+                    $pedidos[$x]['productos'];
+                }
+            }
+
+//            if($pedido['estado'] == 0){
+//                array_push($sinConfirmar, $pedido);
+//            }else{
+//                array_push($confirmados, $pedido);
+//            }
         }
-        return $sinConfirmar;
+        return $pedidosSeparados;
+    }
+
+    public function mostrarCarrito()
+    {
+
     }
 }
