@@ -20,6 +20,7 @@
                 </div>
             </div>
         </nav>
+        {% block carousel %}
         <div class="offset-md-2 col-md-8 mt-2 mb-2">
             <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -44,6 +45,7 @@
                 </a>
             </div>
         </div>
+        {% endblock %}
         <div class="col-12 offset-md-2 col-md-8">
             {% block content %}{% endblock %}
         </div>
