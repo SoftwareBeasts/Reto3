@@ -304,7 +304,7 @@
   color: #99979c;
 }
 .toc-entry a:hover {
-  color: #82005e;
+  color: #007bff;
   text-decoration: none;
 }
 
@@ -542,7 +542,7 @@
 .bd-example-container-header {
   height: 3rem;
   margin-bottom: 0.5rem;
-  background-color: #ff82dc;
+  background-color: white;
   border-radius: 0.25rem;
 }
 
@@ -550,7 +550,7 @@
   float: right;
   width: 4rem;
   height: 8rem;
-  background-color: #ff03b9;
+  background-color: #80bdff;
   border-radius: 0.25rem;
 }
 
@@ -569,7 +569,7 @@
   position: relative;
   padding: 1rem;
   margin: 1rem -15px 0;
-  border: solid #e1e1e1;
+  border: solid #f8f9fa;
   border-width: 0.2rem 0 0;
 }
 .bd-example::after {
@@ -790,7 +790,7 @@
   padding: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  background-color: #e1e1e1;
+  background-color: #f8f9fa;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 @media (min-width: 576px) {
@@ -972,9 +972,14 @@
   }
 }
 
-.swatch-blue {
+.swatch-egibide {
   color: #fff;
   background-color: #82005e;
+}
+
+.swatch-blue {
+  color: #fff;
+  background-color: #007bff;
 }
 
 .swatch-indigo {
@@ -1034,7 +1039,7 @@
 
 .swatch-gray-dark {
   color: #fff;
-  background-color: #000000;
+  background-color: #343a40;
 }
 
 .swatch-primary {
@@ -1044,7 +1049,7 @@
 
 .swatch-secondary {
   color: #fff;
-  background-color: #6c757d;
+  background-color: #333333;
 }
 
 .swatch-success {
@@ -1079,7 +1084,7 @@
 
 .swatch-100 {
   color: #212529;
-  background-color: #e1e1e1;
+  background-color: #f8f9fa;
 }
 
 .swatch-200 {
@@ -1114,7 +1119,7 @@
 
 .swatch-800 {
   color: #fff;
-  background-color: #000000;
+  background-color: #343a40;
 }
 
 .swatch-900 {

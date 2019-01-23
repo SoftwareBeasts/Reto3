@@ -9,6 +9,10 @@
 {% endblock %}
 
 {% block navbarContent%}
+    <div class="">
+        <a href="./index.php?controller=pedido&action=mostrarCarrito"><i class="fas fa-shopping-cart"></i></a>
+
+    </div>
 
 {% endblock %}
 
@@ -37,8 +41,7 @@
                         <form action="index.php?controller=producto&action=addcarrito" method="post" class="form-inline">
                             <div class="form-group mx-auto">
                                 <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
-                                <input type="hidden" name="id" value="{{ producto.idproducto }}">
-                                <button type="submit" class="btn btn-primary" value="enviar">A&ntilde;adir</button>
+                                <button type="button" class="btn btn-primary addCart" value="{{ producto.idproducto }}">A&ntilde;adir</button>
                             </div>
                         </form>
                     </div>
