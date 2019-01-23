@@ -8,14 +8,21 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <a href="#" class="btn btn-warning">A&ntilde;adir categoría</a>
+                <a href="#" class="btn btn-primary">A&ntilde;adir categoría</a>
             </div>
         </div>
         {% for categoria in categorias %}
             <div class="card">
                 <div class="card-body">
-                    <button class="btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.id }}" aria-expanded="false" aria-controls="categoria{{ categoria.id }}" >{{ categoria.nombre }}</button>
-                    <a href="#" class="btn btn-warning">Cambiar</a>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="#" class="btn btn-warning">Cambiar</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         {% endfor %}
@@ -26,24 +33,29 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <a href="#" class="btn btn-warning">A&ntilde;adir producto</a>
+                <a href="#" class="btn btn-primary">A&ntilde;adir producto</a>
             </div>
         </div>
         {% for categoria in categorias %}
-            <div class="row collapse" id="categoria{{ categoria.id }}">
+            <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
-                    <div class="col-12 col-md-4">
-                        <figure class="figure float-left">
-                            <img src="#" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                    <div class="col-12 col-md-4 mb-2">
+                        <figure class="figure">
+                            <img src="./view/media/platovacio.jpg" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
                                 {{ producto.nombre }}
                             </figcaption>
                         </figure>
-                        <span>{{ producto.descripcion }}</span>
-                        <span>{{ producto.precio }}€</span>
-                        <span>M&iacute;nimo de {{ producto.minimo }}</span>
-                        <a href="#" class="btn btn-success">Editar</a>
-                        <a href="#" class="btn btn-danger">Borrar</a>
+                        <br>
+                        <div class="text-wrap badge badge-primary">{{ producto.descripcion }}</div>
+                        <div class="text-wrap badge badge-primary">{{ producto.precio }}€</div>
+                        <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
+                        <br><br>
+                        <div class="container-fluid">
+                            <a href="#" class="btn btn-success">Editar</a>
+                            <a href="#" class="btn btn-danger">Borrar</a>
+                        </div>
+
                     </div>
                 {% endfor %}
             </div>
