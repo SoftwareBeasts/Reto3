@@ -21,7 +21,7 @@ class ProductoController extends Controller
         parent::run($action, $id);
     }
 
-    public function twigView($page, $data)
+    public function twigView($page, $data=["a"=>"a"])
     {
         parent::twigView($page, $data);
     }

@@ -11,3 +11,5 @@ INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria
 INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria_idcategoria) VALUES ('Chipirones en su tinta', 'Por raciones', 6.00, '#', 2, 3);
 INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria_idcategoria) VALUES ('Kokotxas de bacalao con gulas', 'Por raciones', 10.50, '#', 2, 3);
 INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria_idcategoria) VALUES ('Plum cake con perlitas de chocolate', '8 raciones, precio por kilo', 11.00, '#', 1, 1);
+
+INSERT INTO admin (nombre,pass) VALUES ('root','root');
