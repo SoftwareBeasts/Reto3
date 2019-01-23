@@ -1,5 +1,9 @@
 <?php
 
+if (isset ($_SESSION['admin'])){
+   $admin = $_SESSION['admin'];
+}
+
 if(isset($_GET['controller'])){
     $controller = establecerControlador($_GET['controller']);
 }
@@ -21,6 +25,11 @@ function establecerControlador($controller=null){
             $controllerObj = new EventoController();
             break;
         */
+        case 'admin':
+            $file = 'controller/AdminController.php';
+            requireFile($file);
+            $controllerObj = new AdminController();
+            break;
         default:
             $file = 'controller/ProductoController.php';
             requireFile($file);

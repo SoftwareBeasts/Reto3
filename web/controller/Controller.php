@@ -32,7 +32,7 @@ abstract class controller
         $this->$action($id);
     }
 
-    public function twigView($page, $data)
+    public function twigView($page, $data=["a"=>"a"])
     {
         echo $this->twig->render($page, $data);
     }
