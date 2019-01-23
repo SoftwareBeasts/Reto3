@@ -34,7 +34,7 @@ class AdminController extends Controller
     }
 
     public function viewLogin(){
-        $this->twigView('login.php.twig');
+        $this->twigView('loginView.php.twig');
     }
 
     public function login(){
@@ -45,7 +45,7 @@ class AdminController extends Controller
         $adminuser = $admin->getByNombre($user);
 
         if ($pass != $adminuser['pass']){
-            $this->twigView('login.php.twig',['falloLogin'=>true]);
+            $this->twigView('loginView.php.twig',['falloLogin'=>true]);
         }
         else{
             header("Location: index.php?controller=pedido&action=pedidos");

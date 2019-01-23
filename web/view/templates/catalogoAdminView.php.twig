@@ -7,7 +7,7 @@
 {% block carousel %}{% endblock %}
 
 {% block contentIzq %}
-    <div class="container-fluid">
+    <div class="container-fluid mt-2">
         <div class="card">
             <div class="card-body">
                 <a href="#" class="btn btn-primary">A&ntilde;adir categoría</a>
@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block contentDer %}
-    <div class="container-fluid">
+    <div class="container-fluid mt-2">
         <div class="card">
             <div class="card-body">
                 <a href="#" class="btn btn-primary">A&ntilde;adir producto</a>
@@ -43,7 +43,7 @@
                 {% for producto in categoria.productos %}
                     <div class="col-12 col-md-4 mb-2">
                         <figure class="figure">
-                            <img src="./view/media/platovacio.jpg" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                            <img src="./view/media/default_product.jpg" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
                                 {{ producto.nombre }}
                             </figcaption>
@@ -53,7 +53,7 @@
                         <div class="text-wrap badge badge-primary">{{ producto.precio }}€</div>
                         <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
                         <br><br>
-                        <div class="container-fluid">
+                        <div class="container-fluid" >
                             <a href="#" class="btn btn-success">Editar</a>
                             <a href="#" class="btn btn-danger">Borrar</a>
                         </div>
