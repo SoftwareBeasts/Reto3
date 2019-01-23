@@ -29,6 +29,11 @@ function establecerControlador($controller=null){
             $file = 'controller/AdminController.php';
             requireFile($file);
             $controllerObj = new AdminController();
+        break;
+        case 'pedido':
+            $file = 'controller/PedidoController.php';
+            requireFile($file);
+            $controllerObj = new PedidoController();
             break;
         default:
             $file = 'controller/ProductoController.php';
