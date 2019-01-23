@@ -1,5 +1,11 @@
 <?php
-
+if (isset($_POST['createsession'])){
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+    $_SESSION['admin']=true;
+}
 if (isset ($_SESSION['admin'])){
    $admin = $_SESSION['admin'];
 }
@@ -19,12 +25,11 @@ function establecerControlador($controller=null){
             requireFile($file);
             $controllerObj = new ProductoController();
             break;
-        /*case 'categoria':
+        case 'categoria':
             $file = 'controller/CategoriaController.php';
             requireFile($file);
-            $controllerObj = new EventoController();
+            $controllerObj = new CategoriaController();
             break;
-        */
         case 'admin':
             $file = 'controller/AdminController.php';
             requireFile($file);
