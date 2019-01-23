@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block titulo %}{% endblock %}</title>
-    <link href="./view/bootstrap-4.2.1/dist/css/bootstrap.css" type="text/css" rel="stylesheet">
-
+    <link href="./view/bootstrap-4.2.1/scss/bootstrap.css" type="text/css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="./view/media/favicon.png"/>
 </head>
-    <body class="container-fluid">
+    <body class="">
 
         <nav class="navbar navbar-expand-md navbar-light bg-light">
-            <a class="navbar-brand"><img src="#" alt="Logo Egibide"></a>
+            <a class="navbar-brand"><img src="./view/media/logo-hosteleria.png" height="45px" alt="Logo Egibide"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent" aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,18 +19,41 @@
                 </div>
             </div>
         </nav>
+        <div class="offset-md-2 col-md-8 mt-2 mb-2">
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-interval="3000">
+                        <img class="d-block w-100" src="./view/media/carrousel-1.jpg" alt="1">
+                    </div>
+                    <div class="carousel-item" data-interval="3000">
+                        <img class="d-block w-100" src="./view/media/carrousel-2.jpg" height="525px" alt="2">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </div>
         <div class="col-12 offset-md-2 col-md-8">
             {% block content %}{% endblock %}
         </div>
-        <footer class="row">
-                <div class="col-3 offset-3 text-right">
-                    <img src="#" alt="Logo Egibide">
-                </div>
-                <div class="col-3 text-left">
-                    <div id="links">Links</div>
-                    <div id="info">Informacion</div>
-                    <div id="license">Licencia</div>
-                </div>
+
+        <footer class="page-footer bg-dark pt-4 text-white" style="bottom: 0px;">
+            <div class="container">
+                <ul class="list-unstyled list-inline text-center py-2">
+                </ul>
+            </div>
+            <div class="footer-copyright text-center py-3">Licencia MIT:
+                <a href="https://mdbootstrap.com/education/bootstrap/"> SoftwareBeasts</a>
             </div>
         </footer>
 
