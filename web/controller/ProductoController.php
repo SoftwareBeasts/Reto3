@@ -32,7 +32,7 @@ class ProductoController extends Controller
         $producto = new Producto($this->conexion);
         $productos = $producto->getAll();
         $categorias = $this->formatData($categorias, $productos);
-        $this->twigView('catalogo.php.twig', ["categorias"=>$categorias]);
+        $this->twigView('catalogoView.php.twig', ["categorias"=>$categorias]);
 
     }
 
@@ -83,5 +83,6 @@ class ProductoController extends Controller
             $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
         }
         setcookie('cookie', serialize($cart), time()+604800);
+        die;
     }
 }
