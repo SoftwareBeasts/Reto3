@@ -63,6 +63,19 @@ class Administrador {
         return $resultados;
     }
 
+    public function getByNombre($nombre){
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE nombre = :nombre");
+        $res = $consulta->execute(array(
+            "nombre" => $nombre
+        ));
+        $resultado = $consulta->fetch();
+
+        $this->conexion = null;
+
+        return $resultado;
+    }
+
+
     public function getByID($id){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idadmin = :id");
         $res = $consulta->execute(array(
