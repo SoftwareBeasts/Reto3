@@ -5,6 +5,9 @@
     <title>{% block titulo %}{% endblock %}</title>
     <link href="./view/bootstrap-4.2.1/scss/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="./view/css/general.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
     <link rel="shortcut icon" type="image/png" href="./view/media/favicon.png"/>
 </head>
     <body class="">
@@ -14,12 +17,13 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent" aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="collapseContent">
-                <div>
+            <div class="navbar-collapse collapse w-100 dual-collapse2" id="collapseContent">
+                <div class="navbar-nav ml-auto mr-5">
                     {% block navbarContent %}{% endblock %}
                 </div>
             </div>
         </nav>
+        {% block %}
         <div class="offset-md-2 col-md-8 mt-2 mb-2">
             <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -44,6 +48,7 @@
                 </a>
             </div>
         </div>
+        {% endblock %}
         <div class="col-12 offset-md-2 col-md-8">
             {% block content %}{% endblock %}
         </div>
