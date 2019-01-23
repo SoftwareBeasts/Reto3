@@ -27,5 +27,12 @@ class CategoriaController extends Controller
 
     public function annadirCategoria(){
 
+        $categoria = new Categoria($this->conexion);
+        $categoria->setNombre($_POST['nombre']);
+        $categoria->save();
+        header("Location: index.php?controller=producto");/*Falta hacer en
+    producto controller el metodo para cargar la pagina de catalogo de administrador y
+    poner aqui el action correspondiente, por motivos de desarrollo, se queda asi*/
+
     }
 }
