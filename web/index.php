@@ -21,6 +21,11 @@ function establecerControlador($controller=null){
             $controllerObj = new EventoController();
             break;
         */
+        case 'pedido':
+            $file = 'controller/PedidoController.php';
+            requireFile($file);
+            $controllerObj = new PedidoController();
+            break;
         default:
             $file = 'controller/ProductoController.php';
             requireFile($file);
