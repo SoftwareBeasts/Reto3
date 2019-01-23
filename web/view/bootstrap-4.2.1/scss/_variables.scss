@@ -6,16 +6,19 @@
 // Color system
 
 $white:    #fff !default;
-$gray-100: #e1e1e1 !default;
+$gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
 $gray-600: #6c757d !default;
 $gray-700: #495057 !default;
-$gray-800: #000000 !default;
+$gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #000 !default;
+$egibide-light: #e1e1e1 !default;
+$egibide-dark: #000000 !default;
+$egibide-secondary: #333333 !default;
 
 $grays: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -33,8 +36,8 @@ $grays: map-merge(
   ),
   $grays
 );
-
-$blue:    #82005e !default;
+$egibide: #82005e !default;
+$blue:    #007bff !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -49,6 +52,7 @@ $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $colors: map-merge(
   (
+    "egibide":    $egibide,
     "blue":       $blue,
     "indigo":     $indigo,
     "purple":     $purple,
@@ -66,14 +70,14 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
+$primary:       $egibide !default;
+$secondary:     $egibide-secondary !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-800 !default;
+$light:         $egibide-light !default;
+$dark:          $egibide-dark !default;
 
 $theme-colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
