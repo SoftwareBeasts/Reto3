@@ -4,6 +4,9 @@ include_once __DIR__ .'/../controller/Controller.php';
 
 class PedidoController extends Controller
 {
+    private $sinConfirmar = array();
+    private $confirmados = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -32,46 +35,44 @@ class PedidoController extends Controller
         $pedidos = $pedido->getAll();
         $producto = new Producto();
         $productos = $producto->getAll();
-        $productoPedido = new Producto();
-        $productosdePedidos = $productoPedido->getAll();
+        $pedidoProducto = new Producto();
+        $pedidoProductos = $pedidoProducto->getAll();
         $productos = $producto->getAll();
         $cliente = new Cliente();
         $clientes = $cliente->getAll();
 
-        $sinConfirmar = $this->separarPedidos($pedidos,$productos,$clientes,$productosdePedidos);
-        $confirmados = $this->formatData();
+        $alldata = $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
 
-        $this->twigView('pedidos.php.twig', ["sinConfirmar"=>$sinConfirmar, "confirmados"=>$confirmados]);
+        $this->twigView('pedidos.php.twig', ["sinConfirmar"=>$this->sinConfirmar, "confirmados"=>$this->confirmados]);
     }
 
-    public function separarPedidos($pedidos,$productos,$clientes,$productosdePedidos)
+    public function formatData($pedidos,$productos,$clientes,$pedidoProductos)
     {
-        $pedidosSeparados = array();
-
         foreach ($pedidos as $x => $pedido){
 
             foreach ($clientes as $y => $cliente){
                 if($pedido['cliente_idcliente'] == $cliente['idcliente']){
-                    $pedidos[$x]['clientes'] = $cliente;
+                    $pedidos[$x]['cliente'] = $cliente;
                 }
             }
 
-            $pedidos[$x]['productos'] = array();
-            foreach ($productosdePedidos as $i => $producto){
-                if($pedido['idpedido'] == $producto['pedido_idpedido']){
-                    array_push($pedidos[$x]['productos'], $producto);
-//                    end() coge el último elemento de el array o FALSE si es NULL
-                    $pedidos[$x]['productos'];
+            $array = array();
+            foreach ($pedidoProductos as $i => $productoPedido){
+                if($pedido['idpedido'] == $productoPedido['pedido_idpedido']){
+                    $prod = array_search($productoPedido['producto_idproducto'],$productos);
+                    array_push($array, $prod);
+
+                    $pedidos[$x]['productos']['cantidad'] = $productoPedido['cantidad'];
                 }
             }
+            $pedidos[$x]['productos'] = $array;
 
-//            if($pedido['estado'] == 0){
-//                array_push($sinConfirmar, $pedido);
-//            }else{
-//                array_push($confirmados, $pedido);
-//            }
+            if($pedido['estado'] == 0){
+                array_push($this->sinConfirmar, $pedidos[$x]);
+            }else{
+                array_push($this->confirmados, $pedidos[$x]);
+            }
         }
-        return $pedidosSeparados;
     }
 
     public function mostrarCarrito()
