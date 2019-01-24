@@ -125,7 +125,7 @@
                                     <label for="modalFormCatProd">Categoria</label>
                                     <select class="form-control" name="categoria" id="modalFormCatProd">
                                         {% for categoria in categorias %}
-                                            <option value="{{ categoria.idCategoria }}">{{ categoria.nombre }}</option>
+                                            <option value="{{ categoria.idcategoria }}">{{ categoria.nombre }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -145,7 +145,7 @@
                 {% for producto in categoria.productos %}
                     <div class="col-12 col-md-4 mb-2">
                         <figure class="figure">
-                            <img src="./view/media/default_product.jpg" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                            <img src="{% if producto.rutaImg == "#" %}./view/media/productImg/default_product.jpg{% else %}{{ producto.rutaImg }}{% endif %}" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
                                 {{ producto.nombre }}
                             </figcaption>
@@ -218,8 +218,8 @@
                             </div>
                             <div class="form-group">
                                 <img class="img" id="modalCurrImgProd" >
-                                <label for="modalFormImgProd">Imagen</label>
-                                <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" required>
+                                <input type="hidden" name="imagenn" id="modalCurrImgrutProd">
+                                <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" >
                             </div>
                             <div class="form-group">
                                 <label for="modalFormPedMinProd">Pedido Minimo</label>

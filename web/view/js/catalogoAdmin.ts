@@ -30,6 +30,7 @@ $('#editarProdModal').on('show.bs.modal', function (event) {
     modal.find('#modalFormDescProd').val(desc)
     modal.find('#modalFormPrecioProd').val(prec)
     modal.find('#modalCurrImgProd').attr('src',img)
+    modal.find('#modalCurrImgrutProd').val(img)
     modal.find('#modalFormPedMinProd').val(min)
     modal.find('#option'+cat).attr('selected','selected')
     modal.find('#modalFormIdProd').val(id)

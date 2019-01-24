@@ -117,18 +117,51 @@ class ProductoController extends Controller
         if (parent::verifyAdmin()){
             $imagen = $this->tratarImagen();
             $producto = new Producto($this->conexion);
-            $producto->setAll($_POST['nombre'],$_POST['descripcion']
-            ,$_POST['precio'],$imagen,$_POST['pedidoMin'],$_POST['categoria']);
+            $producto->setAll($_POST['nombre'],$_POST['descripcion'],$_POST['precio'],$imagen,$_POST['pedidoMin'],$_POST['categoria']);
             $producto->save();
         }else{
             header("Location: index.php?controller=producto");
         }
     }
+
+    public function deleteProducto(){
+        if(parent::verifyAdmin()){
+            $producto = new Producto($this->conexion);
+            $producto->setId($_POST['id']);
+            $producto->delete();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function updateProducto()
+    {
+        if (parent::verifyAdmin()) {
+            $producto = new Producto($this->conexion);
+            if (!is_uploaded_file($_FILES['imagen']['tmp_name'])) {
+                $imagen = $_POST['imagenn'];
+            } else {
+                $imagen = $this->aImagen();
+            }
+            $producto->setAll($_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $imagen, $_POST['pedidoMin'], $_POST['categoria']);
+            $producto->setId($_POST['id']);
+            $producto->update();
+
+        } else {
+            header("Location: index.php?controller=producto");
+        }
+    }
+
     public function tratarImagen(){
         if(!is_uploaded_file($_FILES['imagen']['tmp_name'])){
             $_POST['imagen'] = "./view/media/productImg/default_product.jpg";
         }
         else{
+            $imagen = $this->aImagen();
+            return $imagen;
+        }
+    }
+    public function aImagen(){
             $file = pathinfo($_FILES['imagen']['name']);
             $extension = $file['extension'];
             //Se le establece el nombre de usuario a la imagen
@@ -138,7 +171,6 @@ class ProductoController extends Controller
             move_uploaded_file( $_FILES['imagen']['tmp_name'], $target);
             $imagen = './view/media/productImg/'.$newname;
             return $imagen;
-        }
     }
     /*ADMIN CATALOGO*/
     /*----------------------------------*/
