@@ -18,6 +18,7 @@ class PedidoController extends Controller
         require_once __DIR__ . '/../model/Pedido.php';
         require_once __DIR__ . '/../model/Producto.php';
         require_once __DIR__ . '/../model/Cliente.php';
+        require_once __DIR__ . '/../model/PedidoHasProducto.php';
     }
 
     public function run($action = 'defaultCase', $id = null)
@@ -25,7 +26,7 @@ class PedidoController extends Controller
         parent::run($action, $id);
     }
 
-    public function twigView($page, $data)
+    public function twigView($page, $data=["a"=>"a"])
     {
         parent::twigView($page, $data);
     }
@@ -33,17 +34,25 @@ class PedidoController extends Controller
     public function defaultCase(){
         $pedido = new Pedido($this->conexion);
         $pedidos = $pedido->getAll();
-        $producto = new Producto();
+
+        $producto = new Producto($this->conexion);
         $productos = $producto->getAll();
-        $pedidoProducto = new Producto();
+
+        $pedidoProducto = new PedidoHasProducto($this->conexion);
         $pedidoProductos = $pedidoProducto->getAll();
-        $productos = $producto->getAll();
-        $cliente = new Cliente();
+
+        $cliente = new Cliente($this->conexion);
         $clientes = $cliente->getAll();
 
-        $alldata = $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
+        $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
 
-        $this->twigView('pedidos.php.twig', ["sinConfirmar"=>$this->sinConfirmar, "confirmados"=>$this->confirmados]);
+        $alldata = array();
+        $alldata['sinConfirmar'] = $this->sinConfirmar;
+        $alldata['confirmados'] = $this->confirmados;
+//        array_push($this->sinConfirmar, $alldata);
+//        array_push($this->confirmados, $alldata);
+
+        $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
     }
 
     public function formatData($pedidos,$productos,$clientes,$pedidoProductos)
