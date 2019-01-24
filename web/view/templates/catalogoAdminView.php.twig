@@ -40,7 +40,7 @@
         </div>
         {#Generador de botones de categorias#}
         {% for categoria in categorias %}
-            <div class="card">
+            <div class="card" id="cardCategoria{{ categoria.idcategoria }}">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 text-left">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <a id="modalDeleteCatBtn" href="" class="btn btn-danger">Borrar</a>
+                            <button id="modalDeleteCatBtn" type="button" class="btn btn-danger">Borrar</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </div>
@@ -99,7 +99,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="index.php?controller=producto&action=annadirProducto" method="post">
+                        <form action="index.php?controller=producto&action=annadirProducto" method="post" enctype='multipart/form-data' >
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="modalFormNombreProd">Nombre</label>

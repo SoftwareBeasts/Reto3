@@ -9,6 +9,7 @@ class Producto {
     private $precio;
     private $rutaImg;
     private $pedidoMin;
+    private $categoria;
 
     public function __construct($conexion) {
         $this->conexion = $conexion;
@@ -98,6 +99,24 @@ class Producto {
         $this->pedidoMin = $pedidoMin;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    /**
+     * @param mixed $categoria
+     */
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
+    }
+
+
+
     public function getAll(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table . " ORDER BY categoria_idcategoria");
         $consulta->execute();
@@ -121,13 +140,14 @@ class Producto {
     }
 
     public function save(){
-        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, descripcion, precio, rutaImg, pedidoMin) VALUES (:nombre, :descripcion, :precio, :rutaImg, :pedidoMin)");
+        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, descripcion, precio, rutaImg, pedidoMin,categoria_idcategoria) VALUES (:nombre, :descripcion, :precio, :rutaImg, :pedidoMin, :categoria)");
         $save = $consulta->execute(array(
             "nombre" => $this->nombre,
             "descripcion" => $this->descripcion,
             "precio" => $this->precio,
             "rutaImg" => $this->rutaImg,
-            "pedidoMin" => $this->pedidoMin
+            "pedidoMin" => $this->pedidoMin,
+            "categoria" =>$this->categoria
         ));
         $this->conexion = null;
 
@@ -145,18 +165,28 @@ class Producto {
     }
 
     public function update(){
-        $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET nombre = :nombre, descripcion = :descripcion, precio = :precio, rutaImg = :rutaImg, pedidoMin = :pedidoMin WHERE idproducto = :id");
+        $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET nombre = :nombre, descripcion = :descripcion, precio = :precio, rutaImg = :rutaImg, pedidoMin = :pedidoMin , categoria_idcategoria = :categoria WHERE idproducto = :id");
         $update = $consulta->execute(array(
             "nombre" => $this->nombre,
             "descripcion" => $this->descripcion,
             "precio" => $this->precio,
             "rutaImg" => $this->rutaImg,
             "pedidoMin" => $this->pedidoMin,
+            "categoria"=>$this->categoria,
             "id" => $this->id
         ));
 
         $this->conexion = null;
 
         return $update;
+    }
+
+    public function setAll($nombre,$desc,$precio,$rutaImg,$pedMin,$cat){
+        $this->nombre=$nombre;
+        $this->descripcion=$desc;
+        $this->precio=$precio;
+        $this->rutaImg=$rutaImg;
+        $this->pedidoMin=$pedMin;
+        $this->categoria=$cat;
     }
 }

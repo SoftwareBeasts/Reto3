@@ -6,7 +6,7 @@ $('#cambiarCategoriaModal').on('show.bs.modal', function (event) {
     var modal = $(this);
     modal.find('#modalFormNombreCat').val(recipient);
     modal.find('#modalFormIdCat').val(idRecipient);
-    modal.find('#modalDeleteCatBtn').attr('href', "index.php?controller=categoria&action=deleteCategoria&id=" + idRecipient);
+    modal.find('#modalDeleteCatBtn').val(idRecipient);
 });
 /*Funcion que carga el id del producto seleccionado para borrar*/
 $('#borrarProdModal').on('show.bs.modal', function (event) {
@@ -34,15 +34,20 @@ $('#editarProdModal').on('show.bs.modal', function (event) {
     modal.find('#option' + cat).attr('selected', 'selected');
     modal.find('#modalFormIdProd').val(id);
 });
-/*$(document).ready(function () {
-    $("[class=addCart]").on("click", function () {
-        addCart(this);
+$(document).ready(function () {
+    $("#modalDeleteCatBtn").on("click", function () {
+        deleteCategoria(this);
     });
-});*/
-/*
-$.ajax({
-    type: "POST",
-    url: "./index.php?controller=producto&action=addCart",
-    data: {id : productId, cantidad : cuantity}
-}).done(function () {
-*/
+});
+function deleteCategoria(buttonThis) {
+    var button = $(buttonThis);
+    var catId = button.val();
+    $.ajax({
+        type: "POST",
+        url: "./index.php?controller=categoria&action=deleteCategoria",
+        data: { id: catId }
+    }).done(function () {
+        $("#cardCategoria" + catId).remove();
+        $("#cambiarCategoriaModal").modal("hide");
+    });
+}
