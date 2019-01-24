@@ -36,4 +36,14 @@ abstract class controller
     {
         echo $this->twig->render($page, $data);
     }
+
+    public function verifyAdmin(){
+
+        if (isset($_SESSION['admin'])){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

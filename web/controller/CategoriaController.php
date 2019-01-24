@@ -48,7 +48,8 @@ class CategoriaController extends Controller
 
     public function deleteCategoria(){
         $categoria = new Categoria($this->conexion);
-        $categoria->deleteByID($_GET['id']);
+        $categoria->setId($_POST['id']);
+        $categoria->delete();
         header("Location: index.php?controller=producto");/*Falta hacer en
     producto controller el metodo para cargar la pagina de catalogo de administrador y
     poner aqui el action correspondiente, por motivos de desarrollo, se queda asi*/

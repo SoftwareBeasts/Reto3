@@ -34,7 +34,10 @@ class AdminController extends Controller
     }
 
     public function viewLogin(){
-        $this->twigView('loginView.php.twig');
+        if(!isset($_SESSION['admin']))
+            $this->twigView('loginAdminView.php.twig');
+        else
+            header("Location: index.php?controller=producto&action=adminCatalogoView");
     }
 
     public function login(){
@@ -45,13 +48,15 @@ class AdminController extends Controller
         $adminuser = $admin->getByNombre($user);
 
         if ($pass != $adminuser['pass']){
-            $this->twigView('loginView.php.twig',['falloLogin'=>true]);
+            $this->twigView('loginAdminView.php.twig',['falloLogin'=>true]);
         }
         else{
-            header("Location: index.php?controller=pedido&action=pedidos");
+            header("Location: index.php?controller=producto&action=adminCatalogoView&t");
+
             /*Hay que mirar en el controlller de pedido cuando se accedan a las acciones
             de administrador que
-            la sesion esta iniciada correctamente*/
+            la sesion esta iniciada correctamente
+            de momento lleva al catalogo*/
         }
 
 
