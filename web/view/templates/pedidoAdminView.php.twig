@@ -26,9 +26,9 @@
                                 <span>{{ pedido.cliente.email }}</span>
                                 <br>
                                 <span>{{ pedido.cliente.telefono }}</span>
-                                <ul>
+                                <ul class="list-group list-group-flush">
                                 {% for producto in pedido.productos %}
-                                    <li>{{ producto.nombre }} x {{  producto.cantidad }}</li>
+                                    <li class="list-group-item">{{ producto.nombre }} x <span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span></li>
                                 {% endfor %}
                                 </ul>
                                 <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
@@ -50,9 +50,9 @@
                             <span>{{ pedido.cliente.email }}</span>
                             <br>
                             <span>{{ pedido.cliente.telefono }}</span>
-                            <ul>
+                            <ul class="list-group list-group-flush">
                             {% for producto in pedido.productos %}
-                                <li>{{ producto.nombre }} x {{ producto.cantidad }}</li>
+                                <li class="list-group-item">{{ producto.nombre }} x <span class="badge badge-primary badge-pill">{{ producto.cantidad }}</span></li>
                             {% endfor %}
                             </ul>
                             <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
