@@ -10,6 +10,9 @@
 
 {% endblock %}
 
+{% block carousel %} {% endblock %}
+
+
 {% block content %}
     <table class="table">
         <thead>
@@ -22,12 +25,12 @@
         </thead>
         <tbody>
             <form action="#" method="post">
-                {% for producto in productos %}
+                {% for clave, producto in productos %}
                 <tr>
                     <th scope="row">{{ producto.nombre }}</th>
-                    <td><input class="form-control" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ producto.cantidad }}"></td>
+                    <td><input class="form-control" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
                     <td class="precios">{{ producto.precio }}</td>
-                    <td><a href="#" class="btn btn-danger">Borrar</a></td>
+                    <td><button type="button" class="btn btn-danger"+>Eliminar</button> </td>
                 </tr>
                 {% endfor %}
                 <tr>
