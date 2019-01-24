@@ -54,7 +54,7 @@ function requireFile($file) {
 }
 
 function cargarControlador ($controller){
-    if(isset($_GET['controller'])){
+    if(isset($_GET['action'])){
         $controller->run($_GET['action']);
     }
     else
