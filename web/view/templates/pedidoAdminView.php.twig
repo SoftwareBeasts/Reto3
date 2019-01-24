@@ -14,20 +14,24 @@
 
 {% block contentDer %}
     <div class="container-fluid">
-        <div class="row collapse" id="sinConfirmar">
+        <div class="row collapse show" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
-                    <div class="col-12 col-md-4" id="{{ pedido.idpedido }}">
+                    <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
                         <div class="card w-100">
                             <div class="card-body">
                                 <h5 class="card-title">{{ pedido.idpedido }}</h5>
                                 <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
-                                <span>{{ pedido.email }}</span>
-                                <span>{{ pedido.tel }}</span>
+                                <span>{{ pedido.cliente.email }}</span>
+                                <span>{{ pedido.cliente.telefono }}</span>
+                                <br>
                                 {% for producto in pedido.productos %}
-                                    <span>{{ producto.nombre }}  x {{ producto.cantidad }}</span>
+                                    <span>{{ producto.nombre }} x {{  producto.cantidad }}</span>
                                 {% endfor %}
-                                <button class="btn btn-danger" id="btnBorrar">Borrar</button>
-                                <button class="btn btn-success" id="btnAceptar">Aceptar</button>
+                                <br>
+                                <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
+                                    <button class="btn btn-danger" id="btnBorrar">Borrar</button>
+                                    <button class="btn btn-success" id="btnAceptar">Aceptar</button>
+                                </form>
                             </div>
                         </div>
                     </div>
