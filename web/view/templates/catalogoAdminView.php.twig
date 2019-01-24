@@ -45,7 +45,7 @@
                             <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currname="{{ categoria.nombre }}">Cambiar</a>
+                            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Cambiar</a>
                         </div>
                     </div>
 
@@ -66,9 +66,11 @@
                             <div class="form-group">
                                 <label for="modalFormNombreCat">Nuevo nombre</label>
                                 <input type="text" class="form-control" name="nombre" id="modalFormNombreCat">
+                                <input type="hidden" name="id" id="modalFormIdCat">
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <a id="modalDeleteCatBtn" href="" class="btn btn-danger">Borrar</a>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </div>
@@ -183,4 +185,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="./view/js/catalogoAdmin.js" type="text/javascript"></script>
 {% endblock %}
