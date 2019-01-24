@@ -55,12 +55,10 @@
                         <div class="text-wrap badge badge-primary">{{ producto.precio }}€</div>
                         <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
                         <br><br>
-                        <form action="index.php?controller=producto&action=addcarrito" method="post" class="form-inline">
-                            <div class="form-group mx-auto">
-                                <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
-                                <button type="button" class="btn btn-primary addCart" value="{{ producto.idproducto }}">A&ntilde;adir</button>
-                            </div>
-                        </form>
+                        <div class="form-group mx-auto form-inline">
+                            <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
+                            <button type="button" class="btn btn-primary addCart" value="{{ producto.idproducto }}">A&ntilde;adir</button>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
