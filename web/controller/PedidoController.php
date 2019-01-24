@@ -90,6 +90,6 @@ class PedidoController extends Controller
 
     public function mostrarCarrito()
     {
-
+        $this->twigView('cartView.php.twig', []);
     }
 }
