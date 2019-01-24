@@ -32,7 +32,16 @@ class ProductoController extends Controller
         $producto = new Producto($this->conexion);
         $productos = $producto->getAll();
         $categorias = $this->formatData($categorias, $productos);
-        $this->twigView('catalogoView.php.twig', ["categorias"=>$categorias]);
+        /*Recoger la cantidad de productos que hay en el carrito almacenados en cookies*/
+        $total = 0;
+        if(isset($_COOKIE['cart']))
+        {
+            $cart = unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
+            foreach ($cart as $cuantity){
+                $total += $cuantity['cantidad'];
+            }
+        }
+        $this->twigView('catalogoView.php.twig', ["categorias"=>$categorias, "cartCuantity" => $total]);
 
     }
 
@@ -82,7 +91,7 @@ class ProductoController extends Controller
             $key = max(array_keys($cart)) + 1;
             $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
         }
-        setcookie('cookie', serialize($cart), time()+604800);
+        setcookie('cart', serialize($cart), time()+604800);
         die;
     }
 }
