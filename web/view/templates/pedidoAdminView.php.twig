@@ -1,6 +1,8 @@
 {% extends "adminbase.html.twig" %}
 
-{% block titulo %}Gesti&oacute;n{% endblock %}
+{% block titulo %}
+    Gesti&oacute;n de pedidos
+{% endblock %}
 
 {% block navbarContent %} {% endblock %}
 {% block carousel %} {% endblock %}
@@ -14,7 +16,7 @@
 
 {% block contentDer %}
     <div class="container-fluid">
-        <div class="row collapse show" id="sinConfirmar">
+        <div class="row collapse" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
                     <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
                         <div class="card w-100">
@@ -22,34 +24,40 @@
                                 <h5 class="card-title">{{ pedido.idpedido }}</h5>
                                 <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
                                 <span>{{ pedido.cliente.email }}</span>
+                                <br>
                                 <span>{{ pedido.cliente.telefono }}</span>
-                                <br>
+                                <ul>
                                 {% for producto in pedido.productos %}
-                                    <span>{{ producto.nombre }} x {{  producto.cantidad }}</span>
+                                    <li>{{ producto.nombre }} x {{  producto.cantidad }}</li>
                                 {% endfor %}
-                                <br>
+                                </ul>
                                 <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
-                                    <button class="btn btn-danger" id="btnBorrar">Borrar</button>
                                     <button class="btn btn-success" id="btnAceptar">Aceptar</button>
+                                    <button class="btn btn-danger" id="btnBorrar">Rechazar</button>
                                 </form>
                             </div>
                         </div>
                     </div>
             {% endfor %}
         </div>
-        <div class="collapse" id="Confirmados">
+        <div class="row collapse" id="Confirmados">
             {% for pedido in pedidos.Confirmados %}
-                <div class="col-12 col-md-4" id="{{ pedido.idpedido }}">
+                <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
                     <div class="card w-100">
                         <div class="card-body">
                             <h5 class="card-title">{{ pedido.idpedido }}</h5>
                             <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
-                            <span>{{ pedido.email }}</span>
-                            <span>{{ pedido.tel }}</span>
+                            <span>{{ pedido.cliente.email }}</span>
+                            <br>
+                            <span>{{ pedido.cliente.telefono }}</span>
+                            <ul>
                             {% for producto in pedido.productos %}
-                                <span>{{ producto.nombre }}  x {{ producto.cantidad }}</span>
+                                <li>{{ producto.nombre }} x {{ producto.cantidad }}</li>
                             {% endfor %}
-                            <button class="btn btn-success" id="btnEntregado">Aceptar</button>
+                            </ul>
+                            <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
+                                <button class="btn btn-success" id="btnAceptar">Finalizado</button>
+                            </form>
                         </div>
                     </div>
                 </div>
