@@ -4,6 +4,9 @@ include_once __DIR__ .'/../controller/Controller.php';
 
 class PedidoController extends Controller
 {
+    private $sinConfirmar = array();
+    private $confirmados = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -15,6 +18,7 @@ class PedidoController extends Controller
         require_once __DIR__ . '/../model/Pedido.php';
         require_once __DIR__ . '/../model/Producto.php';
         require_once __DIR__ . '/../model/Cliente.php';
+        require_once __DIR__ . '/../model/PedidoHasProducto.php';
     }
 
     public function run($action = 'defaultCase', $id = null)
@@ -22,7 +26,7 @@ class PedidoController extends Controller
         parent::run($action, $id);
     }
 
-    public function twigView($page, $data)
+    public function twigView($page, $data=["a"=>"a"])
     {
         parent::twigView($page, $data);
     }
@@ -30,30 +34,58 @@ class PedidoController extends Controller
     public function defaultCase(){
         $pedido = new Pedido($this->conexion);
         $pedidos = $pedido->getAll();
-        $producto = new Producto();
+
+        $producto = new Producto($this->conexion);
         $productos = $producto->getAll();
-        $cliente = new Cliente();
+
+        $pedidoProducto = new PedidoHasProducto($this->conexion);
+        $pedidoProductos = $pedidoProducto->getAll();
+
+        $cliente = new Cliente($this->conexion);
         $clientes = $cliente->getAll();
 
-        $sinConfirmar = $this->formatData($pedidos,$productos,$clientes);
-        $confirmados = $this->formatData();
+        $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
 
-        $this->twigView('pedidos.php.twig', ["sinConfirmar"=>$sinConfirmar, "confirmados"=>$confirmados]);
+        $alldata = array();
+        $alldata['sinConfirmar'] = $this->sinConfirmar;
+        $alldata['confirmados'] = $this->confirmados;
+//        array_push($this->sinConfirmar, $alldata);
+//        array_push($this->confirmados, $alldata);
+
+        $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
     }
 
-    public function formatData($pedidos,$productos,$clientes)
+    public function formatData($pedidos,$productos,$clientes,$pedidoProductos)
     {
-        $sinConfirmar = array();
         foreach ($pedidos as $x => $pedido){
-            $array = array();
-            foreach ($productos as $y => $producto){
-                if($pedidos['idcliente'] == $producto['categoria_idcategoria']){
-                    array_push($array, $producto);
-                    unset($productos[$y]);
+
+            foreach ($clientes as $y => $cliente){
+                if($pedido['cliente_idcliente'] == $cliente['idcliente']){
+                    $pedidos[$x]['cliente'] = $cliente;
                 }
             }
-            $categorias[$x]['productos'] = $array;
+
+            $array = array();
+            foreach ($pedidoProductos as $i => $productoPedido){
+                if($pedido['idpedido'] == $productoPedido['pedido_idpedido']){
+                    $prod = array_search($productoPedido['producto_idproducto'],$productos);
+                    array_push($array, $prod);
+
+                    $pedidos[$x]['productos']['cantidad'] = $productoPedido['cantidad'];
+                }
+            }
+            $pedidos[$x]['productos'] = $array;
+
+            if($pedido['estado'] == 0){
+                array_push($this->sinConfirmar, $pedidos[$x]);
+            }else{
+                array_push($this->confirmados, $pedidos[$x]);
+            }
         }
-        return $sinConfirmar;
+    }
+
+    public function mostrarCarrito()
+    {
+
     }
 }
