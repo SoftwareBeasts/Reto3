@@ -1,6 +1,6 @@
 <?php
 class PedidoHasProducto {
-    private $table = "pedido";
+    private $table = "pedido_has_producto";
     private $conexion;
 
     private $idPedido;

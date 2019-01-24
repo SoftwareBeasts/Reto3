@@ -13,3 +13,8 @@ INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria
 INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria_idcategoria) VALUES ('Plum cake con perlitas de chocolate', '8 raciones, precio por kilo', 11.00, '#', 1, 1);
 
 INSERT INTO admin (nombre,pass) VALUES ('root','root');
+
+/*Prueba de pedido*/
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Aitor', 'aitor@email.com', '666112233');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-24', '0', '10', '1');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('1', '1', '2');
