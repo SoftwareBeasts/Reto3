@@ -70,6 +70,16 @@ class Categoria {
         return $save;
     }
 
+    public function delete(){
+        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idcategoria = :id");
+        $del = $consulta->execute(array(
+            "id" => $this->id
+        ));
+        $this->conexion = null;
+
+        return $del;
+    }
+
     public function deleteByID($id){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idcategoria = :id");
         $del = $consulta->execute(array(
