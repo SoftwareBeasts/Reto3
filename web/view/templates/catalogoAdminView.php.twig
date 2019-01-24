@@ -12,6 +12,7 @@
             <div class="card-body">
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#annadirCategoriaModal" >A&ntilde;adir categoría</a>
             </div>
+            {#Modal Box para añadir categorias#}
             <div class="modal fade" id="annadirCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="annadirCategoriaModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -37,6 +38,7 @@
                 </div>
             </div>
         </div>
+        {#Generador de botones de categorias#}
         {% for categoria in categorias %}
             <div class="card">
                 <div class="card-body">
@@ -52,6 +54,7 @@
                 </div>
             </div>
         {% endfor %}
+        {#Modal Box para editar y borrar categorias#}
         <div class="modal fade" id="cambiarCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="cambiarCategoriaModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -80,14 +83,13 @@
         </div>
     </div>
 {% endblock %}
-    {#Es necesario crear otro bloque en base.php.twig para poder linkar los js,
-    necesario para cosas to flamas#}
 {% block contentDer %}
     <div class="container-fluid mt-2">
         <div class="card">
             <div class="card-body">
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#annadirProductoModal">A&ntilde;adir producto</a>
             </div>
+            {#Modal Bos para añadir productos#}
             <div class="modal fade" id="annadirProductoModal" tabindex="-1" role="dialog" aria-labelledby="annadirProductoModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -137,6 +139,7 @@
                 </div>
             </div>
         </div>
+        {#Generador de productos agrupados por categorias#}
         {% for categoria in categorias %}
             <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
@@ -153,7 +156,11 @@
                         <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
                         <br><br>
                         <div class="container-fluid" >
-                            <a href="#" class="btn btn-success">Editar</a>
+                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#editarProdModal"
+                                data-prodnom="{{ producto.nombre }}" data-prodid="{{ producto.idproducto }}"
+                                data-proddesc="{{ producto.descripcion }}" data-prodprec="{{ producto.precio }}"
+                                data-prodimg="{{ producto.rutaImg }}" data-prodmin="{{ producto.pedidoMin }}"
+                                data-prodcat="{{ producto.categoria_idcategoria }}">Editar</a>
                             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#borrarProdModal" data-prodid="{{ producto.idproducto }}" >Borrar</a>
                         </div>
 
@@ -161,6 +168,7 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        {#Modal Box para borrar productos#}
         <div class="modal fade" id="borrarProdModal" tabindex="-1" role="dialog" aria-labelledby="borrarProdModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -179,6 +187,57 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                             <button type="submit" class="btn btn-primary">Si</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {#Modal Box para editar productos#}
+        <div class="modal fade" id="editarProdModal" tabindex="-1" role="dialog" aria-labelledby="editarProdModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarProdModalLabel">¿Qu&eacute; deseas cambiar?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="index.php?controller=producto&action=updateProducto" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="modalFormNombreProd">Nombre</label>
+                                <input type="text" class="form-control"  name="nombre" id="modalFormNombreProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormDescProd">Descripcion(Unidades/Racion, Precio por unidad/racion)</label>
+                                <input type="text" class="form-control"  name="descripcion" id="modalFormDescProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormPrecioProd">Precio</label>
+                                <input type="number" class="form-control"  name="precio" id="modalFormPrecioProd" required>
+                            </div>
+                            <div class="form-group">
+                                <img class="img" id="modalCurrImgProd" >
+                                <label for="modalFormImgProd">Imagen</label>
+                                <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormPedMinProd">Pedido Minimo</label>
+                                <input type="number" class="form-control"  name="pedidoMin" id="modalFormPedMinProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormCatProd">Categoria</label>
+                                <select class="form-control" name="categoria" id="modalFormCatProd">
+                                    {% for categoria in categorias %}
+                                        <option id="option{{ categoria.idcategoria }}" value="{{ categoria.idcategoria }}">{{ categoria.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" name="id" id="modalFormIdProd">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </div>
                     </form>
                 </div>
