@@ -34,7 +34,10 @@ class AdminController extends Controller
     }
 
     public function viewLogin(){
-        $this->twigView('loginView.php.twig');
+        if(!isset($_SESSION['admin']))
+            $this->twigView('loginAdminView.php.twig');
+        else
+            header("Location: index.php?controller=producto&action=adminCatalogoView");
     }
 
     public function login(){
@@ -48,13 +51,40 @@ class AdminController extends Controller
             $this->twigView('loginAdminView.php.twig',['falloLogin'=>true]);
         }
         else{
-            header("Location: index.php?controller=pedido&action=pedidos");
+            header("Location: index.php?controller=producto&action=adminCatalogoView&t");
+
             /*Hay que mirar en el controlller de pedido cuando se accedan a las acciones
             de administrador que
-            la sesion esta iniciada correctamente*/
+            la sesion esta iniciada correctamente
+            de momento lleva al catalogo*/
         }
 
 
+    }
+
+    public function pedidos(){
+        if (parent::verifyAdmin()){
+            /*Poner link que inicie la vista de pedidos*/
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function catalogo(){
+        if (parent::verifyAdmin()){
+            header("Location: index.php?controller=producto&action=adminCatalogoView");
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function logout(){
+        if (parent::verifyAdmin()){
+            session_destroy();
+            session_start();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
     }
 
 }

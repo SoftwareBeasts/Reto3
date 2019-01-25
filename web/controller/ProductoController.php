@@ -100,4 +100,84 @@ class ProductoController extends Controller
         setcookie('cart', serialize($cart), time()+604800);
         die;
     }
+
+    /*----------------------------------*/
+    /*ADMIN CATALOGO*/
+
+
+
+    public function adminCatalogoView(){
+        if(parent::verifyAdmin()){
+            $categoria = new Categoria($this->conexion);
+            $categorias = $categoria->getAll();
+            $producto = new Producto($this->conexion);
+            $productos = $producto->getAll();
+            $categorias = $this->formatData($categorias, $productos);
+            $this->twigView('catalogoAdminView.php.twig', ["categorias"=>$categorias]);
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function annadirProducto(){
+        if (parent::verifyAdmin()){
+            $imagen = $this->tratarImagen();
+            $producto = new Producto($this->conexion);
+            $producto->setAll($_POST['nombre'],$_POST['descripcion'],$_POST['precio'],$imagen,$_POST['pedidoMin'],$_POST['categoria']);
+            $producto->save();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function deleteProducto(){
+        if(parent::verifyAdmin()){
+            $producto = new Producto($this->conexion);
+            $producto->setId($_POST['id']);
+            $producto->delete();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function updateProducto()
+    {
+        if (parent::verifyAdmin()) {
+            $producto = new Producto($this->conexion);
+            if (!is_uploaded_file($_FILES['imagen']['tmp_name'])) {
+                $imagen = $_POST['imagenn'];
+            } else {
+                $imagen = $this->aImagen();
+            }
+            $producto->setAll($_POST['nombre'], $_POST['descripcion'], $_POST['precio'], $imagen, $_POST['pedidoMin'], $_POST['categoria']);
+            $producto->setId($_POST['id']);
+            $producto->update();
+
+        } else {
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function tratarImagen(){
+        if(!is_uploaded_file($_FILES['imagen']['tmp_name'])){
+            $_POST['imagen'] = "./view/media/productImg/default_product.jpg";
+        }
+        else{
+            $imagen = $this->aImagen();
+            return $imagen;
+        }
+    }
+    public function aImagen(){
+            $file = pathinfo($_FILES['imagen']['name']);
+            $extension = $file['extension'];
+            //Se le establece el nombre del producto a la imagen
+            $newname = $_POST['nombre'].".".$extension;
+            $target = './view/media/productImg/'.$newname;
+            //La imagen se guarda en el directorio especificado
+            move_uploaded_file( $_FILES['imagen']['tmp_name'], $target);
+            $imagen = './view/media/productImg/'.$newname;
+            return $imagen;
+    }
+    /*ADMIN CATALOGO*/
+    /*----------------------------------*/
 }
