@@ -37,6 +37,15 @@ abstract class controller
         echo $this->twig->render($page, $data);
     }
 
+    public function verifyAdmin(){
+
+        if (isset($_SESSION['admin'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
+  
     public function enviarEmail($userEmail, $subject, $body){
         require_once __DIR__."/../config/sendemail.php";
     }

@@ -48,10 +48,9 @@ class PedidoController extends Controller
 
         $alldata = array();
         $alldata['sinConfirmar'] = $this->sinConfirmar;
-        $alldata['confirmados'] = $this->confirmados;
-//        array_push($this->sinConfirmar, $alldata);
-//        array_push($this->confirmados, $alldata);
+        $alldata['Confirmados'] = $this->confirmados;
 
+//        echo json_encode($alldata);
         $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
     }
 
@@ -68,10 +67,12 @@ class PedidoController extends Controller
             $array = array();
             foreach ($pedidoProductos as $i => $productoPedido){
                 if($pedido['idpedido'] == $productoPedido['pedido_idpedido']){
-                    $prod = array_search($productoPedido['producto_idproducto'],$productos);
-                    array_push($array, $prod);
-
-                    $pedidos[$x]['productos']['cantidad'] = $productoPedido['cantidad'];
+                    foreach ($productos as $e => $producto){
+                        if($productoPedido['producto_idproducto'] == $producto['idproducto']){
+                            $producto['cantidad'] = $productoPedido['cantidad'];
+                            array_push($array, $producto);
+                        }
+                    }
                 }
             }
             $pedidos[$x]['productos'] = $array;

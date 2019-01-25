@@ -1,13 +1,11 @@
 <?php
-if (isset($_POST['createsession'])){
-    if(!isset($_SESSION))
-    {
-        session_start();
-    }
+session_start();
+if (isset($_GET['t'])){
     $_SESSION['admin']=true;
 }
-if (isset ($_SESSION['admin'])){
+if (isset ($_SESSION['admin'])&&!isset($_GET['controlCheck'])){
    $admin = $_SESSION['admin'];
+    header("Location: index.php?controller=producto&action=adminCatalogoView&controlCheck=true");
 }
 
 if(isset($_GET['controller'])){
