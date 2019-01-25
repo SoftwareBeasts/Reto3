@@ -9,54 +9,53 @@
 
 {% block contentIzq %}
     <div class="container-fluid">
-        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="sinConfirmar">Sin Confirmar</button>
-        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="Confirmados">Confirmados</button>
+        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="botonSinConfirmar" id="botonSinConfirmar">Sin Confirmar</button>
+        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="botonConfirmados" id="botonConfirmados">Confirmados</button>
     </div>
 {% endblock %}
 
 {% block contentDer %}
     <div class="container-fluid">
-        <div class="row collapse" id="sinConfirmar">
+        {#<button id="test">test</button>#}
+        <div class="row" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
                     <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
-                        <div class="card w-100">
+                        <div class="card w-100 shadow" id="pedidoCard">
                             <div class="card-body">
-                                <h5 class="card-title">{{ pedido.idpedido }}</h5>
-                                <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
-                                <span>{{ pedido.cliente.email }}</span>
-                                <br>
-                                <span>{{ pedido.cliente.telefono }}</span>
+                                <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
+                                <h6 class="card-subtitle"><mark>{{ pedido.fecha }}</mark></h6>
+                                <span class="badge badge-light">{{ pedido.cliente.nombre }} <i class="fas fa-long-arrow-alt-right"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                                <span class="badge badge-light">{{ pedido.cliente.telefono }}</span>
                                 <ul class="list-group list-group-flush">
                                 {% for producto in pedido.productos %}
-                                    <li class="list-group-item">{{ producto.nombre }} x <span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span></li>
+                                    <li class="list-group-item"><span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                                 {% endfor %}
                                 </ul>
                                 <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
-                                    <button class="btn btn-success" id="btnAceptar">Aceptar</button>
-                                    <button class="btn btn-danger" id="btnBorrar">Rechazar</button>
+                                    <button class="btn btn-success" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>
+                                    <button class="btn btn-danger" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</button>
                                 </form>
                             </div>
                         </div>
                     </div>
             {% endfor %}
         </div>
-        <div class="row collapse" id="Confirmados">
+        <div class="row collapse" id="confirmados">
             {% for pedido in pedidos.Confirmados %}
                 <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
-                    <div class="card w-100">
+                    <div class="card w-100 shadow" id="pedidoCard">
                         <div class="card-body">
-                            <h5 class="card-title">{{ pedido.idpedido }}</h5>
-                            <h6 class="card-subtitle">{{ pedido.fecha }}</h6>
-                            <span>{{ pedido.cliente.email }}</span>
-                            <br>
-                            <span>{{ pedido.cliente.telefono }}</span>
+                            <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
+                            <h6 class="card-subtitle"><mark>{{ pedido.fecha }}</mark></h6>
+                            <span class="badge badge-light">{{ pedido.cliente.nombre }} <i class="fas fa-long-arrow-alt-right"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                            <span class="badge badge-light">{{ pedido.cliente.telefono }}</span>
                             <ul class="list-group list-group-flush">
                             {% for producto in pedido.productos %}
-                                <li class="list-group-item">{{ producto.nombre }} x <span class="badge badge-primary badge-pill">{{ producto.cantidad }}</span></li>
+                                <li class="list-group-item"><span class="badge badge-primary badge-pill">{{ producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                             {% endfor %}
                             </ul>
                             <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
-                                <button class="btn btn-success" id="btnAceptar">Finalizado</button>
+                                <button class="btn btn-success" id="btnAceptar"><i class="fas fa-check-double"></i> Finalizado</button>
                             </form>
                         </div>
                     </div>
@@ -66,4 +65,6 @@
     </div>
 {% endblock %}
 
-{% block script %}{% endblock %}
+{% block script %}
+    <script src="./view/js/pedido.js" type="text/javascript"></script>
+{% endblock %}
