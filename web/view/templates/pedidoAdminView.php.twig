@@ -9,7 +9,7 @@
 
 {% block contentIzq %}
     <div class="container-fluid">
-        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="botonSinConfirmar" id="botonSinConfirmar">Sin Confirmar</button>
+        <button class="btn btn-primary active w-100" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="botonSinConfirmar" id="botonSinConfirmar">Pendientes</button>
         <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="botonConfirmados" id="botonConfirmados">Confirmados</button>
     </div>
 {% endblock %}
@@ -17,10 +17,10 @@
 {% block contentDer %}
     <div class="container-fluid">
         {#<button id="test">test</button>#}
-        <div class="row" id="sinConfirmar">
+        <div class="row collapse show" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
                     <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
-                        <div class="card w-100 shadow" id="pedidoCard">
+                        <div class="card w-100 pedidoCard" >
                             <div class="card-body">
                                 <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
                                 <h6 class="card-subtitle"><mark>{{ pedido.fecha }}</mark></h6>
@@ -43,7 +43,7 @@
         <div class="row collapse" id="confirmados">
             {% for pedido in pedidos.Confirmados %}
                 <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
-                    <div class="card w-100 shadow" id="pedidoCard">
+                    <div class="card w-100 pedidoCard">
                         <div class="card-body">
                             <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
                             <h6 class="card-subtitle"><mark>{{ pedido.fecha }}</mark></h6>

@@ -1,18 +1,22 @@
 $(document).ready(function () {
     $("#botonSinConfirmar").on("click", function () {
-        if($("#confirmados").hasClass("collapse")){
-            $("#confirmados").collapse('hide');
-            $("#sinConfirmar").collapse('show');
-        }else{
-            $("#sinConfirmar").collapse('hide');
-        }
+        $(this).toggleClass("active");
+        $("#botonConfirmados").toggleClass("active");
+        $("#sinConfirmar").collapse("toggle");
+        $("#confirmados").collapse("toggle");
     });
     $("#botonConfirmados").on("click", function () {
-        if($("#sinConfirmar").hasClass("collapse")){
-            $("#sinConfirmar").collapse('hide');
-            $("#confirmados").collapse('show');
-        }else{
-            $("#confirmados").collapse('hide');
+        $(this).toggleClass("active");
+        $("#botonSinConfirmar").toggleClass("active");
+        $("#sinConfirmar").collapse("toggle");
+        $("#confirmados").collapse("toggle");
+    });
+    $(".pedidoCard").on({
+        mouseenter: function () {
+            $(this).addClass("shadow-lg");
+        },
+        mouseleave: function () {
+            $(this).removeClass("shadow-lg");
         }
     });
 });
