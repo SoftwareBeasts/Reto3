@@ -38,14 +38,19 @@
         {% for categoria in categorias %}
             <div class="card">
                 <div class="card-body">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                    <a class="btn btn-link text-primary d-block desplegable" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >
+                        <div class="row">
+                            <div class="col-10 text-left">{{ categoria.nombre }}</div>
+                            <div class="col-2 text-right"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
                     <div class="col-12 text-center col-md-4">
                         <figure class="figure">
-                            <img src="./view/media/default_product.jpg" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                            <img src="{% if producto.rutaImg == "#" %}./view/media/productImg/default_product.jpg{% else %}{{ producto.rutaImg }}{% endif %}" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
                                 {{ producto.nombre }}
                             </figcaption>
@@ -55,9 +60,9 @@
                         <div class="text-wrap badge badge-primary">{{ producto.precio }}€</div>
                         <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
                         <br><br>
-                        <div class="form-group mx-auto form-inline">
+                        <div class="form-group mx-auto  text-center">
                             <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
-                            <button type="button" class="btn btn-primary addCart" value="{{ producto.idproducto }}">A&ntilde;adir</button>
+                            <button type="button" class="btn btn-primary addCart mt-2" value="{{ producto.idproducto }}">A&ntilde;adir</button>
                         </div>
                     </div>
                 {% endfor %}

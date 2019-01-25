@@ -2,7 +2,25 @@ $(document).ready(function () {
     $(".addCart").on("click", function () {
         addCart(this);
     });
+    $(".desplegable").on("click",function(){
+        changeCollapsedIcon(this);
+    })
 });
+
+function changeCollapsedIcon(buttonThis){
+    $(buttonThis).find("div>div:last").html('<i class="fas fa-angle-down"></i>');
+    $(buttonThis).on("click",function(){
+        changeExtendedIcon(this);
+    })
+}
+
+function changeExtendedIcon(buttonThis) {
+    $(buttonThis).find("div>div:last").html('<i class="fas fa-angle-right"></i>');
+    $(buttonThis).on("click",function(){
+        changeCollapsedIcon(this);
+    })
+}
+
 
 function addCart(buttonThis) {
     let button = $(buttonThis);
