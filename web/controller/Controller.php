@@ -44,6 +44,9 @@ abstract class controller
         }else{
             return false;
         }
-
+    }
+  
+    public function enviarEmail($userEmail, $subject, $body){
+        require_once __DIR__."/../config/sendemail.php";
     }
 }
