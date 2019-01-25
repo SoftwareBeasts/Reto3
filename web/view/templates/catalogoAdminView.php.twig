@@ -47,7 +47,7 @@
                             <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Cambiar</a>
+                            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Editar</a>
                         </div>
                     </div>
 
@@ -178,7 +178,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="index.php?controller=producto&action=borrar" method="post">
+                    <form action="index.php?controller=producto&action=deleteProducto" method="post">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="id" id="modalFormIdProdDel">
@@ -202,7 +202,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="index.php?controller=producto&action=updateProducto" method="post">
+                    <form action="index.php?controller=producto&action=updateProducto" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="modalFormNombreProd">Nombre</label>

@@ -37,9 +37,16 @@ $('#editarProdModal').on('show.bs.modal', function (event) {
 });
 $(document).ready(function () {
     $("#modalDeleteCatBtn").on("click", function () {
-        deleteCategoria(this);
+        confirmarDelete(this);
     });
 });
+function confirmarDelete(button) {
+    $(button).html("Estas Seguro?");
+    $(button).prop("onclick", null).off("click");
+    $(button).on("click", function () {
+        deleteCategoria(this);
+    });
+}
 function deleteCategoria(buttonThis) {
     var button = $(buttonThis);
     var catId = button.val();
@@ -49,6 +56,11 @@ function deleteCategoria(buttonThis) {
         data: { id: catId }
     }).done(function () {
         $("#cardCategoria" + catId).remove();
+        $(button).html("Borrar");
+        $(button).prop("onclick", null).off("click");
+        $(button).on("click", function () {
+            confirmarDelete(this);
+        });
         $("#cambiarCategoriaModal").modal("hide");
     });
 }

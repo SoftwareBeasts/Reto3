@@ -15,6 +15,7 @@ $('#borrarProdModal').on('show.bs.modal', function (event) {
     let modal = $(this)
     modal.find('#modalFormIdProdDel').val(recipient)
 })
+
 /*Funcion que carga los datos del producto seleccionado para editar*/
 $('#editarProdModal').on('show.bs.modal', function (event) {
     let button = $(event.relatedTarget) // Button that triggered the modal
@@ -25,7 +26,7 @@ $('#editarProdModal').on('show.bs.modal', function (event) {
     let img = button.data('prodimg')
     let min = button.data('prodmin')
     let cat = button.data('prodcat')
-    var modal = $(this)
+    let modal = $(this)
     modal.find('#modalFormNombreProd').val(nombre)
     modal.find('#modalFormDescProd').val(desc)
     modal.find('#modalFormPrecioProd').val(prec)
@@ -38,10 +39,18 @@ $('#editarProdModal').on('show.bs.modal', function (event) {
 
 $(document).ready(function (){
     $("#modalDeleteCatBtn").on("click",function(){
-        deleteCategoria(this);
+        confirmarDelete(this);
     })
 })
 
+function confirmarDelete(button){
+    $(button).html("Estas Seguro?");
+    $(button).prop("onclick", null).off("click");
+    $(button).on("click",function(){
+        deleteCategoria(this);
+    })
+
+}
 function deleteCategoria (buttonThis){
     let button = $(buttonThis);
     let catId = button.val();
@@ -52,5 +61,14 @@ function deleteCategoria (buttonThis){
         data: {id : catId}
     }).done(function () {
         $("#cardCategoria"+catId).remove();
+
+        $(button).html("Borrar");
+        $(button).prop("onclick", null).off("click");
+        $(button).on("click",function(){
+            confirmarDelete(this);
+        })
         $("#cambiarCategoriaModal").modal("hide");
+    })
+
+
 }

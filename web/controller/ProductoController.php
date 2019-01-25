@@ -164,7 +164,7 @@ class ProductoController extends Controller
     public function aImagen(){
             $file = pathinfo($_FILES['imagen']['name']);
             $extension = $file['extension'];
-            //Se le establece el nombre de usuario a la imagen
+            //Se le establece el nombre del producto a la imagen
             $newname = $_POST['nombre'].".".$extension;
             $target = './view/media/productImg/'.$newname;
             //La imagen se guarda en el directorio especificado
