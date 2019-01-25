@@ -17,7 +17,6 @@ function addCart(buttonThis) {
         addCartNumber(cuantity);
         showMessage(generateMessage(cuantity));
     });
-    return encontrado;
 }
 
 function addCartNumber(cuantity) {
