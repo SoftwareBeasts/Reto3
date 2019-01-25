@@ -36,4 +36,8 @@ abstract class controller
     {
         echo $this->twig->render($page, $data);
     }
+
+    public function enviarEmail($userEmail, $subject, $body){
+        require_once __DIR__."/../config/sendemail.php";
+    }
 }

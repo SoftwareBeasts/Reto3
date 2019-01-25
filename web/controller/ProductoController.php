@@ -26,6 +26,11 @@ class ProductoController extends Controller
         parent::twigView($page, $data);
     }
 
+    public function enviarEmail($userEmail, $subject, $body)
+    {
+        parent::enviarEmail($userEmail, $subject, $body);
+    }
+
     public function defaultCase(){
         $categoria = new Categoria($this->conexion);
         $categorias = $categoria->getAll();
@@ -41,6 +46,7 @@ class ProductoController extends Controller
                 $total += $cuantity['cantidad'];
             }
         }
+        $this->enviarEmail("unai.puelles@ikasle.egibide.org", "Prueba automática", "Este es el cuerpo");
         $this->twigView('catalogoView.php.twig', ["categorias"=>$categorias, "cartCuantity" => $total]);
 
     }
