@@ -2,15 +2,18 @@
 
 {% block titulo %}Cat&aacute;logo{% endblock %}
 
-{% block navbarContent %}{% endblock %}
+{% block navbarContent %}
+    <a href="index.php?controller=admin&action=pedidos" class="nav-link">Pedidos</a>
+    <a href="index.php?controller=admin&action=logout" class="nav-link">Salir</a>
+{% endblock %}
 
 {% block carousel %}{% endblock %}
 
 {% block contentIzq %}
-    <div class="container-fluid mt-2">
+    <div class="container-fluid mt-2 contentContainer">
         <div class="card">
             <div class="card-body">
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#annadirCategoriaModal" >A&ntilde;adir categoría</a>
+                <a href="#" class="btn btn-primary addButton addCat" data-toggle="modal" data-target="#annadirCategoriaModal" >A&ntilde;adir categoría</a>
             </div>
             {#Modal Box para añadir categorias#}
             <div class="modal fade" id="annadirCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="annadirCategoriaModalLabel" aria-hidden="true">
@@ -44,10 +47,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 text-left">
-                            <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Cambiar</a>
+                            <a href="#" class="btn btn-warning d-none d-md-inline-block editarCategoria" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Editar</a>
                         </div>
                     </div>
 
@@ -84,10 +87,10 @@
     </div>
 {% endblock %}
 {% block contentDer %}
-    <div class="container-fluid mt-2">
+    <div class="container-fluid mt-2 contentContainer">
         <div class="card">
             <div class="card-body">
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#annadirProductoModal">A&ntilde;adir producto</a>
+                <a href="#" class="btn btn-primary addButton addProd" data-toggle="modal" data-target="#annadirProductoModal">A&ntilde;adir producto</a>
             </div>
             {#Modal Bos para añadir productos#}
             <div class="modal fade" id="annadirProductoModal" tabindex="-1" role="dialog" aria-labelledby="annadirProductoModalLabel" aria-hidden="true">
@@ -125,7 +128,7 @@
                                     <label for="modalFormCatProd">Categoria</label>
                                     <select class="form-control" name="categoria" id="modalFormCatProd">
                                         {% for categoria in categorias %}
-                                            <option value="{{ categoria.idCategoria }}">{{ categoria.nombre }}</option>
+                                            <option value="{{ categoria.idcategoria }}">{{ categoria.nombre }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -145,7 +148,7 @@
                 {% for producto in categoria.productos %}
                     <div class="col-12 col-md-4 mb-2">
                         <figure class="figure">
-                            <img src="./view/media/default_product.jpg" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                            <img src="{% if producto.rutaImg == "#" %}./view/media/productImg/default_product.jpg{% else %}{{ producto.rutaImg }}{% endif %}" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
                                 {{ producto.nombre }}
                             </figcaption>
@@ -178,7 +181,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="index.php?controller=producto&action=borrar" method="post">
+                    <form action="index.php?controller=producto&action=deleteProducto" method="post">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="id" id="modalFormIdProdDel">
@@ -202,7 +205,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="index.php?controller=producto&action=updateProducto" method="post">
+                    <form action="index.php?controller=producto&action=updateProducto" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="modalFormNombreProd">Nombre</label>
@@ -218,8 +221,8 @@
                             </div>
                             <div class="form-group">
                                 <img class="img" id="modalCurrImgProd" >
-                                <label for="modalFormImgProd">Imagen</label>
-                                <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" required>
+                                <input type="hidden" name="imagenn" id="modalCurrImgrutProd">
+                                <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" >
                             </div>
                             <div class="form-group">
                                 <label for="modalFormPedMinProd">Pedido Minimo</label>

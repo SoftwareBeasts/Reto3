@@ -139,6 +139,25 @@ class Producto {
         return $resultados;
     }
 
+    public function getByIDs($ids){
+        $stmnt = "SELECT * FROM ".$this->table." WHERE";
+        $cont = 1;
+        foreach ($ids as $id)
+        {
+            if($cont != 1)
+                $stmnt .= " OR";
+            $stmnt .= " idproducto = :id".$cont;
+            $cont++;
+        }
+        $consulta = $this->conexion->prepare($stmnt);
+        $res = $consulta->execute($ids);
+        $resultados = $consulta->fetchAll();
+
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
     public function save(){
         $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, descripcion, precio, rutaImg, pedidoMin,categoria_idcategoria) VALUES (:nombre, :descripcion, :precio, :rutaImg, :pedidoMin, :categoria)");
         $save = $consulta->execute(array(
@@ -153,7 +172,15 @@ class Producto {
 
         return $save;
     }
+    public function delete(){
+        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idproducto = :id");
+        $del = $consulta->execute(array(
+            "id" => $this->id
+        ));
+        $this->conexion = null;
 
+        return $del;
+    }
     public function deleteByID($id){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idproducto = :id");
         $del = $consulta->execute(array(

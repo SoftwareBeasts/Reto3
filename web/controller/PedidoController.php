@@ -87,6 +87,32 @@ class PedidoController extends Controller
 
     public function mostrarCarrito()
     {
-        $this->twigView('cartView.php.twig', []);
+        if(isset($_COOKIE['cart']))
+        {
+            $cart = unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
+            $cart = $this->arrayOrder($cart);
+
+            $productosIds = array();
+            $productosCuantity = array();
+            $cont = 1;
+
+            foreach ($cart as $producto)
+            {
+                $productosIds["id$cont"] = $producto['id'];
+                array_push($productosCuantity, $producto['cantidad']);
+                $cont++;
+            }
+            $producto = new Producto($this->conexion);
+            $productos = $producto->getByIDs($productosIds);
+
+            $this->twigView('cartView.php.twig', ["productos" => $productos, "productosCuantity" => $productosCuantity]);
+        }
+    }
+
+    public function arrayOrder($cart){
+        usort($cart, function($a, $b) {
+            return $a['id'] <=> $b['id'];
+        });
+        return $cart;
     }
 }
