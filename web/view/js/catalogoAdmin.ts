@@ -1,3 +1,41 @@
+/*Esta funcion cambia tamaños y contenido de diferentes elementos al cambia el
+* tamaño de la pantalla*/
+$(document).ready(function() {
+    // Optimalisation: Store the references outside the event handler:
+    var $window = $(window);
+    var $pane = $('#pane1');
+
+    function checkWidth() {
+        var windowsize = $window.width();
+        if (windowsize < 1100) {
+            //si la ventana es mas pequeña que 1100, cambiamos el contenido de los
+            //botones Editar, por un icono
+            $('.editarCategoria').html("<i class='fas fa-cog'></i>");
+
+        }else{
+            $('.editarCategoria').html("Editar");
+        }
+
+        if (windowsize < 590){
+            $('.addButton').html('<i class="fas fa-plus"></i>');
+        }else{
+            $('.addCat').html('A&ntilde;adir Categor&iacute;a');
+            $('.addProd').html('A&ntilde;adir Producto');
+        }
+
+        if(windowsize < 576){
+            $('.contentContainer').removeClass("container-fluid");
+        }else{
+            $('.contentContainer').addClass("container-fluid");
+        }
+
+    }
+    // Execute on load
+    checkWidth();
+    // Bind event listener
+    $(window).resize(checkWidth);
+});
+
 /*Funcion que carga los datos de la categoria que se desea editar*/
 $('#cambiarCategoriaModal').on('show.bs.modal', function (event) {
     let button = $(event.relatedTarget) // Button that triggered the modal
