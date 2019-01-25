@@ -62,4 +62,29 @@ class AdminController extends Controller
 
     }
 
+    public function pedidos(){
+        if (parent::verifyAdmin()){
+            /*Poner link que inicie la vista de pedidos*/
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function catalogo(){
+        if (parent::verifyAdmin()){
+            header("Location: index.php?controller=producto&action=adminCatalogoView");
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function logout(){
+        if (parent::verifyAdmin()){
+            session_destroy();
+            session_start();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
 }
