@@ -14,7 +14,19 @@ INSERT INTO producto (nombre, descripcion, precio, rutaimg, pedidomin, categoria
 
 INSERT INTO admin (nombre,pass) VALUES ('root','root');
 
-/*Prueba de pedido*/
+-- Pedido 1
 INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Aitor', 'aitor@email.com', '666112233');
 INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-24', '0', '10', '1');
 INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('1', '1', '2');
+
+-- Pedido 2
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Jon', 'jon@email.com', '666445566');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-25', '1', '20', '2');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('2', '1', '1');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('2', '6', '1');
+
+-- Pedido 3
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Unai', 'unai@email.com', '666778899');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-26', '1', '30', '3');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('3', '1', '6');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('3', '5', '1');
