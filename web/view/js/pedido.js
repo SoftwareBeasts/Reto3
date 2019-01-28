@@ -23,4 +23,11 @@ $(document).ready(function () {
             $(this).removeClass("shadow-lg");
         }
     });
+
+    $(".btnAceptar").on("click", function () {
+
+    });
+    $(".btnBorrar").on("click", function () {
+
+    });
 });

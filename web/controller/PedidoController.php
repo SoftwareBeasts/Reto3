@@ -85,17 +85,19 @@ class PedidoController extends Controller
         }
     }
 
-    public function confirmarPedido()
+    public function confirmarPedido($id)
     {
-        $p = new Pedido($this->conexion);
-        $pedido = $p->getByID();
-        $pedido->estado = 1;
-        $pedido->save();
+        $pedido = new Pedido($this->conexion);
+        $pedido->updateEstado($id, 1);
+        header('Location: /index.php?controller=pedido');
+//        die();
     }
-    public function eliminarPedido()
+    public function rechazarPedido($id)
     {
         $p = new Pedido($this->conexion);
-        $pedido = $p->deleteByID();
+        $pedido = $p->deleteByID($id);
+        header('Location: /index.php?controller=pedido');
+//        die();
     }
 
     public function mostrarCarrito()

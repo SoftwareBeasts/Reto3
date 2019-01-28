@@ -31,8 +31,8 @@
                                     <li class="list-group-item"><span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                                 {% endfor %}
                                 </ul>
-                                <a href="index.php?controller=pedido&action=aceptarPedido&id{{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>
-                                <a href="index.php?controller=pedido&action=deletePedido&id{{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>
+                                <a href="index.php?controller=pedido&action=confirmarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>
+                                <a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>
                                 {#<form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline mt-3">#}
                                     {#<button class="btn btn-success" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>#}
                                     {#<button class="btn btn-danger" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</button>#}
