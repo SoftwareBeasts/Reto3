@@ -24,7 +24,7 @@
     </div>
 </nav>
 {% block carousel %}
-    <div class="offset-md-2 col-md-8 mt-2 mb-2">
+    <div class="offset-md-2 col-md-8 mt-2 mb-2 d-none d-md-block">
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -32,10 +32,10 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active" data-interval="3000">
-                    <img class="d-block w-100" src="./view/media/carrousel-1.jpg" alt="1">
+                    <img class="d-block w-100" src="./view/media/carrousel-1.jpg" height="400px" alt="1">
                 </div>
                 <div class="carousel-item" data-interval="3000">
-                    <img class="d-block w-100" src="./view/media/carrousel-2.jpg" height="525px" alt="2">
+                    <img class="d-block w-100" src="./view/media/carrousel-2.jpg" height="400px" alt="2">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -49,7 +49,7 @@
         </div>
     </div>
 {% endblock %}
-<div class="col-12 offset-lg-2 col-lg-8">
+<div class="col-12 offset-lg-2 col-lg-8 mt-2">
     {% block content %}{% endblock %}
 </div>
 
