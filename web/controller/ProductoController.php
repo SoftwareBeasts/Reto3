@@ -46,33 +46,12 @@ class ProductoController extends Controller
                 $total += $cuantity['cantidad'];
             }
         }
-        $this->enviarEmail("unai.puelles@ikasle.egibide.org", "Prueba automática", "Este es el cuerpo");
         $this->twigView('catalogoView.php.twig', ["categorias"=>$categorias, "cartCuantity" => $total]);
 
     }
 
     public function formatData($categorias, $productos)
     {
-        /*
-        $tmp = null;
-        $array = array();
-        foreach ($productos as $producto) {
-            if($tmp != $producto['categoria_idcategoria'] && $tmp != null){
-                array_push($categorias[$tmp], $array);
-                echo '<br/><br/><br/><br/>';
-                var_dump($array);
-                $array = array();
-            }
-            $tmp = $producto['categoria_idcategoria'];
-            for($x = 0; $x<count($categorias); $x++)
-            {
-                if ($categorias[$x]['idcategoria'] == $producto['categoria_idcategoria']) {
-                    array_push($array, $producto);
-                    $x = count($categorias);
-                }
-            }
-        }
-        */
         foreach ($categorias as $x => $categoria){
             $array = array();
             foreach ($productos as $y => $producto){
@@ -84,21 +63,6 @@ class ProductoController extends Controller
             $categorias[$x]['productos'] = $array;
         }
         return $categorias;
-    }
-
-    public function addCart(){
-        if(!isset($_COOKIE['cart']))
-        {
-            $cart = ['0' => ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']]];
-        }
-        else
-        {
-            $cart = unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
-            $key = max(array_keys($cart)) + 1;
-            $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
-        }
-        setcookie('cart', serialize($cart), time()+604800);
-        die;
     }
 
     /*----------------------------------*/
