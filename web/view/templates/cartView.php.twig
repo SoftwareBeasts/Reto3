@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block navbarContent%}
-
+    <div>
+        <a href="./index.php?controller=producto"><i class="fas fa-utensils"></i></a>
+    </div>
 {% endblock %}
 
 {% block carousel %} {% endblock %}
@@ -29,7 +31,7 @@
                 <tr>
                     <th scope="row">{{ producto.nombre }}</th>
                     <td><input class="form-control" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
-                    <td class="precios">{{ producto.precio }}</td>
+                    <td class="precios">{{ producto.precio }}€</td>
                     <td><button type="button" class="btn btn-danger"+>Eliminar</button> </td>
                 </tr>
                 {% endfor %}
@@ -62,7 +64,7 @@
                                     <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row mt-2 text-center">
                                 <div class="col">
                                     <button class="btn btn-success" type="submit">Enviar</button>
                                 </div>
