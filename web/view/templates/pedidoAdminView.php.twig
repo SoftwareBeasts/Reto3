@@ -9,14 +9,14 @@
 
 {% block contentIzq %}
     <div class="container-fluid">
-        <button class="btn btn-primary active border-info w-100" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="botonSinConfirmar" id="botonSinConfirmar">Pendientes</button>
-        <button class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="botonConfirmados" id="botonConfirmados">Confirmados</button>
+        <button class="btn btn-primary w-100 botoncolapsar active" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="botonSinConfirmar" id="botonSinConfirmar">Pendientes</button>
+        <button class="btn btn-primary w-100 botoncolapsar" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="botonConfirmados" id="botonConfirmados">Confirmados</button>
     </div>
 {% endblock %}
 
 {% block contentDer %}
     <div class="container-fluid">
-        <div class="row collapse show" id="sinConfirmar">
+        <div class="row collapse show colapsar" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
                     <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
                         <div class="card w-100 pedidoCard" >
@@ -31,18 +31,16 @@
                                     <li class="list-group-item"><span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                                 {% endfor %}
                                 </ul>
-                                <a href="index.php?controller=pedido&action=confirmarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>
-                                <a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>
-                                {#<form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline mt-3">#}
-                                    {#<button class="btn btn-success" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>#}
-                                    {#<button class="btn btn-danger" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</button>#}
-                                {#</form>#}
+                                <button class="btn btn-success btnAceptar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-check"></i> Aceptar</button>
+                                <button class="btn btn-danger btnBorrar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-trash"></i> Rechazar</button>
+                                {#<a href="index.php?controller=pedido&action=confirmarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>#}
+                                {#<a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>#}
                             </div>
                         </div>
                     </div>
             {% endfor %}
         </div>
-        <div class="row collapse" id="confirmados">
+        <div class="row collapse colapsar" id="confirmados">
             {% for pedido in pedidos.Confirmados %}
                 <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
                     <div class="card w-100 pedidoCard">
@@ -57,9 +55,9 @@
                                 <li class="list-group-item"><span class="badge badge-primary badge-pill">{{ producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                             {% endfor %}
                             </ul>
-                            <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
-                                <button class="btn btn-success" id="btnAceptar"><i class="fas fa-check-double"></i> Finalizado</button>
-                            </form>
+                            <button class="btn btn-success btnBorrar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-check-double"></i> Finalizado</button>
+                            {#<a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnBorrar"><i class="fas fa-check-double"></i> Finalizado</a>#}
+
                         </div>
                     </div>
                 </div>
