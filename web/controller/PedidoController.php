@@ -49,8 +49,6 @@ class PedidoController extends Controller
         $alldata = array();
         $alldata['sinConfirmar'] = $this->sinConfirmar;
         $alldata['Confirmados'] = $this->confirmados;
-//        array_push($this->sinConfirmar, $alldata);
-//        array_push($this->confirmados, $alldata);
 
 //        echo json_encode($alldata);
         $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
@@ -75,7 +73,6 @@ class PedidoController extends Controller
                             array_push($array, $producto);
                         }
                     }
-//                    $pedidos[$x]['productos']['cantidad'] = $productoPedido['cantidad'];
                 }
             }
             $pedidos[$x]['productos'] = $array;
