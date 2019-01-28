@@ -25,7 +25,7 @@ if(SEND_MAIL)
     fclose($myfile);
 
     //Movemos el fichero al lugar adecuado para ejecutarlo
-    exec("mv ".JS_PATH.JS_NAME." EMAIL_MODULE_PATH");
+    exec("mv ".JS_PATH.JS_NAME." ".EMAIL_MODULE_PATH);
     //Ejecutamos el archivo generado
     echo exec("node ".EMAIL_MODULE_PATH.JS_NAME);
 }
