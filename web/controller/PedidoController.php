@@ -85,6 +85,19 @@ class PedidoController extends Controller
         }
     }
 
+    public function confirmarPedido()
+    {
+        $p = new Pedido($this->conexion);
+        $pedido = $p->getByID();
+        $pedido->estado = 1;
+        $pedido->save();
+    }
+    public function eliminarPedido()
+    {
+        $p = new Pedido($this->conexion);
+        $pedido = $p->deleteByID();
+    }
+
     public function mostrarCarrito()
     {
         if(isset($_COOKIE['cart']))

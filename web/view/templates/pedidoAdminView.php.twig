@@ -22,18 +22,21 @@
                         <div class="card w-100 pedidoCard" >
                             <div class="card-body">
                                 <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
-                                <h6 class="card-subtitle"><mark class="badge-pill">{{ pedido.fecha }}</mark></h6>
-                                <span class="badge badge-light mt-3">{{ pedido.cliente.nombre }} <i class="fas fa-long-arrow-alt-right"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
-                                <span class="badge badge-light">{{ pedido.cliente.telefono }}</span>
-                                <ul class="list-group list-group-flush mt-3">
+                                <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
+                                <span class="badge badge-light mt-3 "><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
+                                <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                                <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
+                                <ul class="list-group list-group-flush mt-3 mb-3">
                                 {% for producto in pedido.productos %}
                                     <li class="list-group-item"><span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                                 {% endfor %}
                                 </ul>
-                                <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline mt-3">
-                                    <button class="btn btn-success" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>
-                                    <button class="btn btn-danger" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</button>
-                                </form>
+                                <a href="index.php?controller=pedido&action=aceptarPedido&id{{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>
+                                <a href="index.php?controller=pedido&action=deletePedido&id{{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>
+                                {#<form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline mt-3">#}
+                                    {#<button class="btn btn-success" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</button>#}
+                                    {#<button class="btn btn-danger" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</button>#}
+                                {#</form>#}
                             </div>
                         </div>
                     </div>
@@ -45,15 +48,16 @@
                     <div class="card w-100 pedidoCard">
                         <div class="card-body">
                             <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
-                            <h6 class="card-subtitle"><mark class="badge-pill">{{ pedido.fecha }}</mark></h6>
-                            <span class="badge badge-light mt-3">{{ pedido.cliente.nombre }} <i class="fas fa-long-arrow-alt-right"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
-                            <span class="badge badge-light">{{ pedido.cliente.telefono }}</span>
-                            <ul class="list-group list-group-flush mt-3">
+                            <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
+                            <span class="badge badge-light mt-3"><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
+                            <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                            <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
+                            <ul class="list-group list-group-flush mt-3 mb-3">
                             {% for producto in pedido.productos %}
                                 <li class="list-group-item"><span class="badge badge-primary badge-pill">{{ producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
                             {% endfor %}
                             </ul>
-                            <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline mt-3">
+                            <form action="index.php?controller=pedido&action=deletePedido&id" method="post" class="form-inline">
                                 <button class="btn btn-success" id="btnAceptar"><i class="fas fa-check-double"></i> Finalizado</button>
                             </form>
                         </div>
