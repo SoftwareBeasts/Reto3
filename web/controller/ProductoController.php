@@ -77,7 +77,7 @@ class ProductoController extends Controller
             $producto = new Producto($this->conexion);
             $productos = $producto->getAll();
             $categorias = $this->formatData($categorias, $productos);
-            $this->twigView('catalogoAdminView.php.twig', ["categorias"=>$categorias]);
+            $this->twigView('catalogoAdminView.php.twig', ["categorias"=>$categorias,"admin"=>$_SESSION['admin']]);
         }else{
             header("Location: index.php?controller=producto");
         }
