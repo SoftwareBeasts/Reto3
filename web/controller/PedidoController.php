@@ -31,7 +31,8 @@ class PedidoController extends Controller
         parent::twigView($page, $data);
     }
 
-    public function defaultCase(){
+    public function defaultCase()
+    {
         $pedido = new Pedido($this->conexion);
         $pedidos = $pedido->getAll();
 
@@ -95,7 +96,8 @@ class PedidoController extends Controller
         setcookie('cart', serialize($cart), time()+604800);
     }
 
-    public function addCart(){
+    public function addCart()
+    {
         if(!isset($_COOKIE['cart']))
         {
             $cart = ['0' => ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']]];
@@ -177,10 +179,23 @@ class PedidoController extends Controller
             $this->twigView('cartView.php.twig');
     }
 
-    public function arrayOrder($cart){
+    public function arrayOrder($cart)
+    {
         usort($cart, function($a, $b) {
             return $a['id'] <=> $b['id'];
         });
         return $cart;
+    }
+
+    public function cartCheckout()
+    {
+        $cliente = new Cliente($this->conexion);
+        $cliente->setNombre($_POST['nombre']);
+        $cliente->setEmail($_POST['email']);
+        $cliente->setTelefono($_POST['telefono']);
+        $cliente->save();
+
+        $pedido = new Pedido($this->conexion);
+
     }
 }

@@ -2,7 +2,8 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 /web/.idea/
+/web/vendor/
 .DS_Store
 .idea
 reto3-server.ppk
-/web/vendor/
+api_key_and_server_pull.txt
