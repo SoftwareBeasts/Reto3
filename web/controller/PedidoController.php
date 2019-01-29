@@ -142,18 +142,13 @@ class PedidoController extends Controller
     {
         $last = false;
         $cart = $this->getCart();
-        if(count($cart) == 1)
-        {
+        if (count($cart) == 1) {
             unset($_COOKIE['cart']);
             setcookie('cart', null, -1, '/');
             $last = true;
-        }
-        else
-        {
-            foreach ($cart as $key => $product)
-            {
-                if($product['id'] == $_POST['id'])
-                {
+        } else {
+            foreach ($cart as $key => $product) {
+                if ($product['id'] == $_POST['id']) {
                     unset($cart[$key]);
                     break;
                 }
@@ -161,6 +156,7 @@ class PedidoController extends Controller
             $this->setCart($cart);
         }
         die($last);
+    }
 
     public function confirmarPedido($id)
     {
