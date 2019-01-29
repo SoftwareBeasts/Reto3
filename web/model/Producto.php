@@ -11,8 +11,15 @@ class Producto {
     private $pedidoMin;
     private $categoria;
 
-    public function __construct($conexion) {
+    public function __construct($conexion, $id=null, $nombre=null, $descripcion=null, $precio=null, $rutaImg=null, $pedidoMin=null, $categoria=null) {
         $this->conexion = $conexion;
+        if (isset($id)){$this->id = $id;}
+        if (isset($nombre)){$this->nombre = $nombre;}
+        if (isset($descripcion)){$this->descripcion = $descripcion;}
+        if (isset($precio)){$this->precio = $precio;}
+        if (isset($rutaImg)){$this->rutaImg = $rutaImg;}
+        if (isset($pedidoMin)){$this->pedidoMin = $pedidoMin;}
+        if (isset($categoria)){$this->categoria = $categoria;}
     }
 
     /**
