@@ -29,7 +29,7 @@ function addCart(buttonThis) {
 
     $.ajax({
         type: "POST",
-        url: "./index.php?controller=producto&action=addCart",
+        url: "./index.php?controller=pedido&action=addCart",
         data: {id : productId, cantidad : cuantity}
     }).done(function () {
         addCartNumber(cuantity);

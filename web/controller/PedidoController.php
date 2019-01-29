@@ -95,6 +95,73 @@ class PedidoController extends Controller
         }
     }
 
+
+    public function getCart()
+    {
+        return unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
+    }
+
+    public function setCart($cart)
+    {
+        setcookie('cart', serialize($cart), time()+604800);
+    }
+
+    public function addCart(){
+        if(!isset($_COOKIE['cart']))
+        {
+            $cart = ['0' => ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']]];
+        }
+        else
+        {
+            $cart = $this->getCart();
+            $saved = false;
+            //Mirar si ya esta guradado ese producto y sumarle la cantidad
+            for($x = 0; $x<count($cart); $x++)
+            {
+                if($cart[$x]['id'] == $_POST['id'])
+                {
+                    $cart[$x]['cantidad'] += $_POST['cantidad'];
+                    $saved = true;
+                    $x = count($cart);
+                }
+            }
+            //Si anteriormente se ha actualizado la cantidad no se guarda de nuevo
+            if(!$saved)
+            {
+                end($cart);
+                $key = intval(key($cart))+1;
+                reset($cart);
+                $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
+            }
+        }
+        $this->setCart($cart);
+        die();
+    }
+
+    public function deleteCart()
+    {
+        $last = false;
+        $cart = $this->getCart();
+        if(count($cart) == 1)
+        {
+            unset($_COOKIE['cart']);
+            setcookie('cart', null, -1, '/');
+            $last = true;
+        }
+        else
+        {
+            foreach ($cart as $key => $product)
+            {
+                if($product['id'] == $_POST['id'])
+                {
+                    unset($cart[$key]);
+                    break;
+                }
+            }
+            $this->setCart($cart);
+        }
+        die($last);
+
     public function confirmarPedido($id)
     {
         if(isset($_POST['id'])){
@@ -114,6 +181,7 @@ class PedidoController extends Controller
         $pedido = $p->deleteByID($id);
 //        header('Location: /index.php?controller=pedido');
         die();
+
     }
 
     public function mostrarCarrito()
@@ -135,9 +203,10 @@ class PedidoController extends Controller
             }
             $producto = new Producto($this->conexion);
             $productos = $producto->getByIDs($productosIds);
-
             $this->twigView('cartView.php.twig', ["productos" => $productos, "productosCuantity" => $productosCuantity]);
         }
+        else
+            $this->twigView('cartView.php.twig');
     }
 
     public function arrayOrder($cart){

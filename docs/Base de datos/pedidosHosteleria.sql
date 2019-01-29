@@ -47,10 +47,10 @@ DROP TABLE IF EXISTS `pedidosHosteleria`.`producto` ;
 
 CREATE TABLE IF NOT EXISTS `pedidosHosteleria`.`producto` (
   `idproducto` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(100) NOT NULL,
-  `descripcion` VARCHAR(200) NOT NULL,
+  `nombre` VARCHAR(256) NOT NULL,
+  `descripcion` VARCHAR(256) NOT NULL,
   `precio` DECIMAL(6) NOT NULL,
-  `rutaImg` VARCHAR(150) NOT NULL,
+  `rutaImg` VARCHAR(256) NOT NULL,
   `pedidoMin` INT NULL DEFAULT 1,
   `categoria_idcategoria` INT NOT NULL,
   PRIMARY KEY (`idproducto`),
@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `pedidosHosteleria`.`producto` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `pedidosHosteleria`.`cliente`
 -- -----------------------------------------------------
@@ -69,12 +68,11 @@ DROP TABLE IF EXISTS `pedidosHosteleria`.`cliente` ;
 
 CREATE TABLE IF NOT EXISTS `pedidosHosteleria`.`cliente` (
   `idcliente` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(100) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
+  `nombre` VARCHAR(256) NOT NULL,
+  `email` VARCHAR(256) NOT NULL,
   `telefono` INT(9) NOT NULL,
   PRIMARY KEY (`idcliente`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `pedidosHosteleria`.`pedido`
@@ -114,10 +112,9 @@ CREATE TABLE IF NOT EXISTS `pedidosHosteleria`.`pedido_has_producto` (
   CONSTRAINT `fk_pedido_has_producto_producto1`
     FOREIGN KEY (`producto_idproducto`)
     REFERENCES `pedidosHosteleria`.`producto` (`idproducto`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

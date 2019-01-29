@@ -3,9 +3,9 @@ session_start();
 if (isset($_GET['t'])){
     $_SESSION['admin']=true;
 }
-if (isset ($_SESSION['admin'])&&!isset($_GET['controlCheck'])){
+if (isset ($_SESSION['admin'])&&!isset($_GET['c'])){
    $admin = $_SESSION['admin'];
-    header("Location: index.php?controller=producto&action=adminCatalogoView&controlCheck=true");
+    header("Location: index.php?controller=producto&action=adminCatalogoView&c=true");
 }
 
 if(isset($_GET['controller'])){
