@@ -33,6 +33,14 @@ $(document).ready(function () {
     // Bind event listener
     $(window).resize(checkWidth);
 });
+$(".productoContainer").on({
+    mouseenter: function () {
+        $(this).addClass("shadow-lg");
+    },
+    mouseleave: function () {
+        $(this).removeClass("shadow-lg");
+    }
+});
 /*Funcion que carga los datos de la categoria que se desea editar*/
 $('#cambiarCategoriaModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
