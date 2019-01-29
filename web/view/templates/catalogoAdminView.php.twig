@@ -1,0 +1,254 @@
+{% extends "adminbase.html.twig" %}
+
+{% block titulo %}Cat&aacute;logo{% endblock %}
+
+{% block navbarContent %}
+    <a href="index.php?controller=admin&action=pedidos" class="nav-link">Pedidos</a>
+    <a href="index.php?controller=admin&action=logout" class="nav-link">Salir</a>
+{% endblock %}
+
+{% block carousel %}{% endblock %}
+
+{% block contentIzq %}
+    <div class="container-fluid mt-2 contentContainer">
+        <div class="card">
+            <div class="card-body">
+                <a href="#" class="btn btn-primary addButton addCat" data-toggle="modal" data-target="#annadirCategoriaModal" >A&ntilde;adir categoría</a>
+            </div>
+            {#Modal Box para añadir categorias#}
+            <div class="modal fade" id="annadirCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="annadirCategoriaModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="annadirCategoriaModalLabel">Nueva Categor&iacute;a</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="index.php?controller=categoria&action=annadirCategoria" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="modalFormNombreCat">Nombre de la nueva categor&iacute;a</label>
+                                <input type="text" class="form-control" placeholder="Nombre" name="nombre" id="modalFormNombreCat">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#Generador de botones de categorias#}
+        {% for categoria in categorias %}
+            <div class="card" id="cardCategoria{{ categoria.idcategoria }}">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="#" class="btn btn-warning d-none d-md-inline-block editarCategoria" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Editar</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+        {#Modal Box para editar y borrar categorias#}
+        <div class="modal fade" id="cambiarCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="cambiarCategoriaModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cambiarCategoriaModalLabel">Cambia el nombre</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="index.php?controller=categoria&action=updateCategoria" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="modalFormNombreCat">Nuevo nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="modalFormNombreCat">
+                                <input type="hidden" name="id" id="modalFormIdCat">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="modalDeleteCatBtn" type="button" class="btn btn-danger">Borrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block contentDer %}
+    <div class="container-fluid mt-2 contentContainer">
+        <div class="card">
+            <div class="card-body">
+                <a href="#" class="btn btn-primary addButton addProd" data-toggle="modal" data-target="#annadirProductoModal">A&ntilde;adir producto</a>
+            </div>
+            {#Modal Bos para añadir productos#}
+            <div class="modal fade" id="annadirProductoModal" tabindex="-1" role="dialog" aria-labelledby="annadirProductoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="annadirProductoModalLabel">Nuevo producto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="index.php?controller=producto&action=annadirProducto" method="post" enctype='multipart/form-data' >
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="modalFormNombreProd">Nombre</label>
+                                    <input type="text" class="form-control" placeholder="Nombre" name="nombre" id="modalFormNombreProd" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalFormDescProd">Descripcion(Unidades/Racion, Precio por unidad/racion)</label>
+                                    <input type="text" class="form-control" placeholder="Descripcion" name="descripcion" id="modalFormDescProd" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalFormPrecioProd">Precio</label>
+                                    <input type="number" class="form-control" placeholder="Precio" name="precio" id="modalFormPrecioProd" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalFormImgProd">Imagen</label>
+                                    <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalFormPedMinProd">Pedido Minimo</label>
+                                    <input type="number" class="form-control" placeholder="Pedido Minimo" name="pedidoMin" id="modalFormPedMinProd" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modalFormCatProd">Categoria</label>
+                                    <select class="form-control" name="categoria" id="modalFormCatProd">
+                                        {% for categoria in categorias %}
+                                            <option value="{{ categoria.idcategoria }}">{{ categoria.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#Generador de productos agrupados por categorias#}
+        {% for categoria in categorias %}
+            <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
+                {% for producto in categoria.productos %}
+                    <div class="col-12 col-md-4 mb-2 productoContainer">
+                        <figure class="figure">
+                            <img src="{% if producto.rutaImg == "#" %}./view/media/productImg/default_product.jpg{% else %}{{ producto.rutaImg }}{% endif %}" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
+                            <figcaption class="figure-caption">
+                                {{ producto.nombre }}
+                            </figcaption>
+                        </figure>
+                        <br>
+                        <div class="text-wrap badge badge-primary">{{ producto.descripcion }}</div>
+                        <div class="text-wrap badge badge-primary">{{ producto.precio }}€</div>
+                        <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
+                        <br><br>
+                        <div class="container-fluid" >
+                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#editarProdModal"
+                                data-prodnom="{{ producto.nombre }}" data-prodid="{{ producto.idproducto }}"
+                                data-proddesc="{{ producto.descripcion }}" data-prodprec="{{ producto.precio }}"
+                                data-prodimg="{{ producto.rutaImg }}" data-prodmin="{{ producto.pedidoMin }}"
+                                data-prodcat="{{ producto.categoria_idcategoria }}">Editar</a>
+                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#borrarProdModal" data-prodid="{{ producto.idproducto }}" >Borrar</a>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {#Modal Box para borrar productos#}
+        <div class="modal fade" id="borrarProdModal" tabindex="-1" role="dialog" aria-labelledby="borrarProdModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="borrarProdModalLabel">¿Est&aacute;s seguro de borrar este producto?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="index.php?controller=producto&action=deleteProducto" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="id" id="modalFormIdProdDel">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-primary">Si</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {#Modal Box para editar productos#}
+        <div class="modal fade" id="editarProdModal" tabindex="-1" role="dialog" aria-labelledby="editarProdModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarProdModalLabel">¿Qu&eacute; deseas cambiar?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="index.php?controller=producto&action=updateProducto" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="modalFormNombreProd">Nombre</label>
+                                <input type="text" class="form-control"  name="nombre" id="modalFormNombreProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormDescProd">Descripcion(Unidades/Racion, Precio por unidad/racion)</label>
+                                <input type="text" class="form-control"  name="descripcion" id="modalFormDescProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormPrecioProd">Precio</label>
+                                <input type="number" class="form-control"  name="precio" id="modalFormPrecioProd" required>
+                            </div>
+                            <div class="form-group">
+                                <img class="img" id="modalCurrImgProd" >
+                                <input type="hidden" name="imagenn" id="modalCurrImgrutProd">
+                                <input type="file" class="form-control-file" name="imagen" id="modalFormImgProd" >
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormPedMinProd">Pedido Minimo</label>
+                                <input type="number" class="form-control"  name="pedidoMin" id="modalFormPedMinProd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalFormCatProd">Categoria</label>
+                                <select class="form-control" name="categoria" id="modalFormCatProd">
+                                    {% for categoria in categorias %}
+                                        <option id="option{{ categoria.idcategoria }}" value="{{ categoria.idcategoria }}">{{ categoria.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" name="id" id="modalFormIdProd">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="./view/js/catalogoAdmin.js" type="text/javascript"></script>
+{% endblock %}
