@@ -7,8 +7,17 @@ class Administrador {
     private $nombre;
     private $pass;
 
-    public function __construct($conexion) {
+    public function __construct($conexion, $id=null, $nombre=null, $pass=null) {
         $this->conexion = $conexion;
+        if (isset($id)){$this->id = $id;}
+        if (isset($nombre)){$this->nombre = $nombre;}
+        if (isset($pass)){$this->pass = $pass;}
+//        $args = func_get_args();
+//        foreach( $args as $arg ){
+//            if ($arg ){
+//
+//            }
+//        }
     }
 
     /**

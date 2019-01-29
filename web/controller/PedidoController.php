@@ -135,6 +135,35 @@ class PedidoController extends Controller
         die($last);
     }
 
+    public function confirmarPedido($id)
+    {
+        if (parent::verifyAdmin()){
+            if(isset($_POST['id'])){
+                $id = $_POST['id'];
+            }
+            $pedido = new Pedido($this->conexion);
+            $pedido->updateEstado($id, 1);
+//        header('Location: /index.php?controller=pedido');
+            die();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+    public function rechazarPedido($id)
+    {
+        if (parent::verifyAdmin()){
+            if(isset($_POST['id'])){
+                $id = $_POST['id'];
+            }
+            $p = new Pedido($this->conexion);
+            $pedido = $p->deleteByID($id);
+//        header('Location: /index.php?controller=pedido');
+            die();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
     public function mostrarCarrito()
     {
         if(isset($_COOKIE['cart']))

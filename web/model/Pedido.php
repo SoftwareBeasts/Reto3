@@ -8,8 +8,12 @@ class Pedido {
     private $estado;
     private $precioTotal;
 
-    public function __construct($conexion) {
+    public function __construct($conexion, $id=null, $fecha=null, $estado=null, $precioTotal=null) {
         $this->conexion = $conexion;
+        if (isset($id)){$this->id = $id;}
+        if (isset($fecha)){$this->fecha = $fecha;}
+        if (isset($estado)){$this->estado = $estado;}
+        if (isset($precioTotal)){$this->precioTotal = $precioTotal;}
     }
 
     /**
