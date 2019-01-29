@@ -53,7 +53,10 @@ function requireFile($file) {
 
 function cargarControlador ($controller){
     if(isset($_GET['action'])){
-        $controller->run($_GET['action']);
+        if(isset($_GET['id']))
+            $controller->run($_GET['action'], $_GET['id']);
+        else
+            $controller->run($_GET['action']);
     }
     else
         $controller->run();

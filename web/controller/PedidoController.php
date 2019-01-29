@@ -32,26 +32,36 @@ class PedidoController extends Controller
     }
 
     public function defaultCase(){
-        $pedido = new Pedido($this->conexion);
-        $pedidos = $pedido->getAll();
 
-        $producto = new Producto($this->conexion);
-        $productos = $producto->getAll();
+    }
 
-        $pedidoProducto = new PedidoHasProducto($this->conexion);
-        $pedidoProductos = $pedidoProducto->getAll();
+    public function adminPedidosView()
+    {
+        if (parent::verifyAdmin()){
+            $pedido = new Pedido($this->conexion);
+            $pedidos = $pedido->getAll();
 
-        $cliente = new Cliente($this->conexion);
-        $clientes = $cliente->getAll();
+            $producto = new Producto($this->conexion);
+            $productos = $producto->getAll();
 
-        $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
+            $pedidoProducto = new PedidoHasProducto($this->conexion);
+            $pedidoProductos = $pedidoProducto->getAll();
 
-        $alldata = array();
-        $alldata['sinConfirmar'] = $this->sinConfirmar;
-        $alldata['Confirmados'] = $this->confirmados;
+            $cliente = new Cliente($this->conexion);
+            $clientes = $cliente->getAll();
+
+            $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
+
+            $alldata = array();
+            $alldata['sinConfirmar'] = $this->sinConfirmar;
+            $alldata['Confirmados'] = $this->confirmados;
 
 //        echo json_encode($alldata);
-        $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
+            $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
+        }else{
+            header("Location: index.php?controller=pedido&action=adminPedidosView");
+        }
+
     }
 
     public function formatData($pedidos,$productos,$clientes,$pedidoProductos)
@@ -84,6 +94,7 @@ class PedidoController extends Controller
             }
         }
     }
+
 
     public function getCart()
     {
@@ -150,6 +161,27 @@ class PedidoController extends Controller
             $this->setCart($cart);
         }
         die($last);
+
+    public function confirmarPedido($id)
+    {
+        if(isset($_POST['id'])){
+            $id = $_POST['id'];
+        }
+        $pedido = new Pedido($this->conexion);
+        $pedido->updateEstado($id, 1);
+//        header('Location: /index.php?controller=pedido');
+        die();
+    }
+    public function rechazarPedido($id)
+    {
+        if(isset($_POST['id'])){
+            $id = $_POST['id'];
+        }
+        $p = new Pedido($this->conexion);
+        $pedido = $p->deleteByID($id);
+//        header('Location: /index.php?controller=pedido');
+        die();
+
     }
 
     public function mostrarCarrito()
