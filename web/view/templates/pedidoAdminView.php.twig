@@ -1,0 +1,71 @@
+{% extends "adminbase.html.twig" %}
+
+{% block titulo %}
+    Gesti&oacute;n de pedidos
+{% endblock %}
+
+{% block navbarContent %} {% endblock %}
+{% block carousel %} {% endblock %}
+
+{% block contentIzq %}
+    <div class="container-fluid">
+        <button class="btn btn-primary w-100 botoncolapsar active" type="button" data-toggle="collapse" data-target="#sinConfirmar" aria-expanded="false" aria-controls="botonSinConfirmar" id="botonSinConfirmar">Pendientes</button>
+        <button class="btn btn-primary w-100 botoncolapsar" type="button" data-toggle="collapse" data-target="#Confirmados" aria-expanded="false" aria-controls="botonConfirmados" id="botonConfirmados">Confirmados</button>
+    </div>
+{% endblock %}
+
+{% block contentDer %}
+    <div class="container-fluid">
+        <div class="row collapse show colapsar" id="sinConfirmar">
+            {% for pedido in pedidos.sinConfirmar %}
+                    <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
+                        <div class="card w-100 pedidoCard" >
+                            <div class="card-body">
+                                <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
+                                <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
+                                <span class="badge badge-light mt-3 "><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
+                                <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                                <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
+                                <ul class="list-group list-group-flush mt-3 mb-3">
+                                {% for producto in pedido.productos %}
+                                    <li class="list-group-item"><span class="badge badge-primary badge-pill">{{  producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
+                                {% endfor %}
+                                </ul>
+                                <button class="btn btn-success btnAceptar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-check"></i> Aceptar</button>
+                                <button class="btn btn-danger btnBorrar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-trash"></i> Rechazar</button>
+                                {#<a href="index.php?controller=pedido&action=confirmarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>#}
+                                {#<a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>#}
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+        <div class="row collapse colapsar" id="confirmados">
+            {% for pedido in pedidos.Confirmados %}
+                <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
+                    <div class="card w-100 pedidoCard">
+                        <div class="card-body">
+                            <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
+                            <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
+                            <span class="badge badge-light mt-3"><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
+                            <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                            <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
+                            <ul class="list-group list-group-flush mt-3 mb-3">
+                            {% for producto in pedido.productos %}
+                                <li class="list-group-item"><span class="badge badge-primary badge-pill">{{ producto.cantidad }}</span> <b>{{ producto.nombre }}</b></li>
+                            {% endfor %}
+                            </ul>
+                            <button class="btn btn-success btnBorrar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-check-double"></i> Finalizado</button>
+                            {#<a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnBorrar"><i class="fas fa-check-double"></i> Finalizado</a>#}
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="./view/js/pedido.js" type="text/javascript"></script>
+{% endblock %}
