@@ -10,11 +10,8 @@
   word-wrap: break-word;
   background-color: $card-bg;
   background-clip: border-box;
-  /*
   border: $card-border-width solid $card-border-color;
-  */
-  border-bottom: $card-border-width solid $card-border-color;
-
+  @include border-radius($card-border-radius);
 
   > hr {
     margin-right: 0;

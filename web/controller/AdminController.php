@@ -64,7 +64,7 @@ class AdminController extends Controller
 
     public function pedidos(){
         if (parent::verifyAdmin()){
-            /*Poner link que inicie la vista de pedidos*/
+            header("Location: index.php?controller=pedido&action=adminPedidosView&c=true");
         }else{
             header("Location: index.php?controller=producto");
         }
@@ -72,7 +72,7 @@ class AdminController extends Controller
 
     public function catalogo(){
         if (parent::verifyAdmin()){
-            header("Location: index.php?controller=producto&action=adminCatalogoView");
+            header("Location: index.php?controller=producto&action=adminCatalogoView&c=true");
         }else{
             header("Location: index.php?controller=producto");
         }
