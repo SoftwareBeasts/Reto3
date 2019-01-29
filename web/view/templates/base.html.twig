@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}{% endblock %}</title>
+    <link href="./view/bootstrap-4.2.1/scss/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="./view/css/custom.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="./view/media/favicon.png"/>
+</head>
+<body class="">
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <a class="navbar-brand" href="./index.php" style="outline: none;"><img src="./view/media/logo-hosteleria.png" height="45px" alt="Logo Egibide"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseContent"
+            aria-controls="collapseContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse w-100 dual-collapse2" id="collapseContent">
+        <div class="navbar-nav ml-auto mr-md-5 text-right">
+            {% block navbarContent %}{% endblock %}
+        </div>
+    </div>
+</nav>
+{% block carousel %}
+    <div class="offset-md-2 col-md-8 mt-2 mb-2 d-none d-md-block">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="3000">
+                    <img class="d-block w-100" src="./view/media/carrousel-1.jpg" height="400px" alt="1">
+                </div>
+                <div class="carousel-item" data-interval="3000">
+                    <img class="d-block w-100" src="./view/media/carrousel-2.jpg" height="400px" alt="2">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Siguiente</span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+<div id="content" class="col-12 offset-lg-2 col-lg-8 mt-2">
+    {% block content %}{% endblock %}
+</div>
+
+<footer class="page-footer bg-dark pb-4 text-white" style="bottom: 0px;">
+    <div class="container">
+        <ul class="list-unstyled list-inline text-center py-2">
+            <a href="https://www.egibide.org/escuela-de-hosteleria"><img></a>
+            <a href=""></a>
+        </ul>
+    </div>
+    <div class="footer-copyright text-center pt-3">Licencia MIT:
+        <a href="https://mdbootstrap.com/education/bootstrap/"> SoftwareBeasts</a>
+    </div>
+</footer>
+
+<script src="./view/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="./view/bootstrap-4.2.1/dist/js/bootstrap.js" type="text/javascript"></script>
+{% block script %}{% endblock %}
+
+</body>
+</html>

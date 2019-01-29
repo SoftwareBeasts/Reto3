@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block titulo %}{% endblock %}
+
+{% block navbarContent %}
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-5 mb-5">
+        <div class="col-4" id="columna-izq">
+            {% block contentIzq %}{% endblock %}
+        </div>
+        <div class="col-8" id="columna-der">
+            {% block contentDer %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
