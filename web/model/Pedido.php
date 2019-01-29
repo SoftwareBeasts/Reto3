@@ -129,15 +129,4 @@ class Pedido {
 
         return $update;
     }
-
-    public function updateEstado($id, $estado)
-    {
-        $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET estado = :estado WHERE idpedido = :id");
-        $update = $consulta->execute(array(
-            "id" => $id,
-            "estado" => $estado
-        ));
-
-        $this->conexion = null;
-    }
 }

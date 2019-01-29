@@ -10,6 +10,7 @@
 {% block carousel %}{% endblock %}
 
 {% block contentIzq %}
+    {{ dump(admin) }}
     <div class="container-fluid mt-2 contentContainer">
         <div class="card">
             <div class="card-body">
@@ -47,7 +48,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 text-left">
-                            <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                         </div>
                         <div class="col-6 text-right">
                             <a href="#" class="btn btn-warning d-none d-md-inline-block editarCategoria" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Editar</a>
@@ -146,7 +147,7 @@
         {% for categoria in categorias %}
             <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
-                    <div class="col-12 col-md-4 mb-2 productoContainer">
+                    <div class="col-12 col-md-4 mb-2">
                         <figure class="figure">
                             <img src="{% if producto.rutaImg == "#" %}./view/media/productImg/default_product.jpg{% else %}{{ producto.rutaImg }}{% endif %}" alt="{{ producto.nombre }}" class="rounded img-fluid" width="200px" height="200px">
                             <figcaption class="figure-caption">
