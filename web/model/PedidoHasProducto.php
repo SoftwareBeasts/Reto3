@@ -7,9 +7,11 @@ class PedidoHasProducto {
     private $idProducto;
     private $cantidad;
 
-    public function __construct($conexion)
-    {
+    public function __construct($conexion, $idPedido=null, $idProducto=null, $cantidad=null) {
         $this->conexion = $conexion;
+        if (isset($idPedido)){$this->idPedido = $idPedido;}
+        if (isset($idProducto)){$this->idProducto = $idProducto;}
+        if (isset($cantidad)){$this->cantidad = $cantidad;}
     }
 
     /**

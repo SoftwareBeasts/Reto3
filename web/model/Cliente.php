@@ -8,8 +8,12 @@ class Cliente {
     private $email;
     private $telefono;
 
-    public function __construct($conexion) {
+    public function __construct($conexion, $id=null, $nombre=null, $email=null, $telefono=null) {
         $this->conexion = $conexion;
+        if (isset($id)){$this->id = $id;}
+        if (isset($nombre)){$this->nombre = $nombre;}
+        if (isset($email)){$this->email = $email;}
+        if (isset($telefono)){$this->telefono = $telefono;}
     }
 
     /**
