@@ -19,61 +19,66 @@
     {% if productos is defined %}
         <table class="table">
             <thead>
-                <tr>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Acciones</th>
-                </tr>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acciones</th>
+            </tr>
             </thead>
             <tbody>
-                <form action="#" method="post">
-                    {% for clave, producto in productos %}
-                    <tr>
-                        <th scope="row">{{ producto.nombre }}</th>
-                        <td><input class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
-                        <td class="precios">{{ producto.precio }}€</td>
-                        <td><button type="button" class="btn btn-danger eliminar" value="{{ producto.idproducto }}">Eliminar</button> </td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <th scope="row">Precio Total:</th>
-                        <td id="precioTotal"></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr rowspan="3">
-                        <th colspan="4">
-                            <div class="form-group">
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="fecha">Fecha de Recogida</label>
-                                        <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Fecha" required>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="telefono">Telefono</label>
-                                        <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required>
-                                    </div>
-                                </div>
-                                <div class="form-row mt-2 text-center">
-                                    <div class="col">
-                                        <button class="btn btn-success" type="submit">Enviar</button>
-                                    </div>
+            {% for clave, producto in productos %}
+                <tr>
+                    <th scope="row">{{ producto.nombre }}</th>
+                    <td><input class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
+                    <td class="precios">{{ producto.precio }}€</td>
+                    <td><button type="button" class="btn btn-danger eliminar" value="{{ producto.idproducto }}">Eliminar</button> </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th scope="row">Precio Total:</th>
+                <td id="precioTotal"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr rowspan="3">
+                <th colspan="4">
+                    <div class="col-md-7 offset-md-2">
+                        <form method="post" action="./index.html?controller=pedido&action=">
+                            <div class="form-group row">
+                                <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="nombre" name="nombre">
                                 </div>
                             </div>
-                        </th>
-                    </tr>
-                </form>
+                            <div class="form-group row">
+                                <label for="fecha" class="col-sm-3 col-form-label">Fecha de recogida</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" name="fecha" id="fecha">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="telefono" class="col-sm-3 col-form-label">Teléfono</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="telefono">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="textarea" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                    <input type="submit" value="Terminar pedido" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </th>
+            </tr>
             </tbody>
         </table>
     {% else %}
