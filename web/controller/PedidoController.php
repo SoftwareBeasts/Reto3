@@ -31,37 +31,9 @@ class PedidoController extends Controller
         parent::twigView($page, $data);
     }
 
-<<<<<<< HEAD
     public function defaultCase()
     {
-        $pedido = new Pedido($this->conexion);
-        $pedidos = $pedido->getAll();
-=======
-    public function defaultCase(){
-<<<<<<< HEAD
->>>>>>> 9dfaffb6c69db426a76dd3193c9eb4f89d3a15b7
-=======
-        $pedido = new Pedido($this->conexion);
-        $pedidos = $pedido->getAll();
->>>>>>> ada8f87bb799381f27b4ca1102f0c722604f2a4d
 
-        $producto = new Producto($this->conexion);
-        $productos = $producto->getAll();
-
-        $pedidoProducto = new PedidoHasProducto($this->conexion);
-        $pedidoProductos = $pedidoProducto->getAll();
-
-        $cliente = new Cliente($this->conexion);
-        $clientes = $cliente->getAll();
-
-        $this->formatData($pedidos,$productos,$clientes,$pedidoProductos);
-
-        $alldata = array();
-        $alldata['sinConfirmar'] = $this->sinConfirmar;
-        $alldata['Confirmados'] = $this->confirmados;
-
-//        echo json_encode($alldata);
-        $this->twigView('pedidoAdminView.php.twig', ["pedidos"=>$alldata]);
     }
 
     public function formatData($pedidos,$productos,$clientes,$pedidoProductos)
