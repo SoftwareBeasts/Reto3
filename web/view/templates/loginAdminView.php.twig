@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block titulo %}Login Administrador{% endblock %}
+
+{% block navbarContent %}
+
+{% endblock %}
+
+{% block carousel %}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mt-md-5">
+            <div class="col-12 col-md-4 offset-md-4">
+                <form action="index.php?controller=admin&action=login" method="post" >
+                    <div class="form-group">
+                        <label for="formusuario">Usuario</label>
+                        <input type="text" class="form-control" name="usuario" id="formusuario" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="formpassword">Contraseña</label>
+                        <input type="password" class="form-control" name="password" id="formpassword">
+                    </div>
+                    {% if falloLogin is defined %}
+                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                            <strong>Error</strong> El usuario o la contraseña son incorrectos
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-success" id="formacceder" value="acceder">Acceder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
