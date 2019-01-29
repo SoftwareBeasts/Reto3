@@ -1,20 +1,10 @@
 $(document).ready(function () {
-    $("#botonSinConfirmar").on("click", function () {
-        $(this).toggleClass("active");
-        $(this).toggleClass("border-info");
-        $("#botonConfirmados").toggleClass("active");
-        $("#botonConfirmados").toggleClass("border-info");
-        $("#sinConfirmar").collapse("toggle");
-        $("#confirmados").collapse("toggle");
+    $(".botoncolapsar").on("click", function () {
+        $('.botoncolapsar').toggleClass("active");
+        $('.active').focus();
+        $('.colapsar').collapse("toggle");
     });
-    $("#botonConfirmados").on("click", function () {
-        $(this).toggleClass("active");
-        $(this).toggleClass("border-info");
-        $("#botonSinConfirmar").toggleClass("active");
-        $("#botonSinConfirmar").toggleClass("border-info");
-        $("#sinConfirmar").collapse("toggle");
-        $("#confirmados").collapse("toggle");
-    });
+
     $(".pedidoCard").on({
         mouseenter: function () {
             $(this).addClass("shadow-lg");
@@ -22,5 +12,29 @@ $(document).ready(function () {
         mouseleave: function () {
             $(this).removeClass("shadow-lg");
         }
+    });
+
+    $(".btnAceptar").on("click", function () {
+        let id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "./index.php?controller=pedido&action=confirmarPedido",
+            data: {id : id}
+        }).done(function () {
+            // alert("confirmado");
+            location.reload();
+        });
+    });
+
+    $('.btnBorrar').on('click', function () {
+        let id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "./index.php?controller=pedido&action=rechazarPedido",
+            data: {id : id}
+        }).done(function () {
+            // alert("rechazado");
+            location.reload();
+        });
     });
 });
