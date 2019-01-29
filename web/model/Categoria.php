@@ -6,8 +6,10 @@ class Categoria {
     private $id;
     private $nombre;
 
-    public function __construct($conexion) {
+    public function __construct($conexion, $id=null, $nombre=null) {
         $this->conexion = $conexion;
+        if (isset($id)){$this->id = $id;}
+        if (isset($nombre)){$this->nombre = $nombre;}
     }
 
     /**
