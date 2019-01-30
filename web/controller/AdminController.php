@@ -45,7 +45,8 @@ class AdminController extends Controller
         $pass = $_POST['password'];
 
         $admin = new Administrador($this->conexion);
-        $adminuser = $admin->getByNombre($user);
+        $admin->setNombre($user);
+        $adminuser = $admin->getByNombre();
 
         if ($pass != $adminuser['pass']){
             $this->twigView('loginAdminView.php.twig',['falloLogin'=>true]);
