@@ -166,20 +166,33 @@ class PedidoController extends Controller
             }
             $pedido = new Pedido($this->conexion);
             $pedido->updateEstado($id, 1);
+
+            $pedido = new Pedido($this->conexion);
+            $pedido->getByID($id);
+            $cliente =  new Cliente();
+            $cliente->getByID($pedido['cliente_idcliente']);
+
+            require_once __DIR__ . '/../config/plantillasemail.php';
+
+            $this->enviarEmail($cliente['email'],constant("ASUNTO_CONFIRMADOS"),constant("CUERPO_CONFIRMADOS"));
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
             header("Location: index.php?controller=producto");
         }
     }
-    public function rechazarPedido($id)
+
+    public function rechazarFinalizarPedido($idPedido)
     {
         if (parent::verifyAdmin()){
             if(isset($_POST['id'])){
-                $id = $_POST['id'];
+                $idPedido = $_POST['id'];
             }
+            $a = new PedidoHasProducto($this->conexion);
+            $articulos = $a->deleteByID($idPedido);
+
             $p = new Pedido($this->conexion);
-            $pedido = $p->deleteByID($id);
+            $pedido = $p->deleteByID($idPedido);
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
