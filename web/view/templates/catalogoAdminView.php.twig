@@ -43,11 +43,11 @@
         </div>
         {#Generador de botones de categorias#}
         {% for categoria in categorias %}
-            <div class="card" id="cardCategoria{{ categoria.idcategoria }}">
+            <div class="card categoria-not-selected categoria-selector" id="cardCategoria{{ categoria.idcategoria }}">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 text-left">
-                            <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
+                            <button class="btn btn-link text-left categoria-toggler" type="button" data-toggle="collapse" data-target="#categoria{{ categoria.idcategoria }}" aria-expanded="false" aria-controls="categoria{{ categoria.idcategoria }}" >{{ categoria.nombre }}</button>
                         </div>
                         <div class="col-6 text-right">
                             <a href="#" class="btn btn-warning d-none d-md-inline-block editarCategoria" data-toggle="modal" data-target="#cambiarCategoriaModal" data-currid="{{ categoria.idcategoria }}" data-currname="{{ categoria.nombre }}">Editar</a>
@@ -89,8 +89,9 @@
 {% block contentDer %}
     <div class="container-fluid mt-2 contentContainer">
         <div class="card">
-            <div class="card-body">
-                <a href="#" class="btn btn-primary addButton addProd" data-toggle="modal" data-target="#annadirProductoModal">A&ntilde;adir producto</a>
+            <div class="card-body row">
+                    <a href="#" class="btn btn-primary addButton addProd mr-auto" data-toggle="modal" data-target="#annadirProductoModal">A&ntilde;adir producto</a>
+                    <h3 class="mr-3">Productos</h3>
             </div>
             {#Modal Bos para añadir productos#}
             <div class="modal fade" id="annadirProductoModal" tabindex="-1" role="dialog" aria-labelledby="annadirProductoModalLabel" aria-hidden="true">
@@ -147,7 +148,7 @@
         </div>
         {#Generador de productos agrupados por categorias#}
         {% for categoria in categorias %}
-            <div class="row collapse" id="categoria{{ categoria.idcategoria }}">
+            <div class="row collapse contenedor-collapse" id="categoria{{ categoria.idcategoria }}">
                 {% for producto in categoria.productos %}
                     <div class="col-12 col-md-4 mb-2 productoContainer">
                         <figure class="figure">
