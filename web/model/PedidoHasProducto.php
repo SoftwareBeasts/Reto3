@@ -72,8 +72,20 @@ class PedidoHasProducto {
         return $resultados;
     }
 
+    public function getByPedido($idPedido){
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE pedido_idpedido = :idPedido");
+        $res = $consulta->execute(array(
+            "idPedido" => $idPedido
+        ));
+        $resultados = $consulta->fetchAll();
+
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
     public function getByIDs($idPedido, $idProducto){
-        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idpedido = :idPedido AND idProducto = :idProducto");
+        $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE pedido_idpedido = :idPedido AND producto_idProducto = :idProducto");
         $res = $consulta->execute(array(
             "idPedido" => $idPedido,
             "idProducto" => $idProducto
@@ -86,7 +98,7 @@ class PedidoHasProducto {
     }
 
     public function save($idPedido, $idProducto, $cantidad){
-        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (idPedido, idProducto, cantidad) VALUES (:idPedido, :idProducto, :cantidad)");
+        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (pedido_idpedido, producto_idProducto, cantidad) VALUES (:idPedido, :idProducto, :cantidad)");
         $save = $consulta->execute(array(
             "idPedido" => $idPedido,
             "idProducto" => $idProducto,
@@ -97,11 +109,10 @@ class PedidoHasProducto {
         return $save;
     }
 
-    public function deleteByID($idPedido, $idProducto){
-        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idpedido = :idPedido AND idProducto = :idProducto");
+    public function deleteByID($idPedido){
+        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE pedido_idpedido = :idPedido");
         $del = $consulta->execute(array(
-            "idPedido" => $idPedido,
-            "idProducto" => $idProducto
+            "idPedido" => $idPedido
         ));
         $this->conexion = null;
 
