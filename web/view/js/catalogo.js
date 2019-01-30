@@ -2,24 +2,23 @@ $(document).ready(function () {
     $(".addCart").on("click", function () {
         addCart(this);
     });
-    $(".desplegable").on("click",function(){
-        changeCollapsedIcon(this);
-    })
 });
 
-function changeCollapsedIcon(buttonThis){
-    $(buttonThis).find("div>div:last").html('<i class="fas fa-angle-down"></i>');
-    $(buttonThis).on("click",function(){
-        changeExtendedIcon(this);
-    })
-}
-
-function changeExtendedIcon(buttonThis) {
-    $(buttonThis).find("div>div:last").html('<i class="fas fa-angle-right"></i>');
-    $(buttonThis).on("click",function(){
-        changeCollapsedIcon(this);
-    })
-}
+/*Cambian el icono de los desplegables de categoria*/
+$(".contenidoCategoria").on("show.bs.collapse",function(){
+    let activador = $(".desplegable[data-target='#"+$(this).attr("id")+"']");
+    let target = $(activador).find("div>div:last");
+    $(target).html('<i class="fas fa-angle-down"></i>');
+    $(activador).parent().parent().removeClass("categoria-closed");
+    $(activador).parent().parent().addClass("categoria-open");
+})
+$(".contenidoCategoria").on("hide.bs.collapse",function(){
+    let activador = $(".desplegable[data-target='#"+$(this).attr("id")+"']");
+    let target = $(activador).find("div>div:last");
+    $(target).html('<i class="fas fa-angle-right"></i>');
+    $(activador).parent().parent().removeClass("categoria-open");
+    $(activador).parent().parent().addClass("categoria-closed");
+})
 
 
 function addCart(buttonThis) {
