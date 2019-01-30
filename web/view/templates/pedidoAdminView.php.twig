@@ -4,7 +4,10 @@
     Gesti&oacute;n de pedidos
 {% endblock %}
 
-{% block navbarContent %} {% endblock %}
+{% block navbarContent %}
+    <a href="index.php?controller=admin&action=productos" class="nav-link">Productos</a>
+    <a href="index.php?controller=admin&action=logout" class="nav-link">Salir</a>
+{% endblock %}
 {% block carousel %} {% endblock %}
 
 {% block contentIzq %}
@@ -18,7 +21,7 @@
     <div class="container-fluid">
         <div class="row collapse show colapsar" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
-                    <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
+                    <div class="col-12 col-xl-6" id="{{ pedido.idpedido }}">
                         <div class="card w-100 pedidoCard" >
                             <div class="card-body">
                                 <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
@@ -42,7 +45,7 @@
         </div>
         <div class="row collapse colapsar" id="confirmados">
             {% for pedido in pedidos.Confirmados %}
-                <div class="col-12 col-lg-4" id="{{ pedido.idpedido }}">
+                <div class="col-12 col-xl-6" id="{{ pedido.idpedido }}">
                     <div class="card w-100 pedidoCard">
                         <div class="card-body">
                             <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
