@@ -1,3 +1,5 @@
+var toastCounter = 0;
+
 $(document).ready(function () {
     $(".addCart").on("click", function () {
         addCart(this);
@@ -25,6 +27,7 @@ function addCart(buttonThis) {
     let button = $(buttonThis);
     let productId = button.val();
     let cuantity = $('#spinner'+productId).val();
+    $(".toast-container").html($(".toast-container").html()+"");
 
     $.ajax({
         type: "POST",
@@ -32,7 +35,7 @@ function addCart(buttonThis) {
         data: {id : productId, cantidad : cuantity}
     }).done(function () {
         addCartNumber(cuantity);
-        showMessage(generateMessage(cuantity));
+        showMessage(generateMessage(cuantity),);
     });
 }
 
@@ -50,13 +53,36 @@ function generateMessage(cuantity) {
     }
     return message;
 }
-
+$(".toast").on("hide.bs.toast",function(){
+    let tempId = $(this).parent().id();
+    console.log("hey");
+    $(this).parent().parent().remove("#"+tempId);
+})
 function showMessage(message) {
-    $("#toastDisplay").removeClass("d-none");
-    $("#alertMsg").html(message);
-    $("#alertBotstrap").toast('show');
+    let uniqueId = toastCounter
+    $(".toast-container").html($(".toast-container").html()+"<div id=\""+uniqueId+"\" aria-live=\"polite\" aria-atomic=\"true\" class=\"p-4\" style=\"\">\n" +
+        "        <div  class=\"toast alertBotstrap\" data-delay=\"3000\">\n" +
+        "            <div class=\"toast-header\">\n" +
+        "                <img src=\"./view/media/favicon.png\" class=\"rounded mr-2\" alt=\"...\">\n" +
+        "                <strong class=\"mr-auto\">Escuela de Hostelería</strong>\n" +
+        "                <small>ahora mismo</small>\n" +
+        "                <button type=\"button\" class=\"ml-2 mb-1 close\" data-dismiss=\"toast\" aria-label=\"Close\">\n" +
+        "                    <span aria-hidden=\"true\">&times;</span>\n" +
+        "                </button>\n" +
+        "            </div>\n" +
+        "            <div  class=\"toast-body text-center alertMsg\">\n" +
+        "            </div>\n" +
+        "        </div>\n" +
+        "    </div>");
+    let ultimoToast = "#"+uniqueId;
+    $(ultimoToast+" .alertMsg").html(message);
+    $(ultimoToast+" .alertBotstrap").toast('show');
     setTimeout(function () {
-        $("#toastDisplay").addClass("d-none");
+        $(ultimoToast+" .alertBotstrap").toast("hide");
+        let tempId = uniqueId;
+        console.log(uniqueId);
+        $(ultimoToast).parent().remove("#"+tempId);
     }, 3500)
+    toastCounter++;
 }
 

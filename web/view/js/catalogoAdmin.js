@@ -4,6 +4,9 @@ $(document).ready(function () {
     // Optimalisation: Store the references outside the event handler:
     var $window = $(window);
     var $pane = $('#pane1');
+    /**
+     * Comprueba el tamaño de la pantalla y altera diferentes elementos
+     */
     function checkWidth() {
         var windowsize = $window.width();
         if (windowsize < 1100) {
@@ -14,6 +17,8 @@ $(document).ready(function () {
         else {
             $('.editarCategoria').html("Editar");
         }
+        /*Si el tamaño de la ventana es menor que 590, cambia el contenido de los
+        * botones Editar por un icono*/
         if (windowsize < 590) {
             $('.addButton').html('<i class="fas fa-plus"></i>');
         }
@@ -21,6 +26,8 @@ $(document).ready(function () {
             $('.addCat').html('A&ntilde;adir Categor&iacute;a');
             $('.addProd').html('A&ntilde;adir Producto');
         }
+        /*Si el tamaño de la ventana es menor que 576, elimina la clase container-fluid
+        * de los contenedores de contenido*/
         if (windowsize < 576) {
             $('.contentContainer').removeClass("container-fluid");
         }
@@ -97,6 +104,11 @@ $(document).ready(function () {
         confirmarDelete(this);
     });
 });
+/**
+ * Cambia el contenido del boton que se le pase como parametro y le añade al evento
+ * onclick la function deleteCategoria.
+ * @param button El boton que active la funcion
+ */
 function confirmarDelete(button) {
     $(button).html("Estas Seguro?");
     $(button).prop("onclick", null).off("click");
@@ -104,6 +116,11 @@ function confirmarDelete(button) {
         deleteCategoria(this);
     });
 }
+/**
+ * Elimina la categoria correspondiente al boton que se le pase como parametro
+ * mediante una llamada ajax
+ * @param buttonThis
+ */
 function deleteCategoria(buttonThis) {
     var button = $(buttonThis);
     var catId = button.val();

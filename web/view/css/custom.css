@@ -7339,6 +7339,7 @@ footer {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
 
 /*Custom Classes*/
+/*Imagenes*/
 /*Categorias*/
 .categoria-selector {
   transition: 0.5s; }
@@ -7356,5 +7357,11 @@ footer {
   background-color: transparent; }
 
 /*Contenedores especiales*/
+.toast-container {
+  z-index: 1021;
+  position: fixed;
+  top: 0;
+  right: 0;
+  min-width: 350px; }
 
 /*# sourceMappingURL=custom.css.map */
