@@ -15,11 +15,11 @@ $(document).ready(function () {
     });
 
     $(".btnAceptar").on("click", function () {
-        let id = $(this).val();
+        let idPedido = $(this).val();
         $.ajax({
             type: "POST",
             url: "./index.php?controller=pedido&action=confirmarPedido",
-            data: {id : id}
+            data: {id : idPedido}
         }).done(function () {
             // alert("confirmado");
             location.reload();
@@ -27,11 +27,11 @@ $(document).ready(function () {
     });
 
     $('.btnBorrar').on('click', function () {
-        let id = $(this).val();
+        let idPedido = $(this).val();
         $.ajax({
             type: "POST",
-            url: "./index.php?controller=pedido&action=rechazarPedido",
-            data: {id : id}
+            url: "./index.php?controller=pedido&action=rechazarFinalizarPedido",
+            data: {id : idPedido}
         }).done(function () {
             // alert("rechazado");
             location.reload();
