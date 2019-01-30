@@ -33,6 +33,7 @@ $(document).ready(function () {
     // Bind event listener
     $(window).resize(checkWidth);
 });
+/*Añade una sombra a los contenedores del producto al pasar el raton por encima*/
 $(".productoContainer").on({
     mouseenter: function () {
         $(this).addClass("shadow-lg");
@@ -40,6 +41,19 @@ $(".productoContainer").on({
     mouseleave: function () {
         $(this).removeClass("shadow-lg");
     }
+});
+/*Cambia el color de fondo de los controlles de las categorias al al clickar*/
+$(".contenedor-collapse").on("show.bs.collapse", function () {
+    var activador = $(".categoria-toggler[data-target='#" + $(this).attr("id") + "']");
+    var carta = activador.parent().parent().parent().parent();
+    carta.removeClass("categoria-not-selected");
+    carta.addClass("categoria-selected");
+});
+$(".contenedor-collapse").on("hide.bs.collapse", function () {
+    var activador = $(".categoria-toggler[data-target='#" + $(this).attr("id") + "']");
+    var carta = activador.parent().parent().parent().parent();
+    carta.removeClass("categoria-selected");
+    carta.addClass("categoria-not-selected");
 });
 /*Funcion que carga los datos de la categoria que se desea editar*/
 $('#cambiarCategoriaModal').on('show.bs.modal', function (event) {
