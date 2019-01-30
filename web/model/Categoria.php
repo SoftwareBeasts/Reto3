@@ -50,10 +50,10 @@ class Categoria {
         return $resultados;
     }
 
-    public function getByID($id){
+    public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idcategoria = :id");
         $res = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $resultados = $consulta->fetch();
 
@@ -76,16 +76,6 @@ class Categoria {
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idcategoria = :id");
         $del = $consulta->execute(array(
             "id" => $this->id
-        ));
-        $this->conexion = null;
-
-        return $del;
-    }
-
-    public function deleteByID($id){
-        $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idcategoria = :id");
-        $del = $consulta->execute(array(
-            "id" => $id
         ));
         $this->conexion = null;
 

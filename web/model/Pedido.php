@@ -82,10 +82,10 @@ class Pedido {
         return $resultados;
     }
 
-    public function getByID($id){
+    public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idpedido = :id");
         $res = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $resultados = $consulta->fetch();
 
@@ -106,10 +106,10 @@ class Pedido {
         return $save;
     }
 
-    public function deleteByID($id){
+    public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idpedido = :id");
         $del = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $this->conexion = null;
 
@@ -130,12 +130,12 @@ class Pedido {
         return $update;
     }
 
-    public function updateEstado($id, $estado)
+    public function updateEstado()
     {
         $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET estado = :estado WHERE idpedido = :id");
         $update = $consulta->execute(array(
-            "id" => $id,
-            "estado" => $estado
+            "id" => $this->id,
+            "estado" => $this->estado
         ));
 
         $this->conexion = null;
