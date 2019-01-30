@@ -2,6 +2,9 @@ $(document).ready(function () {
     $(".eliminar").on("click", function () {
         deleteProduct(this);
     });
+    $(".cuantity").on("change", function () {
+        refreshPrice(this);
+    })
 });
 
 function deleteProduct(thisButton) {
@@ -20,4 +23,15 @@ function deleteProduct(thisButton) {
         }
         $(thisButton).parent().parent().remove();
     });
+}
+
+function refreshPrice(thisInput) {
+    let precioUnitario = deleteLastCharacter($(thisInput).parent().siblings(".precioUnitario").html());
+    let price = $(thisInput).parent().siblings(".precioSubtotal").html();
+    price = deleteLastCharacter(price);
+    price = price *
+}
+
+function deleteLastCharacter(string) {
+    return price.substring(0,price.length-1);
 }
