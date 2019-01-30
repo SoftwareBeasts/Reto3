@@ -17,28 +17,35 @@
 
 {% block content %}
     {% if productos is defined %}
+        {% set precioTmp = 0 %}
+        {% set precioTotal = 0 %}
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Subtotal</th>
                 <th scope="col">Acciones</th>
             </tr>
             </thead>
             <tbody>
             {% for clave, producto in productos %}
                 <tr>
+                    {% set precioTmp = productosCuantity[clave] * producto.precio %}
+                    {% set precioTotal = precioTotal + precioTmp %}
                     <th scope="row">{{ producto.nombre }}</th>
                     <td><input class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
-                    <td class="precios">{{ producto.precio }}€</td>
+                    <td class="precioUnitario">{{ producto.precio }}€</td>
+                    <td class="precioSubtotal">{{ precioTmp }}€</td>
                     <td><button type="button" class="btn btn-danger eliminar" value="{{ producto.idproducto }}">Eliminar</button> </td>
                 </tr>
             {% endfor %}
             <tr>
                 <th scope="row">Precio Total:</th>
-                <td id="precioTotal"></td>
                 <td></td>
+                <td></td>
+                <td id="precioTotal">{{ precioTotal }}€</td>
                 <td></td>
             </tr>
             <tr rowspan="3">
