@@ -134,10 +134,10 @@ class Producto {
         return $resultados;
     }
 
-    public function getByID($id){
+    public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idproducto = :id");
         $res = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $resultados = $consulta->fetch();
 
@@ -188,10 +188,10 @@ class Producto {
 
         return $del;
     }
-    public function deleteByID($id){
+    public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idproducto = :id");
         $del = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $this->conexion = null;
 

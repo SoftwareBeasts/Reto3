@@ -165,12 +165,16 @@ class PedidoController extends Controller
                 $id = $_POST['id'];
             }
             $pedido = new Pedido($this->conexion);
-            $pedido->updateEstado($id, 1);
+            $pedido->setId($id);
+            $pedido->setEstado(1);
+            $pedido->updateEstado();
 
             $pedido = new Pedido($this->conexion);
-            $pedido->getByID($id);
+            $pedido->setId($id);
+            $pedido->getByID();
             $cliente =  new Cliente();
-            $cliente->getByID($pedido['cliente_idcliente']);
+            $cliente->setId($pedido['cliente_idcliente']);
+            $cliente->getByID();
 
             require_once __DIR__ . '/../config/plantillasemail.php';
 
@@ -189,10 +193,12 @@ class PedidoController extends Controller
                 $idPedido = $_POST['id'];
             }
             $a = new PedidoHasProducto($this->conexion);
-            $articulos = $a->deleteByID($idPedido);
+            $a->setIdPedido($idPedido);
+            $articulos = $a->deleteByID();
 
             $p = new Pedido($this->conexion);
-            $pedido = $p->deleteByID($idPedido);
+            $p->setId($idPedido);
+            $pedido = $p->deleteByID();
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
