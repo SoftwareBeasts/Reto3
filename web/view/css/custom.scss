@@ -15,9 +15,13 @@
 
     );
   /*Nuestra Paleta*/
+$font-family-base:            'Open Sans',Helvetica,Arial;
+
 $border-radius:               0rem;
 $border-radius-lg:            0rem;
 $border-radius-sm:            0rem;
+
+$enable-rounded:              false;
 
 /*Imports*/
 
@@ -49,3 +53,17 @@ footer{
   border: none;
   border-bottom: $card-border-width solid $card-border-color;
 }
+
+/*Custom Classes*/
+  /*Categorias*/
+  .categoria-selector{
+    transition: 0.5s;
+  }
+  .categoria-selected{
+    background-color: $grisClaro;
+  }
+
+  .categoria-not-selected{
+    background-color: transparent;
+  }
+  /*Contenedores especiales*/
