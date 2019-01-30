@@ -18,6 +18,30 @@
 {% endblock %}
 
 {% block contentDer %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enviar correo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <input type="text" id="asunto" class="col-12 form-control">
+                        <label for="contenido">Contenido</label>
+                        <textarea id="contenido" class="col-12 form-control"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row collapse show colapsar" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
@@ -27,7 +51,7 @@
                                 <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
                                 <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
                                 <span class="badge badge-light mt-3 "><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
-                                <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                                <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link enviarEmail">{{ pedido.cliente.email }}</a><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Enviar correo</button></span>
                                 <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
                                 <ul class="list-group list-group-flush mt-3 mb-3">
                                 {% for producto in pedido.productos %}
@@ -51,7 +75,7 @@
                             <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
                             <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
                             <span class="badge badge-light mt-3"><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
-                            <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                            <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link enviarEmail">{{ pedido.cliente.email }}</a></span>
                             <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
                             <ul class="list-group list-group-flush mt-3 mb-3">
                             {% for producto in pedido.productos %}

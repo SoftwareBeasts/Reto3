@@ -26,6 +26,14 @@ $(document).ready(function () {
         });
     });
 
+    $(".enviarEmail").on("click", function () {
+        window.location.replace("http://www.w3schools.com");
+    });
+
+    $('#enviarEmail').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+
     $('.btnBorrar').on('click', function () {
         let idPedido = $(this).val();
         $.ajax({
