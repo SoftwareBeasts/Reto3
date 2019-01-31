@@ -77,3 +77,10 @@ footer{
     background-color: transparent;
   }
   /*Contenedores especiales*/
+.toast-container{
+  z-index: 1021;
+  position:fixed;
+  top: 0;
+  right: 0;
+  min-width: 350px;
+}
