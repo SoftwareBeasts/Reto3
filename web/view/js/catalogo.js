@@ -1,3 +1,4 @@
+var toastCounter = 0;
 $(document).ready(function () {
     $(".addCart").on("click", function () {
         addCart(this);
@@ -25,6 +26,7 @@ function addCart(buttonThis) {
     let button = $(buttonThis);
     let productId = button.val();
     let cuantity = $('#spinner'+productId).val();
+    $(".toast-container").html($(".toast-container").html()+"");
 
     $.ajax({
         type: "POST",
@@ -32,7 +34,7 @@ function addCart(buttonThis) {
         data: {id : productId, cantidad : cuantity}
     }).done(function () {
         addCartNumber(cuantity);
-        showMessage(generateMessage(cuantity));
+        showMessage(generateMessage(cuantity),);
     });
 }
 
@@ -51,12 +53,51 @@ function generateMessage(cuantity) {
     return message;
 }
 
+function checkToastShown(toastId) {
+    if ($(".toast-container>.toast").hasClass("showing")){
+        setTimeout(()=>{
+            console.log("no");
+            checkToastShown(toastId);
+        },1000);
+    }else{
+        console.log("si");
+        $(".toast-container>#"+toastId).toast('show');
+        setTimeout(()=>{
+            $(".toast-container>#"+toastId).toast('hide');
+            setTimeout(()=>{
+                $(".toast-container>#"+toastId).remove();
+            },2000)
+        },2000);
+    }
+}
+
 function showMessage(message) {
-    $("#toastDisplay").removeClass("d-none");
-    $("#alertMsg").html(message);
-    $("#alertBotstrap").toast('show');
-    setTimeout(function () {
-        $("#toastDisplay").addClass("d-none");
-    }, 3500)
+    $(".toast-container").html($(".toast-container").html()+
+        "        <div  class=\"toast alertBotstrap\" data-autohide='false' id='"+toastCounter+"'>\n" +
+        "            <div class=\"toast-header\">\n" +
+        "                <img src=\"./view/media/favicon.png\" class=\"rounded mr-2\" alt=\"...\">\n" +
+        "                <strong class=\"mr-auto\">Escuela de Hostelería</strong>\n" +
+        "                <small>ahora mismo</small>\n" +
+        "                <button type=\"button\" class=\"ml-2 mb-1 close\" data-dismiss=\"toast\" aria-label=\"Close\">\n" +
+        "                    <span aria-hidden=\"true\">&times;</span>\n" +
+        "                </button>\n" +
+        "            </div>\n" +
+        "            <div  class=\"toast-body text-center alertMsg\">\n" +
+        "            </div>\n" +
+        "        </div>");
+    let currentToastId = toastCounter;
+    let ultimoToast = ".toast-container>#"+currentToastId;
+    $(ultimoToast+" .alertMsg").html(message);
+    checkToastShown(currentToastId);
+
+
+/*
+    let primerToast = ".toast-container>.toast:first";
+    setTimeout(()=>{
+        console.log("Me cago en dios y en su puta madre")
+        $(primerToast).;
+    },5000)
+    */
+    toastCounter++;
 }
 
