@@ -1,5 +1,4 @@
 var toastCounter = 0;
-
 $(document).ready(function () {
     $(".addCart").on("click", function () {
         addCart(this);
@@ -53,15 +52,28 @@ function generateMessage(cuantity) {
     }
     return message;
 }
-$(".toast").on("hide.bs.toast",function(){
-    let tempId = $(this).parent().id();
-    console.log("hey");
-    $(this).parent().parent().remove("#"+tempId);
-})
+
+function checkToastShown(toastId) {
+    if ($(".toast-container>.toast").hasClass("showing")){
+        setTimeout(()=>{
+            console.log("no");
+            checkToastShown(toastId);
+        },1000);
+    }else{
+        console.log("si");
+        $(".toast-container>#"+toastId).toast('show');
+        setTimeout(()=>{
+            $(".toast-container>#"+toastId).toast('hide');
+            setTimeout(()=>{
+                $(".toast-container>#"+toastId).remove();
+            },2000)
+        },2000);
+    }
+}
+
 function showMessage(message) {
-    let uniqueId = toastCounter
-    $(".toast-container").html($(".toast-container").html()+"<div id=\""+uniqueId+"\" aria-live=\"polite\" aria-atomic=\"true\" class=\"p-4\" style=\"\">\n" +
-        "        <div  class=\"toast alertBotstrap\" data-delay=\"3000\">\n" +
+    $(".toast-container").html($(".toast-container").html()+
+        "        <div  class=\"toast alertBotstrap\" data-autohide='false' id='"+toastCounter+"'>\n" +
         "            <div class=\"toast-header\">\n" +
         "                <img src=\"./view/media/favicon.png\" class=\"rounded mr-2\" alt=\"...\">\n" +
         "                <strong class=\"mr-auto\">Escuela de Hostelería</strong>\n" +
@@ -72,17 +84,20 @@ function showMessage(message) {
         "            </div>\n" +
         "            <div  class=\"toast-body text-center alertMsg\">\n" +
         "            </div>\n" +
-        "        </div>\n" +
-        "    </div>");
-    let ultimoToast = "#"+uniqueId;
+        "        </div>");
+    let currentToastId = toastCounter;
+    let ultimoToast = ".toast-container>#"+currentToastId;
     $(ultimoToast+" .alertMsg").html(message);
-    $(ultimoToast+" .alertBotstrap").toast('show');
-    setTimeout(function () {
-        $(ultimoToast+" .alertBotstrap").toast("hide");
-        let tempId = uniqueId;
-        console.log(uniqueId);
-        $(ultimoToast).parent().remove("#"+tempId);
-    }, 3500)
+    checkToastShown(currentToastId);
+
+
+/*
+    let primerToast = ".toast-container>.toast:first";
+    setTimeout(()=>{
+        console.log("Me cago en dios y en su puta madre")
+        $(primerToast).;
+    },5000)
+    */
     toastCounter++;
 }
 
