@@ -72,10 +72,10 @@ class Administrador {
         return $resultados;
     }
 
-    public function getByNombre($nombre){
+    public function getByNombre(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE nombre = :nombre");
         $res = $consulta->execute(array(
-            "nombre" => $nombre
+            "nombre" => $this->nombre
         ));
         $resultado = $consulta->fetch();
 
@@ -85,10 +85,10 @@ class Administrador {
     }
 
 
-    public function getByID($id){
+    public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idadmin = :id");
         $res = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $resultados = $consulta->fetch();
 
@@ -108,10 +108,10 @@ class Administrador {
         return $save;
     }
 
-    public function deleteByID($id){
+    public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idadmin = :id");
         $del = $consulta->execute(array(
-            "id" => $id
+            "id" => $this->id
         ));
         $this->conexion = null;
 

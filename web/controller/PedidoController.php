@@ -106,7 +106,8 @@ class PedidoController extends Controller
         setcookie('cart', serialize($cart), time()+604800);
     }
 
-    public function addCart(){
+    public function addCart()
+    {
         if(!isset($_COOKIE['cart']))
         {
             $cart = ['0' => ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']]];
@@ -132,6 +133,22 @@ class PedidoController extends Controller
                 $key = intval(key($cart))+1;
                 reset($cart);
                 $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
+            }
+        }
+        $this->setCart($cart);
+        die();
+    }
+
+    public function editCart()
+    {
+        $cart = $this->getCart();
+        $keys = array_keys($cart);
+        for($x = 0; $x<count($cart); $x++)
+        {
+            if($cart[$keys[$x]]['id'] == $_POST['id'])
+            {
+                $cart[$keys[$x]]['cantidad'] = $_POST['cuantity'];
+                $x = $keys[intval(count($cart))-1];
             }
         }
         $this->setCart($cart);
@@ -165,12 +182,16 @@ class PedidoController extends Controller
                 $id = $_POST['id'];
             }
             $pedido = new Pedido($this->conexion);
-            $pedido->updateEstado($id, 1);
+            $pedido->setId($id);
+            $pedido->setEstado(1);
+            $pedido->updateEstado();
 
             $pedido = new Pedido($this->conexion);
-            $pedido->getByID($id);
+            $pedido->setId($id);
+            $pedido->getByID();
             $cliente =  new Cliente();
-            $cliente->getByID($pedido['cliente_idcliente']);
+            $cliente->setId($pedido['cliente_idcliente']);
+            $cliente->getByID();
 
             require_once __DIR__ . '/../config/plantillasemail.php';
 
@@ -189,10 +210,12 @@ class PedidoController extends Controller
                 $idPedido = $_POST['id'];
             }
             $a = new PedidoHasProducto($this->conexion);
-            $articulos = $a->deleteByID($idPedido);
+            $a->setIdPedido($idPedido);
+            $articulos = $a->deleteByID();
 
             $p = new Pedido($this->conexion);
-            $pedido = $p->deleteByID($idPedido);
+            $p->setId($idPedido);
+            $pedido = $p->deleteByID();
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{

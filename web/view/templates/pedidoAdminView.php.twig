@@ -21,13 +21,39 @@
     <div class="container-fluid">
         <div class="row collapse show colapsar" id="sinConfirmar">
             {% for pedido in pedidos.sinConfirmar %}
+                    <div class="modal fade" id="modalEmail{{ pedido.cliente.idcliente }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Enviar correo a {{ pedido.cliente.nombre }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" method="post" class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" id="email" class="col-12 form-control" value="{{ pedido.cliente.email }}" disabled>
+                                        <label for="asunto" class="mt-3">Asunto</label>
+                                        <input type="text" id="asunto" class="col-12 form-control">
+                                        <label for="contenido" class="mt-3">Contenido</label>
+                                        <textarea id="contenido" class="col-12 form-control"></textarea>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary enviarEmail">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-12 col-xl-6" id="{{ pedido.idpedido }}">
                         <div class="card w-100 pedidoCard" >
                             <div class="card-body">
                                 <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
                                 <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
                                 <span class="badge badge-light mt-3 "><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
-                                <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                                <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="" class="card-link" id="enviarEmail" data-toggle="modal" data-target="#modalEmail{{ pedido.cliente.idcliente }}">{{ pedido.cliente.email }}</a></span>
                                 <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
                                 <ul class="list-group list-group-flush mt-3 mb-3">
                                 {% for producto in pedido.productos %}
@@ -36,8 +62,6 @@
                                 </ul>
                                 <button class="btn btn-success btnAceptar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-check"></i> Aceptar</button>
                                 <button class="btn btn-danger btnBorrar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-trash"></i> Rechazar</button>
-                                {#<a href="index.php?controller=pedido&action=confirmarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnAceptar"><i class="fas fa-check"></i> Aceptar</a>#}
-                                {#<a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-danger text-white" id="btnBorrar"><i class="fas fa-trash"></i> Rechazar</a>#}
                             </div>
                         </div>
                     </div>
@@ -45,13 +69,39 @@
         </div>
         <div class="row collapse colapsar" id="confirmados">
             {% for pedido in pedidos.Confirmados %}
+                <div class="modal fade" id="modalEmail{{ pedido.cliente.idcliente }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Enviar correo a {{ pedido.cliente.nombre }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post" class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" class="col-12 form-control" value="{{ pedido.cliente.email }}" disabled>
+                                    <label for="asunto" class="mt-3">Asunto</label>
+                                    <input type="text" id="asunto" class="col-12 form-control">
+                                    <label for="contenido" class="mt-3">Contenido</label>
+                                    <textarea id="contenido" class="col-12 form-control"></textarea>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary enviarEmail">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12 col-xl-6" id="{{ pedido.idpedido }}">
                     <div class="card w-100 pedidoCard">
                         <div class="card-body">
                             <h4 class="card-title">Pedido #{{ pedido.idpedido }}</h4>
                             <h6 class="card-subtitle"><mark class="badge-pill"><i class="far fa-calendar-alt"></i> {{ pedido.fecha }}</mark></h6>
                             <span class="badge badge-light mt-3"><i class="far fa-user"></i> {{ pedido.cliente.nombre }}</span>
-                            <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="{{ pedido.cliente.email }}" class="card-link">{{ pedido.cliente.email }}</a></span>
+                            <span class="badge badge-light mt-3"><i class="fas fa-envelope"></i> <a href="" class="card-link" id="enviarEmail" data-toggle="modal" data-target="#modalEmail{{ pedido.cliente.idcliente }}">{{ pedido.cliente.email }}</a></span>
                             <span class="badge badge-light"><i class="fas fa-phone"></i> {{ pedido.cliente.telefono }}</span>
                             <ul class="list-group list-group-flush mt-3 mb-3">
                             {% for producto in pedido.productos %}
@@ -59,8 +109,6 @@
                             {% endfor %}
                             </ul>
                             <button class="btn btn-success btnBorrar" id="" value="{{ pedido.idpedido }}"><i class="fas fa-check-double"></i> Finalizado</button>
-                            {#<a href="index.php?controller=pedido&action=rechazarPedido&id={{ pedido.idpedido }}" class="btn btn-success text-white" id="btnBorrar"><i class="fas fa-check-double"></i> Finalizado</a>#}
-
                         </div>
                     </div>
                 </div>
