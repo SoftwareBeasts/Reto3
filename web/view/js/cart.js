@@ -26,12 +26,22 @@ function deleteProduct(thisButton) {
 }
 
 function refreshPrice(thisInput) {
-    let precioUnitario = deleteLastCharacter($(thisInput).parent().siblings(".precioUnitario").html());
-    let price = $(thisInput).parent().siblings(".precioSubtotal").html();
-    price = deleteLastCharacter(price);
-    price = price *
+    let input = $(thisInput);
+    let td = input.parent().siblings(".precioSubtotal");
+    let cantidad = input.val();
+    let newPrice = deleteLastCharacter(input.parent().siblings(".precioUnitario").html()) * cantidad;
+    let tdTotal = $("#precioTotal");
+    let pTotal = (deleteLastCharacter(tdTotal.html()) - deleteLastCharacter(td.html())) +newPrice;
+    td.html(newPrice + "€");
+    tdTotal.html(pTotal+"€");
+
+    $.ajax({
+        type: "POST",
+        url: "./index.php?controller=pedido&action=editCart",
+        data: {id : input.attr('valorId'), cuantity : cantidad}
+    });
 }
 
 function deleteLastCharacter(string) {
-    return price.substring(0,price.length-1);
+    return parseInt(string.substring(0,string.length-1));
 }
