@@ -70,7 +70,7 @@
         <div class="row collapse colapsar" id="confirmados">
             {% for pedido in pedidos.Confirmados %}
                 <div class="modal fade" id="modalEmail{{ pedido.cliente.idcliente }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Enviar correo a {{ pedido.cliente.nombre }}</h5>
@@ -82,9 +82,9 @@
                                 <form action="" method="post" class="form-group">
                                     <label for="email">Email</label>
                                     <input type="text" id="email" class="col-12 form-control" value="{{ pedido.cliente.email }}" disabled>
-                                    <label for="asunto">Asunto</label>
+                                    <label for="asunto" class="mt-3">Asunto</label>
                                     <input type="text" id="asunto" class="col-12 form-control">
-                                    <label for="contenido">Contenido</label>
+                                    <label for="contenido" class="mt-3">Contenido</label>
                                     <textarea id="contenido" class="col-12 form-control"></textarea>
                                 </form>
                             </div>
