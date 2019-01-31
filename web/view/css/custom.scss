@@ -1,0 +1,79 @@
+/*Overrides*/
+  /*Nuestra Paleta*/
+    $blanco :       #ffffff;
+    $grisClaro :    #e1e1e1;
+    $morado :       #82005e;
+    $grisOscuro :   #333333;
+    $negro :        #000000;
+
+    $theme-colors: (
+            "primary":      $morado,
+            "secondary" :   $grisClaro,
+            "success":      $morado,
+            "warning":      $grisClaro,
+            "danger":       $grisOscuro,
+
+    );
+
+    $card-bg :      transparent;
+  /*Nuestra Paleta*/
+$font-family-base:            'Open Sans',Helvetica,Arial;
+
+$border-radius:               0rem;
+$border-radius-lg:            0rem;
+$border-radius-sm:            0rem;
+
+$enable-rounded:              false;
+
+/*Imports*/
+
+@import "../../../../../../Users/2gdaw08/Desktop/bootstrap-4.2.1/scss/bootstrap";
+
+/*General*/
+
+html{ height:100%; }
+body{ min-height:100%; padding:0; margin:0; position:relative; }
+
+body::after{ content:''; display:block; height:100px; }
+
+footer{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:100px;
+}
+
+/*Navbar*/
+
+.navbar{
+  box-shadow: 0px .5px 10px $grisOscuro ;
+}
+
+/*Card*/
+
+.card{
+  border: none;
+  border-bottom: $card-border-width solid $card-border-color;
+}
+
+/*Custom Classes*/
+  /*Categorias*/
+  .categoria-selector{
+    transition: 0.5s;
+  }
+  .categoria-selected{
+    background-color: $grisClaro;
+  }
+
+  .categoria-not-selected{
+    background-color: transparent;
+  }
+
+  .categoria-open{
+    background-color: #f5f5f5;
+  }
+
+  .categoria-closed{
+    background-color: transparent;
+  }
+  /*Contenedores especiales*/
