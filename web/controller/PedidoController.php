@@ -106,7 +106,8 @@ class PedidoController extends Controller
         setcookie('cart', serialize($cart), time()+604800);
     }
 
-    public function addCart(){
+    public function addCart()
+    {
         if(!isset($_COOKIE['cart']))
         {
             $cart = ['0' => ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']]];
@@ -132,6 +133,22 @@ class PedidoController extends Controller
                 $key = intval(key($cart))+1;
                 reset($cart);
                 $cart[$key] = ['id' => $_POST['id'], 'cantidad' => $_POST['cantidad']];
+            }
+        }
+        $this->setCart($cart);
+        die();
+    }
+
+    public function editCart()
+    {
+        $cart = $this->getCart();
+        $keys = array_keys($cart);
+        for($x = 0; $x<count($cart); $x++)
+        {
+            if($cart[$keys[$x]]['id'] == $_POST['id'])
+            {
+                $cart[$keys[$x]]['cantidad'] = $_POST['cuantity'];
+                $x = $keys[intval(count($cart))-1];
             }
         }
         $this->setCart($cart);
