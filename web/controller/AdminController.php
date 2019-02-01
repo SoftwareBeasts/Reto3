@@ -79,21 +79,32 @@ class AdminController extends Controller
     }
 
     public function showStats(){
-//        if(parent::verifyAdmin())
-//        {
-//            $producto = new Producto($this->conexion);
-//            $stats = $producto->getAllStats();
-//            $x = array();
-//            $y= array();
-//            foreach ($stats as $stat)
-//            {
-//                array_push($x, $stat['nombre']);
-//                array_push($y, $stat['vecesComprado']);
-//            }
+        if(parent::verifyAdmin())
+        {
             $this->twigView('statsAdminView.php.twig');
-//        }
-//        else
-//            $this->toIndex();
+            //$this->getStats();
+        }
+        else
+             $this->toIndex();
+    }
+
+    public function getStats()
+    {
+        if(parent::verifyAdmin())
+        {
+            $producto = new Producto($this->conexion);
+            $stats = $producto->getAllStats();
+            $x = array();
+            $y= array();
+            foreach ($stats as $stat)
+            {
+                array_push($x, $stat['nombre']);
+                array_push($y, $stat['vecesComprado']);
+            }
+            $stats = ["x" => $x, "y" => $y];
+            //echo json_encode($stats);
+            die(json_encode($stats));
+        }
     }
 
     public function logout(){
