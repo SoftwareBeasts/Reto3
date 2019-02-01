@@ -286,7 +286,16 @@ class PedidoController extends Controller
 
             $p = new Pedido($this->conexion);
             $p->setId($idPedido);
+            $pedido = $p->getByID();
+
+            $c = new Cliente($this->conexion);
+            $c->setId($pedido['cliente_idcliente']);
+            $cliente = $c->deleteByID();
+
+            $p = new Pedido($this->conexion);
+            $p->setId($idPedido);
             $pedido = $p->deleteByID();
+
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
