@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `pedidosHosteleria`.`producto` (
   `precio` DECIMAL(6) NOT NULL,
   `rutaImg` VARCHAR(256) NOT NULL,
   `pedidoMin` INT NULL DEFAULT 1,
+  `vecesComprado` NUMBER NULL DEFAULT 0,
   `categoria_idcategoria` INT NOT NULL,
   PRIMARY KEY (`idproducto`),
   CONSTRAINT `fk_producto_categoria`

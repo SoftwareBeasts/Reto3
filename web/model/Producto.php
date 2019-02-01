@@ -10,8 +10,9 @@ class Producto {
     private $rutaImg;
     private $pedidoMin;
     private $categoria;
+    private $vecesComprado;
 
-    public function __construct($conexion, $id=null, $nombre=null, $descripcion=null, $precio=null, $rutaImg=null, $pedidoMin=null, $categoria=null) {
+    public function __construct($conexion, $id=null, $nombre=null, $descripcion=null, $precio=null, $rutaImg=null, $pedidoMin=null, $categoria=null, $vecesComprado=null) {
         $this->conexion = $conexion;
         if (isset($id)){$this->id = $id;}
         if (isset($nombre)){$this->nombre = $nombre;}
@@ -20,6 +21,23 @@ class Producto {
         if (isset($rutaImg)){$this->rutaImg = $rutaImg;}
         if (isset($pedidoMin)){$this->pedidoMin = $pedidoMin;}
         if (isset($categoria)){$this->categoria = $categoria;}
+        if (isset($vecesComprado)){$this->vecesComprado = $vecesComprado;}
+    }
+
+    /**
+     * @return null
+     */
+    public function getVecesComprado()
+    {
+        return $this->vecesComprado;
+    }
+
+    /**
+     * @param null $vecesComprado
+     */
+    public function setVecesComprado($vecesComprado)
+    {
+        $this->vecesComprado = $vecesComprado;
     }
 
     /**
@@ -134,6 +152,16 @@ class Producto {
         return $resultados;
     }
 
+    public function getAllStats(){
+        $consulta = $this->conexion->prepare("SELECT nombre, vecesComprado FROM ".$this->table . " ORDER BY vecesComprado");
+        $consulta->execute();
+        $resultados = $consulta->fetchAll();
+
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
     public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idproducto = :id");
         $res = $consulta->execute(array(
@@ -146,16 +174,25 @@ class Producto {
         return $resultados;
     }
 
-    public function getPrecioByID(){
-        $consulta = $this->conexion->prepare("SELECT precio FROM ".$this->table." WHERE idproducto = :id");
+    public function getPrecioAndVecesCompradoByID(){
+        $consulta = $this->conexion->prepare("SELECT precio, vecesComprado FROM ".$this->table." WHERE idproducto = :id");
         $res = $consulta->execute(array(
             "id" => $this->id
         ));
         $resultados = $consulta->fetch();
 
+        return $resultados;
+    }
+
+    public function saveVecesComprado(){
+        $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET vecesComprado = :vecesComprado WHERE idProducto = :idProducto");
+        $save = $consulta->execute(array(
+            "vecesComprado" => $this->vecesComprado,
+            "idProducto" => $this->id,
+        ));
         $this->conexion = null;
 
-        return $resultados;
+        return $save;
     }
 
     public function getByIDs($ids){
