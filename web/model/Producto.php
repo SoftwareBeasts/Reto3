@@ -146,6 +146,18 @@ class Producto {
         return $resultados;
     }
 
+    public function getPrecioByID(){
+        $consulta = $this->conexion->prepare("SELECT precio FROM ".$this->table." WHERE idproducto = :id");
+        $res = $consulta->execute(array(
+            "id" => $this->id
+        ));
+        $resultados = $consulta->fetch();
+
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
     public function getByIDs($ids){
         $stmnt = "SELECT * FROM ".$this->table." WHERE";
         $cont = 1;
@@ -188,6 +200,7 @@ class Producto {
 
         return $del;
     }
+
     public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idproducto = :id");
         $del = $consulta->execute(array(
