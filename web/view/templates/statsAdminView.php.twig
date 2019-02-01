@@ -1,0 +1,21 @@
+{% extends "adminbase.html.twig" %}
+
+{% block titulo %}Estadísticas{% endblock %}
+
+{% block navbarContent %}
+    <a href="index.php?controller=admin&action=pedidos" class="nav-link">Pedidos</a>
+    <a href="index.php?controller=admin&action=productos" class="nav-link">Productos</a>
+    <a href="index.php?controller=admin&action=logout" class="nav-link">Salir</a>
+{% endblock %}
+
+{% block carousel %}{% endblock %}
+
+{% block content %}
+    <canvas id="stats" width="400" height="400"></canvas>
+{% endblock %}
+
+{% block script %}
+    <script src="./node_modules/chart.js/src/chart.js" type="text/javascript"></script>
+    <script src="./view/js/statsAdmin.js" type="text/javascript"></script>
+{% endblock %}
+

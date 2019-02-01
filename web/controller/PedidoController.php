@@ -233,11 +233,17 @@ class PedidoController extends Controller
             $productCuantity = $producto['cantidad'];
             $product = new Producto($this->conexion);
             $product->setId($productId);
-            $precio = $product->getPrecioByID();
-            $precioTotal += intval($precio['precio']) * intval($productCuantity);
+            $datosProduct = $product->getPrecioAndVecesCompradoByID();
+            $precioTotal += intval($datosProduct['precio']) * intval($productCuantity);
 
             $pedHprod = new PedidoHasProducto($this->conexion, $pedidoId, $productId, $productCuantity);
             $pedHprod->save();
+
+            //Estadísticas
+            $vecesComprado = intval($datosProduct['vecesComprado']) + intval($productCuantity);
+            $product->setVecesComprado($vecesComprado);
+            $product->saveVecesComprado();
+
         }
         $this->deleteCart(true);
         $pedido->setPrecioTotal($precioTotal);
