@@ -21,6 +21,7 @@ class AdminController extends Controller
     {
         parent::cargarArchivos();
         require_once __DIR__ . '/../model/Administrador.php';
+        require_once __DIR__ . '/../model/Producto.php';
     }
 
     public function run($action = 'defaultCase', $id = null)
@@ -59,15 +60,13 @@ class AdminController extends Controller
             la sesion esta iniciada correctamente
             de momento lleva al catalogo*/
         }
-
-
     }
 
     public function pedidos(){
         if (parent::verifyAdmin()){
             header("Location: index.php?controller=pedido&action=adminPedidosView&c=true");
         }else{
-            header("Location: index.php?controller=producto");
+            $this->toIndex();
         }
     }
 
@@ -75,8 +74,26 @@ class AdminController extends Controller
         if (parent::verifyAdmin()){
             header("Location: index.php?controller=producto&action=adminCatalogoView&c=true");
         }else{
-            header("Location: index.php?controller=producto");
+            $this->toIndex();
         }
+    }
+
+    public function showStats(){
+//        if(parent::verifyAdmin())
+//        {
+//            $producto = new Producto($this->conexion);
+//            $stats = $producto->getAllStats();
+//            $x = array();
+//            $y= array();
+//            foreach ($stats as $stat)
+//            {
+//                array_push($x, $stat['nombre']);
+//                array_push($y, $stat['vecesComprado']);
+//            }
+            $this->twigView('statsAdminView.php.twig');
+//        }
+//        else
+//            $this->toIndex();
     }
 
     public function logout(){
@@ -84,8 +101,12 @@ class AdminController extends Controller
             session_destroy();
             session_start();
         }else{
-            header("Location: index.php?controller=producto");
+            $this->toIndex();
         }
+    }
+
+    public function toIndex(){
+        header("Location: index.php?controller=producto");
     }
 
 }
