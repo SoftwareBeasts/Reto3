@@ -4,7 +4,20 @@ $(document).ready(function () {
     });
     $(".cuantity").on("change", function () {
         refreshPrice(this);
-    })
+    });
+    $(".pestana").on("click", function () {
+        switch ($(this).attr('id')){
+            case 'iraDatos':
+                $('#pestanaDatos').trigger('click');
+                break;
+            case 'iraFin':
+                $('#pestanaFin').trigger('click');
+                break;
+            default:
+                $('#pestanaCarrito').trigger('click');
+                break;
+        }
+    });
 });
 
 function deleteProduct(thisButton) {
