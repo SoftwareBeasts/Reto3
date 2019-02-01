@@ -21,7 +21,8 @@ $(document).ready(function () {
 });
 
 function deleteProduct(thisButton) {
-    let productId = $(thisButton).val();
+    let button = $(thisButton);
+    let productId = button.val();
 
     $.ajax({
         type: "POST",
@@ -34,7 +35,13 @@ function deleteProduct(thisButton) {
                 "<h6>No se han añadido productos a tu carrito. Añade productos <a href=\"../index.php\">aquí</a></h6>" +
                 "</div>");
         }
-        $(thisButton).parent().parent().remove();
+        else
+        {
+            let tdPrecioTotal = $("#precioTotal");
+            let precio = deleteLastCharacter(tdPrecioTotal.html()) -deleteLastCharacter(button.parent().siblings(".precioSubtotal").html());
+            tdPrecioTotal.html(precio+"€");
+            button.parent().parent().remove();
+        }
     });
 }
 

@@ -155,11 +155,16 @@ class PedidoController extends Controller
         die();
     }
 
-    public function deleteCart()
+    public function deleteCart($forceDelete=null)
     {
-        $last = false;
         $cart = $this->getCart();
-        if (count($cart) == 1) {
+        $count = count($cart);
+        $last = false;
+
+        if($forceDelete != null && $forceDelete == true)
+            $count = 1;
+
+        if ($count == 1) {
             unset($_COOKIE['cart']);
             setcookie('cart', null, -1, '/');
             $last = true;
@@ -172,7 +177,73 @@ class PedidoController extends Controller
             }
             $this->setCart($cart);
         }
-        die($last);
+        if(!$forceDelete)
+            die();
+    }
+
+    public function mostrarCarrito()
+    {
+        if(isset($_COOKIE['cart']))
+        {
+            $cart = unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
+            $cart = $this->arrayOrder($cart);
+
+            $productosIds = array();
+            $productosCuantity = array();
+            $cont = 1;
+
+            foreach ($cart as $producto)
+            {
+                $productosIds["id$cont"] = $producto['id'];
+                array_push($productosCuantity, $producto['cantidad']);
+                $cont++;
+            }
+            $producto = new Producto($this->conexion);
+            $productos = $producto->getByIDs($productosIds);
+            $this->twigView('cartView.php.twig', ["productos" => $productos, "productosCuantity" => $productosCuantity]);
+        }
+        else
+            $this->twigView('cartView.php.twig');
+    }
+
+    public function arrayOrder($cart)
+    {
+        usort($cart, function($a, $b) {
+            return $a['id'] <=> $b['id'];
+        });
+        return $cart;
+    }
+
+    public function realizarPedido()
+    {
+        //Guardar cliente nuevo
+        $cliente = new Cliente($this->conexion, null, $_POST['nombre'], $_POST['email'], $_POST['telefono']);
+        $cliente->save();
+        $idCliente = $cliente->getIdByEmail()['idCliente'];
+
+        //Guardar datos pedido
+        $pedido = new Pedido($this->conexion, null, date($_POST['fecha']), "0", 0, $idCliente);
+        $pedido->save();
+        $pedidoId = $pedido->getIdByClienteId()['idPedido'];
+        $precioTotal = 0;
+        $cart = $this->getCart();
+        foreach ($cart as $producto) //Calcular el precio total consultando a base de datos
+        {
+            $productId = $producto['id'];
+            $productCuantity = $producto['cantidad'];
+            $product = new Producto($this->conexion);
+            $product->setId($productId);
+            $precio = $product->getPrecioByID();
+            $precioTotal += intval($precio['precio']) * intval($productCuantity);
+
+            $pedHprod = new PedidoHasProducto($this->conexion, $pedidoId, $productId, $productCuantity);
+            $pedHprod->save();
+        }
+        $this->deleteCart(true);
+        $pedido->setPrecioTotal($precioTotal);
+        $pedido->savePrecioTotal();
+        $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
+        header( "refresh:7;url=index.php" );
     }
 
     public function confirmarPedido($id)
@@ -221,37 +292,5 @@ class PedidoController extends Controller
         }else{
             header("Location: index.php?controller=producto");
         }
-    }
-
-    public function mostrarCarrito()
-    {
-        if(isset($_COOKIE['cart']))
-        {
-            $cart = unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
-            $cart = $this->arrayOrder($cart);
-
-            $productosIds = array();
-            $productosCuantity = array();
-            $cont = 1;
-
-            foreach ($cart as $producto)
-            {
-                $productosIds["id$cont"] = $producto['id'];
-                array_push($productosCuantity, $producto['cantidad']);
-                $cont++;
-            }
-            $producto = new Producto($this->conexion);
-            $productos = $producto->getByIDs($productosIds);
-            $this->twigView('cartView.php.twig', ["productos" => $productos, "productosCuantity" => $productosCuantity]);
-        }
-        else
-            $this->twigView('cartView.php.twig');
-    }
-
-    public function arrayOrder($cart){
-        usort($cart, function($a, $b) {
-            return $a['id'] <=> $b['id'];
-        });
-        return $cart;
     }
 }
