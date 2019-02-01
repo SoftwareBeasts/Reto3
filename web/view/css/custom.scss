@@ -27,7 +27,7 @@ $enable-rounded:              false;
 
 /*Imports*/
 
-@import "../bootstrap-4.2.1/scss/bootstrap";
+@import "../../../../../../Users/2gdaw08/Desktop/bootstrap-4.2.1/scss/bootstrap";
 
 /*General*/
 
@@ -77,3 +77,10 @@ footer{
     background-color: transparent;
   }
   /*Contenedores especiales*/
+.toast-container{
+  z-index: 1021;
+  position:fixed;
+  top: 0;
+  right: 0;
+  min-width: 350px;
+}
