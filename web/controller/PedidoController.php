@@ -178,7 +178,7 @@ class PedidoController extends Controller
             $this->setCart($cart);
         }
         if(!$forceDelete)
-            die();
+            die($last);
     }
 
     public function mostrarCarrito()
@@ -292,9 +292,31 @@ class PedidoController extends Controller
 
             $p = new Pedido($this->conexion);
             $p->setId($idPedido);
+            $pedido = $p->getByID();
+
+            $c = new Cliente($this->conexion);
+            $c->setId($pedido['cliente_idcliente']);
+            $cliente = $c->deleteByID();
+
+            $p = new Pedido($this->conexion);
+            $p->setId($idPedido);
             $pedido = $p->deleteByID();
+
 //        header('Location: /index.php?controller=pedido');
             die();
+        }else{
+            header("Location: index.php?controller=producto");
+        }
+    }
+
+    public function customEmail()
+    {
+        if (parent::verifyAdmin()) {
+            if (isset($_POST['email'])) {$email = $_POST['email'];}
+            if (isset($_POST['asunto'])) {$asunto = $_POST['asunto'];}
+            if (isset($_POST['contenido'])) {$contenido = $_POST['contenido'];}
+
+            $this->enviarEmail($email,$asunto,$contenido);
         }else{
             header("Location: index.php?controller=producto");
         }
