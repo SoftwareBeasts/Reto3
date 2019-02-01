@@ -7,19 +7,30 @@ if(SEND_MAIL)
     //Generamos el fichero
     $myfile = fopen(JS_PATH.JS_NAME, "w") or die("Unable to open file!");
     $txt = "
-        const sendgrid = require('@sendgrid/mail');
-        sendgrid.setApiKey(process.env.SENDGRID_API_KEY || '".API_KEY."');
+        var Sendgrid = require('sendgrid')(
+          process.env.SENDGRID_API_KEY || '".API_KEY."'
+        );
         
-        async function sendgridExample() {
-          await sendgrid.send({
-            to: '".$userEmail."',
-            from: '".EMAIL_SENDER."',
-            subject: '".$subject."',
-            text:
-              '".$body."',
-          });
-        }
-        sendgridExample().catch(console.error);
+        var request = Sendgrid.emptyRequest({
+          method: 'POST',
+          path: '/v3/mail/send',
+          body: {
+            personalizations: [
+              {
+                to: [{email: '".$userEmail."'}],
+                subject: '".$subject."',
+              },
+            ],
+            from: {email: '".EMAIL_SENDER."'},
+            content: [
+              {
+                type: 'text/html',
+                value:
+                  '".$body."',
+              },
+            ],
+          },
+        });
         ";
     fwrite($myfile, $txt);
     fclose($myfile);

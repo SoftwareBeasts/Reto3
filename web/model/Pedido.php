@@ -7,13 +7,15 @@ class Pedido {
     private $fecha;
     private $estado;
     private $precioTotal;
+    private $idCliente;
 
-    public function __construct($conexion, $id=null, $fecha=null, $estado=null, $precioTotal=null) {
+    public function __construct($conexion, $id=null, $fecha=null, $estado=null, $precioTotal=null, $idCliente=null) {
         $this->conexion = $conexion;
         if (isset($id)){$this->id = $id;}
         if (isset($fecha)){$this->fecha = $fecha;}
         if (isset($estado)){$this->estado = $estado;}
         if (isset($precioTotal)){$this->precioTotal = $precioTotal;}
+        if (isset($idCliente)){$this->idCliente = $idCliente;}
     }
 
     /**
@@ -72,6 +74,22 @@ class Pedido {
         $this->precioTotal = $precioTotal;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdCliente()
+    {
+        return $this->idCliente;
+    }
+
+    /**
+     * @param mixed $idCliente
+     */
+    public function setIdCliente($idCliente)
+    {
+        $this->idCliente = $idCliente;
+    }
+
     public function getAll(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table);
         $consulta->execute();
@@ -94,12 +112,36 @@ class Pedido {
         return $resultados;
     }
 
+    public function getIdByClienteId(){
+        $consulta = $this->conexion->prepare("SELECT idPedido FROM ".$this->table." WHERE cliente_idcliente = :idCliente");
+        $res = $consulta->execute(array(
+            "idCliente" => $this->idCliente
+        ));
+        $resultados = $consulta->fetch();
+        $this->id = $resultados['idPedido'];
+        //$this->conexion = null;
+
+        return $resultados;
+    }
+
     public function save(){
-        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (fecha, estado, precioTotal) VALUES (:fecha, :estado, :precioTotal)");
+        $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (fecha, estado, precioTotal, cliente_idcliente) VALUES (:fecha, :estado, :precioTotal, :clienteId)");
         $save = $consulta->execute(array(
             "fecha" => $this->fecha,
             "estado" => $this->estado,
-            "precioTotal" => $this->precioTotal
+            "precioTotal" => $this->precioTotal,
+            "clienteId" => $this->idCliente
+        ));
+        //$this->conexion = null;
+
+        return $save;
+    }
+
+    public function savePrecioTotal(){
+        $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET precioTotal = :precioTotal WHERE idPedido = :idPedido");
+        $save = $consulta->execute(array(
+            "precioTotal" => $this->precioTotal,
+            "idPedido" => $this->id,
         ));
         $this->conexion = null;
 
