@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block navbarContent%}
-    <div class="">
+    <div class="pt-2">
         <a href="./index.php?controller=pedido&action=mostrarCarrito"><i class="fas fa-shopping-cart"></i><span id="cartBadge" class="badge badge-primary
          {% if cartCuantity==0 %}
             d-none
@@ -49,7 +49,7 @@
                         <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
                         <br><br>
                         <div class="form-group mx-auto  text-center">
-                            <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
+                            <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" max="100" value="{{ producto.pedidoMin}}" name="cantidad">
                             <button type="button" class="btn btn-primary addCart mt-2" value="{{ producto.idproducto }}">A&ntilde;adir</button>
                         </div>
                     </div>

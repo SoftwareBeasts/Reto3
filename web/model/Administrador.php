@@ -7,6 +7,13 @@ class Administrador {
     private $nombre;
     private $pass;
 
+    /**
+     * Administrador constructor.Los atributos son opcionales menos conexion
+     * @param $conexion La conexion a la base de datos
+     * @param null $id id del administrador
+     * @param null $nombre nombre del administrador
+     * @param null $pass contraseña del administrador
+     */
     public function __construct($conexion, $id=null, $nombre=null, $pass=null) {
         $this->conexion = $conexion;
         if (isset($id)){$this->id = $id;}
@@ -62,6 +69,10 @@ class Administrador {
         $this->pass = $pass;
     }
 
+    /**
+     * Devuelve todas las filas de la tabla admin de la BBDD
+     * @return mixed
+     */
     public function getAll(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table);
         $consulta->execute();
@@ -72,6 +83,10 @@ class Administrador {
         return $resultados;
     }
 
+    /**
+     * Devuelve las filas que coincidan con el nombre del Objeto Administrador
+     * @return mixed
+     */
     public function getByNombre(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE nombre = :nombre");
         $res = $consulta->execute(array(
@@ -84,7 +99,10 @@ class Administrador {
         return $resultado;
     }
 
-
+    /**
+     * Devuelve la fila que coincida con el id del Objeto Administrador
+     * @return mixed
+     */
     public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idadmin = :id");
         $res = $consulta->execute(array(
@@ -97,6 +115,10 @@ class Administrador {
         return $resultados;
     }
 
+    /**
+     * Introduce un administrador a la base de datos (No se usa en ningun lado)
+     * @return mixed
+     */
     public function save(){
         $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, pass) VALUES (:nombre, :pass)");
         $save = $consulta->execute(array(
@@ -108,6 +130,10 @@ class Administrador {
         return $save;
     }
 
+    /**
+     * Elimina un administrador de la base de datos(No se usa en ningun lado)
+     * @return mixed
+     */
     public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idadmin = :id");
         $del = $consulta->execute(array(

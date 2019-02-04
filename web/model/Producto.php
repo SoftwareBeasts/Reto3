@@ -12,6 +12,18 @@ class Producto {
     private $categoria;
     private $vecesComprado;
 
+    /**
+     * Producto constructor. Los parametros son opcionales menos conexion
+     * @param $conexion
+     * @param null $id
+     * @param null $nombre
+     * @param null $descripcion
+     * @param null $precio
+     * @param null $rutaImg
+     * @param null $pedidoMin
+     * @param null $categoria
+     * @param null $vecesComprado
+     */
     public function __construct($conexion, $id=null, $nombre=null, $descripcion=null, $precio=null, $rutaImg=null, $pedidoMin=null, $categoria=null, $vecesComprado=null) {
         $this->conexion = $conexion;
         if (isset($id)){$this->id = $id;}
@@ -141,7 +153,10 @@ class Producto {
     }
 
 
-
+    /**
+     * Devuelve todas las filas de la tabla Producto de la BBDD ordenadas por categoria
+     * @return mixed
+     */
     public function getAll(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table . " ORDER BY categoria_idcategoria");
         $consulta->execute();
@@ -152,6 +167,10 @@ class Producto {
         return $resultados;
     }
 
+    /**
+     * Devuelve el nombre y las veces que se ha comprado cada producto ordenado por  las veces que se ha comprado
+     * @return mixed
+     */
     public function getAllStats(){
         $consulta = $this->conexion->prepare("SELECT nombre, vecesComprado FROM ".$this->table . " ORDER BY vecesComprado DESC");
         $consulta->execute();
@@ -162,6 +181,10 @@ class Producto {
         return $resultados;
     }
 
+    /**
+     * Devuelve una fila mediante la id del Objeto
+     * @return mixed
+     */
     public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idproducto = :id");
         $res = $consulta->execute(array(
@@ -174,6 +197,10 @@ class Producto {
         return $resultados;
     }
 
+    /**
+     * Devuelve el precio y las veces que se ha comprado la fila que tenga el mismo id que el Objeto
+     * @return mixed
+     */
     public function getPrecioAndVecesCompradoByID(){
         $consulta = $this->conexion->prepare("SELECT nombre, precio, vecesComprado FROM ".$this->table." WHERE idproducto = :id");
         $res = $consulta->execute(array(
@@ -184,6 +211,10 @@ class Producto {
         return $resultados;
     }
 
+    /**
+     * Actualiza el parametro veces comprado de una fila mediante el id del Objeto
+     * @return mixed
+     */
     public function saveVecesComprado(){
         $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET vecesComprado = :vecesComprado WHERE idProducto = :idProducto");
         $save = $consulta->execute(array(
@@ -195,6 +226,11 @@ class Producto {
         return $save;
     }
 
+    /**
+     * Devuelve filas de la tabla Producto en funcion del los id que se pasen por el array
+     * @param $ids los ids que se quieren devolver
+     * @return mixed
+     */
     public function getByIDs($ids){
         $stmnt = "SELECT * FROM ".$this->table." WHERE";
         $cont = 1;
@@ -214,6 +250,10 @@ class Producto {
         return $resultados;
     }
 
+    /**
+     * Introduce un nuevo producto en la base de datos mediante los datos que tenga el Objeto
+     * @return mixed
+     */
     public function save(){
         $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, descripcion, precio, rutaImg, pedidoMin,categoria_idcategoria) VALUES (:nombre, :descripcion, :precio, :rutaImg, :pedidoMin, :categoria)");
         $save = $consulta->execute(array(
@@ -228,6 +268,11 @@ class Producto {
 
         return $save;
     }
+
+    /**
+     * Elimina una fila de la tabla Producto mediante el id del Objeto
+     * @return mixed
+     */
     public function delete(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idproducto = :id");
         $del = $consulta->execute(array(
@@ -238,6 +283,10 @@ class Producto {
         return $del;
     }
 
+    /**
+     * Elimina una fila de la tabla Productos mediante el id del Objeto
+     * @return mixed
+     */
     public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idproducto = :id");
         $del = $consulta->execute(array(
@@ -248,6 +297,10 @@ class Producto {
         return $del;
     }
 
+    /**
+     * Actualiza una fila de la tabla Productos mediante los datos que tenga el Objeto
+     * @return mixed
+     */
     public function update(){
         $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET nombre = :nombre, descripcion = :descripcion, precio = :precio, rutaImg = :rutaImg, pedidoMin = :pedidoMin , categoria_idcategoria = :categoria WHERE idproducto = :id");
         $update = $consulta->execute(array(
@@ -265,6 +318,15 @@ class Producto {
         return $update;
     }
 
+    /**
+     * Metodo para introducir todos los parametros del Objeto de golpe
+     * @param $nombre
+     * @param $desc
+     * @param $precio
+     * @param $rutaImg
+     * @param $pedMin
+     * @param $cat
+     */
     public function setAll($nombre,$desc,$precio,$rutaImg,$pedMin,$cat){
         $this->nombre=$nombre;
         $this->descripcion=$desc;

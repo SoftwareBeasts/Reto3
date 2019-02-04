@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block navbarContent%}
-    <div>
+    <div class="pt-2">
         <a href="./index.php?controller=producto"><i class="fas fa-utensils"></i></a>
     </div>
 {% endblock %}
@@ -18,13 +18,13 @@
 {% block content %}
     <ul class="nav nav-tabs text-center" id="pestanas" role="tablist">
         <li class="nav-item col-4">
-            <a class="nav-link active" id="pestanaCarrito" data-toggle="tab" href="#carrito" role="tab" aria-controls="carrito" aria-selected="true">Comprueba tu carrito</a>
+            <a class="nav-link active" id="pestanaCarrito" data-toggle="tab" href="#carrito" role="tab" aria-controls="carrito" aria-selected="true"><b>Paso 1</b><br>Revisa tu carrito <i class="fas fa-shopping-cart"></i></a>
         </li>
         <li class="nav-item col-4">
-            <a class="nav-link disabled" id="pestanaDatos" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="false">Rellena tus datos</a>
+            <a class="nav-link" id="pestanaDatos" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="false"><b>Paso 2</b><br>Rellena tus datos <i class="far fa-user"></i></a>
         </li>
         <li class="nav-item col-4">
-            <a class="nav-link disabled" id="pestanaFin" data-toggle="tab" href="#fin" role="tab" aria-controls="fin" aria-selected="false">Finalizar</a>
+            <a class="nav-link" id="pestanaFin" data-toggle="tab" href="#fin" role="tab" aria-controls="fin" aria-selected="false"><b>&Uacute;ltimo paso</b><br>Finalizar <i class="fas fa-check"></i></a>
         </li>
     </ul>
     <div class="tab-content" id="contenidoPestana">
@@ -35,7 +35,7 @@
                     {% set precioTotal = 0 %}
                     <table class="table">
                         <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">Producto</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Precio</th>
@@ -45,31 +45,32 @@
                         </thead>
                         <tbody>
                         {% for clave, producto in productos %}
-                            <tr>
+                            <tr class="">
                                 {% set precioTmp = productosCuantity[clave] * producto.precio %}
                                 {% set precioTotal = precioTotal + precioTmp %}
-                                <th scope="row">{{ producto.nombre }}</th>
-                                <td><input valorId="{{ producto.idproducto }}" class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
-                                <td class="precioUnitario">{{ producto.precio }}€</td>
-                                <td class="precioSubtotal">{{ precioTmp }}€</td>
-                                <td><button type="button" class="btn btn-danger eliminar" value="{{ producto.idproducto }}">Eliminar</button> </td>
+                                <th class="align-middle" scope="row">{{ producto.nombre }}</th>
+                                <td class="align-middle"><input valorId="{{ producto.idproducto }}" class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" max="100" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
+                                <td class="precioUnitario text-center align-middle">{{ producto.precio }}€</td>
+                                <td class="precioSubtotal text-center align-middle">{{ precioTmp }}€</td>
+                                <td class="text-center align-middle"><button type="button" class="btn rounded-circle eliminar" value="{{ producto.idproducto }}"><i class="far fa-trash-alt text-primary"></i></button> </td>
                             </tr>
                         {% endfor %}
                         <tr>
                             <th scope="row">Precio Total:</th>
                             <td></td>
                             <td></td>
-                            <td id="precioTotal">{{ precioTotal }}€</td>
+                            <td id="precioTotal" class="text-center">{{ precioTotal }}€</td>
                             <td></td>
                         </tr>
                         </tbody>
                     </table>
+                    <button class="page-link pestana m-auto col-5" id="iraDatos">Todo correcto</button>
                 {% else %}
-                    <div class="offset-md-3 col-md-5 text-center">
-                        <h6>No se han añadido productos a tu carrito. Añade productos <a href="../index.php">aquí</a></h6>
+                    <div class="m-auto col-md-5 text-center">
+                        <h6>No se han añadido productos a tu carrito. Añade productos </h6>
                     </div>
+                    <button class="page-link pestana m-auto col-5" id="iraTienda">Aqu&iacute;</button>
                 {% endif %}
-                <button class="page-link pestana m-auto col-5" id="iraDatos">Siguiente</button>
             </div>
         </div>
         <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="pestanaDatos">
@@ -78,33 +79,77 @@
                     <form method="post" action="./index.php?controller=pedido&action=realizarPedido" class="form-inline col-8 m-auto" id="formCarrito">
                         <div class="form-group col-12">
                             <label for="nombre" class="col-5">Nombre</label>
-                            <input type="text" class="form-control col-7" id="nombre" name="nombre">
+                            <input type="text" class="form-control col-7" id="nombre" name="nombre" placeholder="Escribe tu nombre">
                         </div>
-                        <div class="form-group col-12 mt-3">
+                        <div class="form-group col-12 mt-3" id="formFechaDatepicker">
                             <label for="fecha" class="col-5">Fecha de recogida</label>
-                            <input type="date" class="form-control col-7" name="fecha" id="fecha">
+                    {#        <input type="date" min="" class="form-control col-7" name="fecha" id="fecha">#}
+                                <input type="text" class="form-control">
+                            <div class="col-5"></div>
+                            <small class="col-7 form-text text-muted">La fecha debe ser como mínimo 4 días después de la del pedido.</small>
                         </div>
+
                         <div class="form-group col-12 mt-3">
                             <label for="email" class="col-5">Email</label>
-                            <input type="email" class="form-control col-7" id="email" name="email">
+                            <input type="email" class="form-control col-7" id="email" name="email" placeholder="Escribe tu email">
                         </div>
                         <div class="form-group col-12 mt-3 mb-3">
                             <label for="telefono" class="col-5">Teléfono</label>
-                            <input type="number" class="form-control col-7" id="telefono" name="telefono">
+                            <input type="tel" class="form-control col-7" id="telefono" name="telefono" placeholder="Escribe tu tel&eacute;fono">
                         </div>
                     </form>
                 </div>
-                <button class="page-link pestana m-auto col-5" id="iraFin">Terminar</button>
+                <small class="form-text text-muted text-center col-12">No compartimos tu informaci&oacute;n con nadie.</small>
+                <button class="page-link pestana m-auto col-5" id="iraFin">Ver resumen</button>
             </div>
         </div>
         <div class="tab-pane fade" id="fin" role="tabpanel" aria-labelledby="pestanaFin">
-            <div class="row pt-3">
-                <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5">Terminar pedido</button>
+            <div class="row pt-3 col-12">
+                <div class="col-12">
+                    <div class="col-12">Nombre: {{ nombreResumen }}</div>
+                    <div class="col-12 mt-3">Fecha de recogida: {{ fechaResumen }}</div>
+                    <div class="col-12 mt-3">Email: {{ emailResumen }}</div>
+                    <div class="col-12 mt-3 mb-3">Tel&eacute;fono: {{ telefonoResumen }}</div>
+                </div>
+                <table class="table col-12">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for clave, producto in productos %}
+                        <tr class="align-middle">
+                            {% set precioTmp = productosCuantity[clave] * producto.precio %}
+                            {% set precioTotal = precioTotal + precioTmp %}
+                            <th class="align-middle" scope="row">{{ producto.nombre }}</th>
+                            <td class="align-middle text-center">{{ productosCuantity[clave] }}</td>
+                            <td class="precioUnitario align-middle text-center">{{ producto.precio }}€</td>
+                            <td class="precioSubtotal align-middle text-center">{{ precioTmp }}€</td>
+                            <td class="text-center align-middle">{{ producto.idproducto }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th scope="row">Precio Total:</th>
+                        <td></td>
+                        <td></td>
+                        <td id="precioTotal" class="text-center">{{ precioTotal }}€</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-12">Terminar pedido</button>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" rel="script" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.es.min.js" rel="script" type="text/javascript"></script>
     <script src="./view/js/cart.js" rel="script" type="text/javascript"></script>
 {% endblock %}
