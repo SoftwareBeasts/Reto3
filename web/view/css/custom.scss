@@ -27,7 +27,7 @@ $enable-rounded:              false;
 
 /*Imports*/
 
-@import "../../../../../../Users/2gdaw08/Desktop/bootstrap-4.2.1/scss/bootstrap";
+@import "../bootstrap-4.2.1/scss/bootstrap";
 
 /*General*/
 
@@ -52,6 +52,7 @@ footer{
 /*Card*/
 
 .card{
+  border-radius: 0px;
   border: none;
   border-bottom: $card-border-width solid $card-border-color;
 }
@@ -77,6 +78,10 @@ footer{
     background-color: transparent;
   }
   /*Contenedores especiales*/
+.productoContainer{
+  padding-bottom: 2px;
+}
+
 .toast-container{
   z-index: 1021;
   position:fixed;

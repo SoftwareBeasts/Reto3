@@ -7335,6 +7335,7 @@ footer {
 
 /*Card*/
 .card {
+  border-radius: 0px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
 
@@ -7356,6 +7357,9 @@ footer {
   background-color: transparent; }
 
 /*Contenedores especiales*/
+.productoContainer {
+  padding-bottom: 2px; }
+
 .toast-container {
   z-index: 1021;
   position: fixed;

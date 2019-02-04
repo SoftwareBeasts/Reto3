@@ -153,7 +153,7 @@ class Producto {
     }
 
     public function getAllStats(){
-        $consulta = $this->conexion->prepare("SELECT nombre, vecesComprado FROM ".$this->table . " ORDER BY vecesComprado");
+        $consulta = $this->conexion->prepare("SELECT nombre, vecesComprado FROM ".$this->table . " ORDER BY vecesComprado DESC");
         $consulta->execute();
         $resultados = $consulta->fetchAll();
 

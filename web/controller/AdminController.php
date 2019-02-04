@@ -96,13 +96,19 @@ class AdminController extends Controller
             $stats = $producto->getAllStats();
             $x = array();
             $y= array();
+            $cont = 0;
             foreach ($stats as $stat)
             {
-                array_push($x, $stat['nombre']);
-                array_push($y, $stat['vecesComprado']);
+                if(intval($stat['vecesComprado']) > 0)
+                {
+                    array_push($x, $stat['nombre']);
+                    array_push($y, intval($stat['vecesComprado']));
+                    $cont++;
+                }
+                if($cont == 10)
+                    break;
             }
             $stats = ["x" => $x, "y" => $y];
-            //echo json_encode($stats);
             die(json_encode($stats));
         }
     }
