@@ -31,9 +31,8 @@ class PedidoController extends Controller
         parent::twigView($page, $data);
     }
 
-    public function enviarEmail($userEmail, $type)
-    {
-        parent::enviarEmail($userEmail, $type);
+    public function enviarEmail($userEmail, $subject, $body){
+        parent::enviarEmail($userEmail, $subject, $body);
     }
 
     public function defaultCase(){
@@ -259,7 +258,7 @@ class PedidoController extends Controller
             $this->deleteCart(true);
             $pedido->setPrecioTotal($precioTotal);
             $pedido->savePrecioTotal();
-            $datosEmail = ["idPedido" => $pedidoId, "fecha" => $pedido->getFecha(), "cartHtml" =>$cartHtml];
+            $datosEmail = ["idPedido" => $pedidoId, "fecha" => $pedido->getFecha(), "cartHtml" =>$cartHtml, "precioTotal" => $precioTotal];
             $this->enviarEmail($cliente->getEmail(), 1, $datosEmail);
             $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
             header( "refresh:7;url=index.php" );
