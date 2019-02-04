@@ -133,7 +133,7 @@ class Pedido {
      * Devuelve un Pedido en funcion del id del Cliente que tenga el Objeto Pedido
      * @return mixed
      */
-    public function bgetIdByClienteId(){
+    public function getIdByClienteId(){
         $consulta = $this->conexion->prepare("SELECT idPedido FROM ".$this->table." WHERE cliente_idcliente = :idCliente");
         $res = $consulta->execute(array(
             "idCliente" => $this->idCliente
