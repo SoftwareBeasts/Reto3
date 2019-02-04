@@ -49,7 +49,7 @@
                         <div class="text-wrap badge badge-primary">M&iacute;nimo de {{ producto.pedidoMin }}</div>
                         <br><br>
                         <div class="form-group mx-auto  text-center">
-                            <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" value="{{ producto.pedidoMin}}" name="cantidad">
+                            <input  class="form-control" type="number" id="spinner{{ producto.idproducto }}" min="{{ producto.pedidoMin }}" max="100" value="{{ producto.pedidoMin}}" name="cantidad">
                             <button type="button" class="btn btn-primary addCart mt-2" value="{{ producto.idproducto }}">A&ntilde;adir</button>
                         </div>
                     </div>
