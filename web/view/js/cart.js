@@ -35,10 +35,17 @@ $(document).ready(function () {
                 break;
         }
     });
-    let fecha = new Date();
+    $('#formFechaDatepicker input').datepicker({
+        language: "es",
+        forceParse: false,
+        orientation: "bottom right",
+        daysOfWeekDisabled: "0,1,2",
+        todayHighlight: true
+    });
+    /*let fecha = new Date();
     let fechaFormat = fecha.getFullYear()+"-"+dobleDigito(fecha.getMonth()+1)+"-"+dobleDigito(fecha.getDate()+4);
     $('#fecha').attr("min", fechaFormat);
-    $('#fecha').attr("value", fechaFormat);
+    $('#fecha').attr("value", fechaFormat);*/
 });
 
 function dobleDigito(n) {
