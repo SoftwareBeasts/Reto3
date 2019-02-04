@@ -175,7 +175,7 @@ class Producto {
     }
 
     public function getPrecioAndVecesCompradoByID(){
-        $consulta = $this->conexion->prepare("SELECT precio, vecesComprado FROM ".$this->table." WHERE idproducto = :id");
+        $consulta = $this->conexion->prepare("SELECT nombre, precio, vecesComprado FROM ".$this->table." WHERE idproducto = :id");
         $res = $consulta->execute(array(
             "id" => $this->id
         ));

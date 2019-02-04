@@ -31,6 +31,11 @@ class PedidoController extends Controller
         parent::twigView($page, $data);
     }
 
+    public function enviarEmail($userEmail, $type)
+    {
+        parent::enviarEmail($userEmail, $type);
+    }
+
     public function defaultCase(){
 
     }
@@ -216,40 +221,75 @@ class PedidoController extends Controller
 
     public function realizarPedido()
     {
-        //Guardar cliente nuevo
-        $cliente = new Cliente($this->conexion, null, $_POST['nombre'], $_POST['email'], $_POST['telefono']);
-        $cliente->save();
-        $idCliente = $cliente->getIdByEmail()['idCliente'];
-
-        //Guardar datos pedido
-        $pedido = new Pedido($this->conexion, null, date($_POST['fecha']), "0", 0, $idCliente);
-        $pedido->save();
-        $pedidoId = $pedido->getIdByClienteId()['idPedido'];
-        $precioTotal = 0;
-        $cart = $this->getCart();
-        foreach ($cart as $producto) //Calcular el precio total consultando a base de datos
+        if($this->verificarBot())
         {
-            $productId = $producto['id'];
-            $productCuantity = $producto['cantidad'];
-            $product = new Producto($this->conexion);
-            $product->setId($productId);
-            $datosProduct = $product->getPrecioAndVecesCompradoByID();
-            $precioTotal += intval($datosProduct['precio']) * intval($productCuantity);
+            //Guardar cliente nuevo
+            $cliente = new Cliente($this->conexion, null, $_POST['nombre'], $_POST['email'], $_POST['telefono']);
+            $cliente->save();
+            $idCliente = $cliente->getIdByEmail()['idCliente'];
 
-            $pedHprod = new PedidoHasProducto($this->conexion, $pedidoId, $productId, $productCuantity);
-            $pedHprod->save();
+            //Guardar datos pedido
+            $pedido = new Pedido($this->conexion, null, date($_POST['fecha']), "0", 0, $idCliente);
+            $pedido->save();
+            $pedidoId = $pedido->getIdByClienteId()['idPedido'];
+            $precioTotal = 0;
+            $cart = $this->getCart();
+            $cartHtml = "";
+            foreach ($cart as $producto) //Calcular el precio total consultando a base de datos
+            {
+                $productId = $producto['id'];
+                $productCuantity = $producto['cantidad'];
+                $product = new Producto($this->conexion);
+                $product->setId($productId);
+                $datosProduct = $product->getPrecioAndVecesCompradoByID();
+                $precioTmp = intval($datosProduct['precio']) * intval($productCuantity);
+                $precioTotal += $precioTmp;
 
-            //Estadísticas
-            $vecesComprado = intval($datosProduct['vecesComprado']) + intval($productCuantity);
-            $product->setVecesComprado($vecesComprado);
-            $product->saveVecesComprado();
+                $cartHtml += $this->generateCartHtml($datosProduct['nombre'], intval($productCuantity), $precioTmp);
+
+                $pedHprod = new PedidoHasProducto($this->conexion, $pedidoId, $productId, $productCuantity);
+                $pedHprod->save();
+
+                //Estadísticas
+                $vecesComprado = intval($datosProduct['vecesComprado']) + intval($productCuantity);
+                $product->setVecesComprado($vecesComprado);
+                $product->saveVecesComprado();
+
+            }
+            $this->deleteCart(true);
+            $pedido->setPrecioTotal($precioTotal);
+            $pedido->savePrecioTotal();
+            $datosEmail = ["idPedido" => $pedidoId, "fecha" => $pedido->getFecha(), "cartHtml" =>$cartHtml];
+            $this->enviarEmail($cliente->getEmail(), 1, $datosEmail);
+            $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
+            header( "refresh:7;url=index.php" );
+        }
+    }
+
+    private function verificarBot()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])) {
+
+            // Build POST request:
+            $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+            $recaptcha_secret = '6Lc_-Y4UAAAAAEzgk_ec9FUX4I04eGLxW959c8-T';
+            $recaptcha_response = $_POST['recaptcha_response'];
+
+            // Make and decode POST request:
+            $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response);
+            $recaptcha = json_decode($recaptcha);
+
+            $verified = false;
+            if ($recaptcha->score >= 0.5)
+                $verified = true;
+            return $verified;
 
         }
-        $this->deleteCart(true);
-        $pedido->setPrecioTotal($precioTotal);
-        $pedido->savePrecioTotal();
-        $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
-        header( "refresh:7;url=index.php" );
+    }
+
+    private function generateCartHtml($producto, $cantidad, $precio)
+    {
+        return "<tr><td style=\"padding-bottom: 5px\">$producto</td><td style=\"padding-bottom: 5px\">$cantidad</td><td style=\"padding-bottom: 5px\">$precio</td></tr>";
     }
 
     public function confirmarPedido($id)
@@ -270,9 +310,7 @@ class PedidoController extends Controller
             $cliente->setId($pedido['cliente_idcliente']);
             $cliente->getByID();
 
-            require_once __DIR__ . '/../config/plantillasemail.php';
-
-            $this->enviarEmail($cliente['email'],constant("ASUNTO_CONFIRMADOS"),constant("CUERPO_CONFIRMADOS"));
+            $this->enviarEmail($cliente['email'],3);
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{

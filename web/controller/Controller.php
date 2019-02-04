@@ -46,7 +46,8 @@ abstract class controller
         }
     }
   
-    public function enviarEmail($userEmail, $subject, $body){
+    public function enviarEmail($userEmail, $type){
+        require_once __DIR__ . '/../config/plantillasemail.php';
         require_once __DIR__."/../config/sendemail.php";
     }
 }
