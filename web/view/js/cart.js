@@ -5,36 +5,36 @@ $(document).ready(function () {
     $(".cuantity").on("change", function () {
         refreshPrice(this);
     });
-    // $(".pestana").on("click", function () {
-    //     switch ($(this).attr('id')){
-    //         case 'iraDatos':
-    //             $('#pestanaDatos').toggleClass("disabled");
-    //             $('#pestanaDatos').trigger('click');
-    //             $('#pestanaCarrito').toggleClass("disabled");
-    //             $('#pestanaCarrito').css({
-    //                 "background-color": "#00db39",
-    //                 "color": "white",
-    //                 "border": "1px solid #dee2e6"
-    //             });
-    //             break;
-    //         case 'iraFin':
-    //             $('#pestanaFin').toggleClass("disabled");
-    //             $('#pestanaFin').trigger('click');
-    //             $('#pestanaDatos').toggleClass("disabled");
-    //             $('#pestanaDatos').css({
-    //                 "background-color": "#00db39",
-    //                 "color": "white",
-    //                 "border": "1px solid #dee2e6"
-    //             });
-    //             break;
-    //         case 'iraTienda':
-    //             window.location.href = "index.php";
-    //             break;
-    //         default:
-    //             $('#pestanaCarrito').trigger('click');
-    //             break;
-    //     }
-    // });
+    $(".pestana").on("click", function () {
+        switch ($(this).attr('id')){
+            case 'iraDatos':
+                // $('#pestanaDatos').toggleClass("disabled");
+                $('#pestanaDatos').trigger('click');
+                // $('#pestanaCarrito').toggleClass("disabled");
+                // $('#pestanaCarrito').css({
+                //     "background-color": "#00db39",
+                //     "color": "white",
+                //     "border": "1px solid #dee2e6"
+                // });
+                break;
+            case 'iraFin':
+                // $('#pestanaFin').toggleClass("disabled");
+                $('#pestanaFin').trigger('click');
+                // $('#pestanaDatos').toggleClass("disabled");
+                // $('#pestanaDatos').css({
+                //     "background-color": "#00db39",
+                //     "color": "white",
+                //     "border": "1px solid #dee2e6"
+                // });
+                break;
+            case 'iraTienda':
+                window.location.href = "index.php";
+                break;
+            default:
+                $('#pestanaCarrito').trigger('click');
+                break;
+        }
+    });
     let fecha = new Date();
     let fechaFormat = fecha.getFullYear()+"-"+dobleDigito(fecha.getMonth()+1)+"-"+dobleDigito(fecha.getDate()+4);
     $('#fecha').attr("min", fechaFormat);
