@@ -4,11 +4,29 @@ $(document).ready(function () {
     });
     $(".cuantity").on("change", function () {
         refreshPrice(this);
-    })
+    });
+    $(".pestana").on("click", function () {
+        switch ($(this).attr('id')){
+            case 'iraDatos':
+                $('#pestanaDatos').toggleClass("disabled");
+                $('#pestanaDatos').trigger('click');
+                $('#pestanaCarrito').toggleClass("disabled");
+                break;
+            case 'iraFin':
+                $('#pestanaFin').toggleClass("disabled");
+                $('#pestanaFin').trigger('click');
+                $('#pestanaDatos').toggleClass("disabled");
+                break;
+            default:
+                $('#pestanaCarrito').trigger('click');
+                break;
+        }
+    });
 });
 
 function deleteProduct(thisButton) {
-    let productId = $(thisButton).val();
+    let button = $(thisButton);
+    let productId = button.val();
 
     $.ajax({
         type: "POST",
@@ -21,7 +39,13 @@ function deleteProduct(thisButton) {
                 "<h6>No se han añadido productos a tu carrito. Añade productos <a href=\"../index.php\">aquí</a></h6>" +
                 "</div>");
         }
-        $(thisButton).parent().parent().remove();
+        else
+        {
+            let tdPrecioTotal = $("#precioTotal");
+            let precio = deleteLastCharacter(tdPrecioTotal.html()) -deleteLastCharacter(button.parent().siblings(".precioSubtotal").html());
+            tdPrecioTotal.html(precio+"€");
+            button.parent().parent().remove();
+        }
     });
 }
 

@@ -94,6 +94,18 @@ class Cliente {
         return $resultados;
     }
 
+    public function getIdByEmail(){
+        $consulta = $this->conexion->prepare("SELECT idCliente FROM ".$this->table." WHERE email = :emailE");
+        $res = $consulta->execute(array(
+            "emailE" => $this->email
+        ));
+        $resultados = $consulta->fetch();
+
+        $this->conexion = null;
+
+        return $resultados;
+    }
+
     public function save(){
         $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, email, telefono) VALUES (:nombre, :email, :telefono)");
         $save = $consulta->execute(array(
@@ -101,7 +113,7 @@ class Cliente {
             "email" => $this->email,
             "telefono" => $this->telefono
         ));
-        $this->conexion = null;
+        //$this->conexion = null;
 
         return $save;
     }

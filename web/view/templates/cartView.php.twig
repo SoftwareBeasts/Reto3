@@ -16,85 +16,93 @@
 
 
 {% block content %}
-    {% if productos is defined %}
-        {% set precioTmp = 0 %}
-        {% set precioTotal = 0 %}
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Subtotal</th>
-                <th scope="col">Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-                <form action="./index.php?controller=pedido&action=realizarPedido">
-                    {% for clave, producto in productos %}
+    <ul class="nav nav-tabs text-center" id="pestanas" role="tablist">
+        <li class="nav-item col-4">
+            <a class="nav-link active" id="pestanaCarrito" data-toggle="tab" href="#carrito" role="tab" aria-controls="carrito" aria-selected="true">Comprueba tu carrito</a>
+        </li>
+        <li class="nav-item col-4">
+            <a class="nav-link disabled" id="pestanaDatos" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="false">Rellena tus datos</a>
+        </li>
+        <li class="nav-item col-4">
+            <a class="nav-link disabled" id="pestanaFin" data-toggle="tab" href="#fin" role="tab" aria-controls="fin" aria-selected="false">Finalizar</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="contenidoPestana">
+        <div class="tab-pane fade show active" id="carrito" role="tabpanel" aria-labelledby="pestanaCarrito">
+            <div class="mt-3 mb-3">
+                {% if productos is defined %}
+                    {% set precioTmp = 0 %}
+                    {% set precioTotal = 0 %}
+                    <table class="table">
+                        <thead>
                         <tr>
-                            {% set precioTmp = productosCuantity[clave] * producto.precio %}
-                            {% set precioTotal = precioTotal + precioTmp %}
-                            <th scope="row">{{ producto.nombre }}</th>
-                            <td><input valorId="{{ producto.idproducto }}" class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
-                            <td class="precioUnitario">{{ producto.precio }}€</td>
-                            <td class="precioSubtotal">{{ precioTmp }}€</td>
-                            <td><button type="button" class="btn btn-danger eliminar" value="{{ producto.idproducto }}">Eliminar</button> </td>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Subtotal</th>
+                            <th scope="col">Acciones</th>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                        <th scope="row">Precio Total:</th>
-                        <td></td>
-                        <td></td>
-                        <td id="precioTotal">{{ precioTotal }}€</td>
-                        <td></td>
-                    </tr>
-                    <tr rowspan="3">
-                        <th colspan="4">
-                            <div class="col-md-7 offset-md-2">
-                                <form method="post" action="./index.html?controller=pedido&action=">
-                                    <div class="form-group row">
-                                        <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nombre" name="nombre">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="fecha" class="col-sm-3 col-form-label">Fecha de recogida</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control" name="fecha" id="fecha">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="email" class="col-sm-3 col-form-label">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="email" class="form-control" id="email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="telefono" class="col-sm-3 col-form-label">Teléfono</label>
-                                        <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="telefono">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="textarea" class="col-sm-3 col-form-label"></label>
-                                        <div class="col-sm-9">
-                                            <input type="submit" value="Terminar pedido" class="btn btn-primary">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </th>
-                    </tr>
-                </form>
-            </tbody>
-        </table>
-    {% else %}
-        <div class="offset-md-3 col-md-5 text-center">
-            <h6>No se han añadido productos a tu carrito. Añade productos <a href="../index.php">aquí</a></h6>
+                        </thead>
+                        <tbody>
+                        {% for clave, producto in productos %}
+                            <tr>
+                                {% set precioTmp = productosCuantity[clave] * producto.precio %}
+                                {% set precioTotal = precioTotal + precioTmp %}
+                                <th scope="row">{{ producto.nombre }}</th>
+                                <td><input valorId="{{ producto.idproducto }}" class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
+                                <td class="precioUnitario">{{ producto.precio }}€</td>
+                                <td class="precioSubtotal">{{ precioTmp }}€</td>
+                                <td><button type="button" class="btn btn-danger eliminar" value="{{ producto.idproducto }}">Eliminar</button> </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <th scope="row">Precio Total:</th>
+                            <td></td>
+                            <td></td>
+                            <td id="precioTotal">{{ precioTotal }}€</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="offset-md-3 col-md-5 text-center">
+                        <h6>No se han añadido productos a tu carrito. Añade productos <a href="../index.php">aquí</a></h6>
+                    </div>
+                {% endif %}
+                <button class="page-link pestana m-auto col-5" id="iraDatos">Siguiente</button>
+            </div>
         </div>
-    {% endif %}
+        <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="pestanaDatos">
+            <div class="mt-3 mb-3">
+                <div class="row">
+                    <form method="post" action="./index.php?controller=pedido&action=realizarPedido" class="form-inline col-8 m-auto" id="formCarrito">
+                        <div class="form-group col-12">
+                            <label for="nombre" class="col-5">Nombre</label>
+                            <input type="text" class="form-control col-7" id="nombre" name="nombre">
+                        </div>
+                        <div class="form-group col-12 mt-3">
+                            <label for="fecha" class="col-5">Fecha de recogida</label>
+                            <input type="date" class="form-control col-7" name="fecha" id="fecha">
+                        </div>
+                        <div class="form-group col-12 mt-3">
+                            <label for="email" class="col-5">Email</label>
+                            <input type="email" class="form-control col-7" id="email" name="email">
+                        </div>
+                        <div class="form-group col-12 mt-3 mb-3">
+                            <label for="telefono" class="col-5">Teléfono</label>
+                            <input type="number" class="form-control col-7" id="telefono" name="telefono">
+                        </div>
+                    </form>
+                </div>
+                <button class="page-link pestana m-auto col-5" id="iraFin">Terminar</button>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="fin" role="tabpanel" aria-labelledby="pestanaFin">
+            <div class="row pt-3">
+                <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5">Terminar pedido</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}
