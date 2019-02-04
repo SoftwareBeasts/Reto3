@@ -8,6 +8,14 @@ class Cliente {
     private $email;
     private $telefono;
 
+    /**
+     * Cliente constructor. Los parametros son opcionales menos conexion
+     * @param $conexion
+     * @param null $id
+     * @param null $nombre
+     * @param null $email
+     * @param null $telefono
+     */
     public function __construct($conexion, $id=null, $nombre=null, $email=null, $telefono=null) {
         $this->conexion = $conexion;
         if (isset($id)){$this->id = $id;}
@@ -72,6 +80,10 @@ class Cliente {
         $this->telefono = $telefono;
     }
 
+    /**
+     * Devuelve todas las filas de la tabla Cliente de la BBDD
+     * @return mixed
+     */
     public function getAll(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table);
         $consulta->execute();
@@ -82,6 +94,10 @@ class Cliente {
         return $resultados;
     }
 
+    /**
+     * Devuelve la fila que coincida con el id del Objeto Cliente
+     * @return mixed
+     */
     public function getByID(){
         $consulta = $this->conexion->prepare("SELECT * FROM ".$this->table." WHERE idcliente = :id");
         $res = $consulta->execute(array(
@@ -94,6 +110,10 @@ class Cliente {
         return $resultados;
     }
 
+    /**
+     * Devuelve el id de la fila que coincida con el email del Objeto
+     * @return mixed
+     */
     public function getIdByEmail(){
         $consulta = $this->conexion->prepare("SELECT idCliente FROM ".$this->table." WHERE email = :emailE");
         $res = $consulta->execute(array(
@@ -106,6 +126,10 @@ class Cliente {
         return $resultados;
     }
 
+    /**
+     * Introduce un nuevo Cliente en la base de datos con los parametros del Objeto
+     * @return mixed
+     */
     public function save(){
         $consulta = $this->conexion->prepare("INSERT INTO ".$this->table." (nombre, email, telefono) VALUES (:nombre, :email, :telefono)");
         $save = $consulta->execute(array(
@@ -118,6 +142,10 @@ class Cliente {
         return $save;
     }
 
+    /**
+     * Elimina un Cliente de la base de datos mediante el id que tenga el Objeto
+     * @return mixed
+     */
     public function deleteByID(){
         $consulta = $this->conexion->prepare("DELETE FROM ".$this->table." WHERE idcliente = :id");
         $del = $consulta->execute(array(
@@ -128,6 +156,10 @@ class Cliente {
         return $del;
     }
 
+    /**
+     * Actualiza un Cliente de la base de datos con los datos del Objeto
+     * @return mixed
+     */
     public function update(){
         $consulta = $this->conexion->prepare("UPDATE ".$this->table." SET nombre = :nombre, email = :email, telefono = :telefono WHERE idcliente = :id");
         $update = $consulta->execute(array(
