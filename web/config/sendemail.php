@@ -31,6 +31,14 @@ if(SEND_MAIL)
             ],
           },
         });
+        Sendgrid.API(request, function(error, response) {
+          if (error) {
+            console.log('Mail not sent; see error message below.');
+          } else {
+            console.log('Mail sent successfully!');
+          }
+          console.log(response);
+        });
         ";
     fwrite($myfile, $txt);
     fclose($myfile);

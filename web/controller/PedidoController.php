@@ -220,6 +220,8 @@ class PedidoController extends Controller
 
     public function realizarPedido()
     {
+        try
+        {
         if($this->verificarBot())
         {
             //Guardar cliente nuevo
@@ -260,8 +262,12 @@ class PedidoController extends Controller
             $pedido->savePrecioTotal();
             $datosEmail = ["idPedido" => $pedidoId, "fecha" => $pedido->getFecha(), "cartHtml" =>$cartHtml, "precioTotal" => $precioTotal];
             $this->enviarEmail($cliente->getEmail(), 1, $datosEmail);
-            $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
-            header( "refresh:7;url=index.php" );
+            //$this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
+            //header( "refresh:7;url=index.php" );
+
+        }
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
         }
     }
 
@@ -309,7 +315,7 @@ class PedidoController extends Controller
             $cliente->setId($pedido['cliente_idcliente']);
             $cliente->getByID();
 
-            $this->enviarEmail($cliente['email'],3);
+            $this->enviarEmail($cliente['email'],3, null);
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
