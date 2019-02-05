@@ -4,6 +4,9 @@ class Connection{
     private $driver;
     private $host, $user, $pass, $database, $charset;
 
+    /**
+     * Connection constructor.
+     */
     public function __construct() {
         require_once __DIR__ . '/../config/database.php';
         $this->driver=DB_DRIVER;
@@ -14,6 +17,11 @@ class Connection{
         $this->charset=DB_CHARSET;
     }
 
+    /**
+     * Establece una conexion con la base de datos
+     * @return PDO el objeto de la conexion
+     * @throws Exception Si hay algun problema con la conexion
+     */
     public function conexion(){
 
         $bbdd = $this->driver .':host='. $this->host .  ';dbname=' . $this->database . ';charset=' . $this->charset;
