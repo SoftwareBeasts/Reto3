@@ -31,8 +31,8 @@ class PedidoController extends Controller
         parent::twigView($page, $data);
     }
 
-    public function enviarEmail($userEmail, $subject, $body){
-        parent::enviarEmail($userEmail, $subject, $body);
+    public function enviarEmail($userEmail, $type, $datosEmail=null){
+        parent::enviarEmail($userEmail, $type, $datosEmail);
     }
 
     public function defaultCase(){
@@ -220,8 +220,8 @@ class PedidoController extends Controller
 
     public function realizarPedido()
     {
-        if($this->verificarBot())
-        {
+        //if($this->verificarBot())
+        //{
             //Guardar cliente nuevo
             $cliente = new Cliente($this->conexion, null, $_POST['nombre'], $_POST['email'], $_POST['telefono']);
             $cliente->save();
@@ -244,7 +244,7 @@ class PedidoController extends Controller
                 $precioTmp = intval($datosProduct['precio']) * intval($productCuantity);
                 $precioTotal += $precioTmp;
 
-                $cartHtml += $this->generateCartHtml($datosProduct['nombre'], intval($productCuantity), $precioTmp);
+                $cartHtml = $cartHtml . $this->generateCartHtml($datosProduct['nombre'], intval($productCuantity), $precioTmp);
 
                 $pedHprod = new PedidoHasProducto($this->conexion, $pedidoId, $productId, $productCuantity);
                 $pedHprod->save();
@@ -262,7 +262,7 @@ class PedidoController extends Controller
             $this->enviarEmail($cliente->getEmail(), 1, $datosEmail);
             $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
             header( "refresh:7;url=index.php" );
-        }
+        //}
     }
 
     private function verificarBot()

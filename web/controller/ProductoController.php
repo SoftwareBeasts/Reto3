@@ -26,8 +26,8 @@ class ProductoController extends Controller
         parent::twigView($page, $data);
     }
 
-    public function enviarEmail($userEmail, $subject, $body){
-        parent::enviarEmail($userEmail, $subject, $body);
+    public function enviarEmail($userEmail, $type, $datosEmail=null){
+        parent::enviarEmail($userEmail, $type, $datosEmail);
     }
 
     public function defaultCase(){
