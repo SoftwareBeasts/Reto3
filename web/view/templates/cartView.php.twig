@@ -26,7 +26,8 @@
                 <a class="nav-link" id="pestanaDatos" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="false"><b>Paso 2</b><br>Rellena tus datos <i class="far fa-user"></i></a>
             </li>
             <li class="nav-item col-4 px-0 px-sm-3">
-                <a class="nav-link" id="pestanaFin" data-toggle="tab" href="#fin" role="tab" aria-controls="fin" aria-selected="false"><b>&Uacute;ltimo paso</b><br>Finalizar <i class="fas fa-check"></i></a>
+                <a class="nav-link disabled" id="pestanaFin" data-toggle="tab" href="#fin" role="tab" aria-controls="fin" aria-selected="false"><b>&Uacute;ltimo paso</b><br>Finalizar <i class="fas fa-check"></i></a>
+
             </li>
         </ul>
         <div class="tab-content" id="contenidoPestana">
@@ -95,6 +96,7 @@
                             </div>
                             <!-- Verificación reCaptcha para bots -->
                             <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+                            <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5" id="enviarPrimero">Terminar pedido</button>
                         </form>
                     </div>
                     <small class="form-text text-muted text-center col-12">No compartimos tu informaci&oacute;n con nadie.</small>
@@ -149,7 +151,7 @@
                         </tbody>
                     </table>
                     </div>
-                    <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5">Terminar pedido</button>
+                    <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5" id="enviarSegundo">Terminar pedido</button>
                 </div>
             </div>
         </div>
