@@ -10,13 +10,17 @@ include_once __DIR__ .'/../controller/Controller.php';
 
 class AdminController extends Controller
 {
-
+    /**
+     * AdminController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
-
+    /**
+     * Carga los archivos necesarios para este Controlador
+     */
     public function cargarArchivos()
     {
         parent::cargarArchivos();
@@ -24,16 +28,29 @@ class AdminController extends Controller
         require_once __DIR__ . '/../model/Producto.php';
     }
 
+    /**
+     * Llama a la funcion que ejecuta la funcion que se le haya pasado como string
+     * @param string $action la funcion a ejecutar
+     * @param null $id
+     */
     public function run($action = 'defaultCase', $id = null)
     {
         parent::run($action, $id);
     }
 
+    /**
+     * Llama a la funcion que llama a twig, para renderizar la pagina que se le pasa como string
+     * @param string $page la pagina a cargar
+     * @param array $data un array con los datos que necesita esa pagina
+     */
     public function twigView($page, $data=["a"=>"a"])
     {
         parent::twigView($page, $data);
     }
 
+    /**
+     * Carga la vista de Login si no se está ya logeado
+     */
     public function viewLogin(){
         if(!isset($_SESSION['admin']))
             $this->twigView('loginAdminView.php.twig');
@@ -41,6 +58,9 @@ class AdminController extends Controller
             header("Location: index.php?controller=producto&action=adminCatalogoView");
     }
 
+    /**
+     * Inicia la sesion como administrador
+     */
     public function login(){
         $user = $_POST['usuario'];
         $pass = $_POST['password'];
@@ -53,7 +73,7 @@ class AdminController extends Controller
             $this->twigView('loginAdminView.php.twig',['falloLogin'=>true]);
         }
         else{
-            header("Location: index.php?controller=producto&action=adminCatalogoView&t");
+            header("Location: index.php?controller=producto&action=adminPedidosView&t");
 
             /*Hay que mirar en el controlller de pedido cuando se accedan a las acciones
             de administrador que
@@ -62,6 +82,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Carga la vista de administrador de pedidos
+     */
     public function pedidos(){
         if (parent::verifyAdmin()){
             header("Location: index.php?controller=pedido&action=adminPedidosView&c=true");
@@ -70,6 +93,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Carga la vista de administrador de catalogo
+     */
     public function catalogo(){
         if (parent::verifyAdmin()){
             header("Location: index.php?controller=producto&action=adminCatalogoView&c=true");
@@ -78,6 +104,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Carga la vista de las estadisticas
+     */
     public function showStats(){
         if(parent::verifyAdmin())
         {
@@ -88,6 +117,9 @@ class AdminController extends Controller
              $this->toIndex();
     }
 
+    /**
+     * Obtiene las estadisticas
+     */
     public function getStats()
     {
         if(parent::verifyAdmin())
@@ -113,6 +145,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Sale de la sesion de administrador, destruyendo la sesion
+     */
     public function logout(){
         if (parent::verifyAdmin()){
             session_destroy();
@@ -122,6 +157,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * LLeva a la pagina principal
+     */
     public function toIndex(){
         header("Location: index.php?controller=producto");
     }
