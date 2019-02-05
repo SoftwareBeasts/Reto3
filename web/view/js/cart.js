@@ -43,16 +43,16 @@ $(document).ready(function () {
         $('td[resumenSubTotal="'+$(this).attr("valorId")+'"').html($(this).text());
     });
     $('#nombre').on("change", function () {
-        $('#nombreResumen').text("Nombre: "+$(this).val());
+        $('#nombreResumen').text($(this).val());
     });
     $('#fecha').on("change", function () {
-        $('#fechaResumen').text("Fecha de recogida: "+$(this).val());
+        $('#fechaResumen').text($(this).val());
     });
     $('#email').on("change", function () {
-        $('#emailResumen').text("Email: "+$(this).val());
+        $('#emailResumen').text($(this).val());
     });
     $('#telefono').on("change", function () {
-        $('#telResumen').text("Teléfono: "+$(this).val());
+        $('#telResumen').text($(this).val());
     });
     let f = new Date();
     f.setDate(f.getDate()+4);

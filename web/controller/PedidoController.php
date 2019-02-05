@@ -220,10 +220,12 @@ class PedidoController extends Controller
 
     public function realizarPedido()
     {
+
         try
         {
         if($this->verificarBot())
         {
+
             //Guardar cliente nuevo
             $cliente = new Cliente($this->conexion, null, $_POST['nombre'], $_POST['email'], $_POST['telefono']);
             $cliente->save();
@@ -262,8 +264,9 @@ class PedidoController extends Controller
             $pedido->savePrecioTotal();
             $datosEmail = ["idPedido" => $pedidoId, "fecha" => $pedido->getFecha(), "cartHtml" =>$cartHtml, "precioTotal" => $precioTotal];
             $this->enviarEmail($cliente->getEmail(), 1, $datosEmail);
-            //$this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
-            //header( "refresh:7;url=index.php" );
+
+            $this->twigView("orderConfirmation.php.twig", ["fechaPedido" => $pedido->getFecha()]);
+            header( "refresh:7;url=index.php" );
 
         }
         } catch (Exception $e) {
