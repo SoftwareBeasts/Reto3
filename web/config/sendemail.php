@@ -18,7 +18,7 @@ if(SEND_MAIL)
             personalizations: [
               {
                 to: [{email: '".$userEmail."'}],
-                subject: '".$subject."',
+                subject: '".ASUNTO."',
               },
             ],
             from: {email: '".EMAIL_SENDER."'},
@@ -26,7 +26,7 @@ if(SEND_MAIL)
               {
                 type: 'text/html',
                 value:
-                  '".$body."',
+                  '".MENSAJE."',
               },
             ],
           },
