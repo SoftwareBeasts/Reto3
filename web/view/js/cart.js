@@ -13,6 +13,7 @@ $(document).ready(function () {
                 $('#resumenCarrito').html($('#contenido').html());
                 break;
             case 'iraFin':
+                $('#pestanaFin').toggleClass("disabled");
                 $('#pestanaFin').trigger('click');
                 break;
             case 'iraTienda':
@@ -45,6 +46,12 @@ $(document).ready(function () {
     $('#nombre').on("change", function () {
         $('#nombreResumen').text($(this).val());
     });
+    // $('#nombre').on("blur", function () {
+    //     if ($('#nombre').val().length < 2){
+    //         // alert('El nombre debe tener como mínimo 2 letras');
+    //         $('#nombre').focus();
+    //     }
+    // });
     $('#fecha').on("change", function () {
         $('#fechaResumen').text($(this).val());
     });
@@ -54,18 +61,52 @@ $(document).ready(function () {
     $('#telefono').on("change", function () {
         $('#telResumen').text($(this).val());
     });
-    let f = new Date();
-    f.setDate(f.getDate()+4);
-    // $('#formCarrito').on("submit", function () {
-    //     if ($('#fecha').val() < f){
-    //         alert('fecha mal');
-    //     }
-    // });
-});
 
-function dobleDigito(n) {
-    return n < 10 ? '0' + n : '' + n;
-}
+    $("#formCarrito").validate({
+        rules: {
+            nombre: {
+                required: true,
+                minlength: 2
+            },
+            fecha: "required",
+            email: {
+                required: true,
+                email: true
+            },
+            telefono: "required"
+        },
+        messages: {
+            nombre: {
+                required: "Por favor indica tu nombre",
+                minlength: "El nombre debe tener al menos 2 letras"
+            },
+            fecha: "Por favor introduce una fecha",
+            email: "Por favor introduce tu email",
+            telefono: "Por favor introduce tu teléfono"
+        },
+        submitHandler: function(form) {
+            // form.submit();
+            $('#enviarPrimero').trigger('click');
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" );
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+                error.insertAfter( element.parent( "label" ) );
+            } else {
+                error.insertAfter( element );
+            }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+            $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+        }
+    });
+});
 
 function deleteProduct(thisButton) {
     let button = $(thisButton);
