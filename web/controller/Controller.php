@@ -74,7 +74,7 @@ abstract class controller
      * @param $subject tema
      * @param $body cuerpo del email
      */
-    public function enviarEmail($userEmail, $subject, $body){
+    public function enviarEmail($userEmail, $type, $datosemail=null){
         require_once __DIR__ . '/../config/plantillasemail.php';
         require_once __DIR__."/../config/sendemail.php";
     }
