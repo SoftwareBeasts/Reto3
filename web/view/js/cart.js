@@ -65,9 +65,10 @@ function deleteProduct(thisButton) {
     }).done(function (data) {
         if(data)
         {
-            $("#content").html($("#content").html+"<div class=\"offset-md-3 col-md-5 text-center\">" +
-                "<h6>No se han añadido productos a tu carrito. Añade productos <a href=\"../index.php\">aquí</a></h6>" +
-                "</div>");
+            $("#content").html("<div class=\"m-auto col-md-5 text-center\">\n" +
+                "                        <h6>No se han añadido productos a tu carrito. Añade productos </h6>\n" +
+                "                    </div>\n" +
+                "                    <button class=\"page-link pestana m-auto col-5\" id=\"iraTienda\">Aqu&iacute;</button>");
         }
         else
         {
