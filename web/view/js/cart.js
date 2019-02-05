@@ -4,28 +4,16 @@ $(document).ready(function () {
     });
     $(".cuantity").on("change", function () {
         refreshPrice(this);
+        $('td[resumenCantidad="'+$(this).attr("valorId")+'"').html($(this).val());
     });
     $(".pestana").on("click", function () {
         switch ($(this).attr('id')){
             case 'iraDatos':
-                // $('#pestanaDatos').toggleClass("disabled");
                 $('#pestanaDatos').trigger('click');
-                // $('#pestanaCarrito').toggleClass("disabled");
-                // $('#pestanaCarrito').css({
-                //     "background-color": "#00db39",
-                //     "color": "white",
-                //     "border": "1px solid #dee2e6"
-                // });
+                $('#resumenCarrito').html($('#contenido').html());
                 break;
             case 'iraFin':
-                // $('#pestanaFin').toggleClass("disabled");
                 $('#pestanaFin').trigger('click');
-                // $('#pestanaDatos').toggleClass("disabled");
-                // $('#pestanaDatos').css({
-                //     "background-color": "#00db39",
-                //     "color": "white",
-                //     "border": "1px solid #dee2e6"
-                // });
                 break;
             case 'iraTienda':
                 window.location.href = "index.php";
@@ -37,6 +25,7 @@ $(document).ready(function () {
     });
     $('#formFechaDatepicker input').datepicker({
         language: "es",
+        autoclose: true,
         format: 'yyyy-mm-d',
         startDate: '+4d',
         forceParse: false,
@@ -44,10 +33,34 @@ $(document).ready(function () {
         daysOfWeekDisabled: "0,1,2",
         todayHighlight: true
     });
-    /*let fecha = new Date();
-    let fechaFormat = fecha.getFullYear()+"-"+dobleDigito(fecha.getMonth()+1)+"-"+dobleDigito(fecha.getDate()+4);
-    $('#fecha').attr("min", fechaFormat);
-    $('#fecha').attr("value", fechaFormat);*/
+    $(".cuantity").each(function () {
+        $('td[resumenCantidad="'+$(this).attr("valorId")+'"').html($(this).val());
+    });
+    $(".precioSubtotal").on("change", function () {
+        $('td[resumenSubTotal="'+$(this).attr("valorId")+'"').html($(this).text());
+    });
+    $(".precioSubtotal").each(function () {
+        $('td[resumenSubTotal="'+$(this).attr("valorId")+'"').html($(this).text());
+    });
+    $('#nombre').on("change", function () {
+        $('#nombreResumen').text($(this).val());
+    });
+    $('#fecha').on("change", function () {
+        $('#fechaResumen').text($(this).val());
+    });
+    $('#email').on("change", function () {
+        $('#emailResumen').text($(this).val());
+    });
+    $('#telefono').on("change", function () {
+        $('#telResumen').text($(this).val());
+    });
+    let f = new Date();
+    f.setDate(f.getDate()+4);
+    // $('#formCarrito').on("submit", function () {
+    //     if ($('#fecha').val() < f){
+    //         alert('fecha mal');
+    //     }
+    // });
 });
 
 function dobleDigito(n) {
@@ -65,9 +78,8 @@ function deleteProduct(thisButton) {
     }).done(function (data) {
         if(data)
         {
-            $("#content").html($("#content").html+"<div class=\"offset-md-3 col-md-5 text-center\">" +
-                "<h6>No se han añadido productos a tu carrito. Añade productos <a href=\"../index.php\">aquí</a></h6>" +
-                "</div>");
+            $("#contenido").html("<div class='m-auto col-md-5 text-center'><h6>No se han añadido productos a tu carrito. Añade productos </h6></div><button class='page-link pestana m-auto col-5' id='iraTienda'>Aqu&iacute;</button>");
+            $("#iraTienda").on("click", function () {window.location.href = "index.php";});
         }
         else
         {
@@ -87,7 +99,9 @@ function refreshPrice(thisInput) {
     let tdTotal = $("#precioTotal");
     let pTotal = (deleteLastCharacter(tdTotal.html()) - deleteLastCharacter(td.html())) +newPrice;
     td.html(newPrice + "€");
+    $('td[resumenSubTotal="'+input.attr("valorId")+'"').html(td.html());
     tdTotal.html(pTotal+"€");
+    $('td[resumenTotal]').html(tdTotal.html());
 
     $.ajax({
         type: "POST",
