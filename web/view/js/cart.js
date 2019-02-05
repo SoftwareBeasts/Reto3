@@ -37,6 +37,8 @@ $(document).ready(function () {
     });
     $('#formFechaDatepicker input').datepicker({
         language: "es",
+        format: 'yyyy-mm-d',
+        startDate: '+4d',
         forceParse: false,
         orientation: "bottom right",
         daysOfWeekDisabled: "0,1,2",
