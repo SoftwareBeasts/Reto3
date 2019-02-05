@@ -16,6 +16,7 @@
 
 
 {% block content %}
+    {% if productos is defined %}
     <ul class="nav nav-tabs text-center" id="pestanas" role="tablist">
         <li class="nav-item col-4">
             <a class="nav-link active" id="pestanaCarrito" data-toggle="tab" href="#carrito" role="tab" aria-controls="carrito" aria-selected="true"><b>Paso 1</b><br>Revisa tu carrito <i class="fas fa-shopping-cart"></i></a>
@@ -29,8 +30,7 @@
     </ul>
     <div class="tab-content" id="contenidoPestana">
         <div class="tab-pane fade show active" id="carrito" role="tabpanel" aria-labelledby="pestanaCarrito">
-            <div class="mt-3 mb-3" id="content">
-                {% if productos is defined %}
+            <div class="mt-3 mb-3" id="contenido">
                     {% set precioTmp = 0 %}
                     {% set precioTotal = 0 %}
                     <table class="table">
@@ -49,9 +49,9 @@
                                 {% set precioTmp = productosCuantity[clave] * producto.precio %}
                                 {% set precioTotal = precioTotal + precioTmp %}
                                 <th class="align-middle" scope="row">{{ producto.nombre }}</th>
-                                <td class="align-middle"><input valorId="{{ producto.idproducto }}" class="form-control cuantity" type="number" min="{{ producto.pedidoMin }}" max="100" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
+                                <td class="align-middle"><input  valorId="{{ producto.idproducto }}" class="form-control cuantity cantidadProductos cantFin" type="number" min="{{ producto.pedidoMin }}" max="100" name="cantidad{{ producto.nombre }}" value="{{ productosCuantity[clave] }}"></td>
                                 <td class="precioUnitario text-center align-middle">{{ producto.precio }}€</td>
-                                <td class="precioSubtotal text-center align-middle">{{ precioTmp }}€</td>
+                                <td class="precioSubtotal text-center align-middle" valorId="{{ producto.idproducto }}">{{ precioTmp }}€</td>
                                 <td class="text-center align-middle"><button type="button" class="btn rounded-circle eliminar" value="{{ producto.idproducto }}"><i class="far fa-trash-alt text-primary"></i></button> </td>
                             </tr>
                         {% endfor %}
@@ -65,12 +65,6 @@
                         </tbody>
                     </table>
                     <button class="page-link pestana m-auto col-5" id="iraDatos">Todo correcto</button>
-                {% else %}
-                    <div class="m-auto col-md-5 text-center">
-                        <h6>No se han añadido productos a tu carrito. Añade productos </h6>
-                    </div>
-                    <button class="page-link pestana m-auto col-5" id="iraTienda">Aqu&iacute;</button>
-                {% endif %}
             </div>
         </div>
         <div class="tab-pane fade" id="datos" role="tabpanel" aria-labelledby="pestanaDatos">
@@ -108,39 +102,34 @@
         <div class="tab-pane fade" id="fin" role="tabpanel" aria-labelledby="pestanaFin">
             <div class="row pt-3 col-12">
                 <div class="col-12">
-                    <div class="col-12">Nombre: {{ nombreResumen }}</div>
-                    <div class="col-12 mt-3">Fecha de recogida: {{ fechaResumen }}</div>
-                    <div class="col-12 mt-3">Email: {{ emailResumen }}</div>
-                    <div class="col-12 mt-3 mb-3">Tel&eacute;fono: {{ telefonoResumen }}</div>
+                    <div id="nombreResumen" class="col-12">Nombre: </div>
+                    <div id="fechaResumen" class="col-12 mt-3">Fecha de recogida: </div>
+                    <div id="emailResumen" class="col-12 mt-3">Email: </div>
+                    <div id="telResumen" class="col-12 mt-3 mb-3">Tel&eacute;fono: </div>
                 </div>
-                <table class="table col-12">
+                <table class="table">
                     <thead>
                     <tr class="text-center">
                         <th scope="col">Producto</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Subtotal</th>
-                        <th scope="col">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for clave, producto in productos %}
-                        <tr class="align-middle">
-                            {% set precioTmp = productosCuantity[clave] * producto.precio %}
-                            {% set precioTotal = precioTotal + precioTmp %}
+                        <tr>
                             <th class="align-middle" scope="row">{{ producto.nombre }}</th>
-                            <td class="align-middle text-center">{{ productosCuantity[clave] }}</td>
-                            <td class="precioUnitario align-middle text-center">{{ producto.precio }}€</td>
-                            <td class="precioSubtotal align-middle text-center">{{ precioTmp }}€</td>
-                            <td class="text-center align-middle">{{ producto.idproducto }}</td>
+                            <td class="align-middle text-center" resumenCantidad="{{ producto.idproducto }}"></td>
+                            <td class="text-center align-middle">{{ producto.precio }}€</td>
+                            <td class="text-center align-middle" resumenSubTotal="{{ producto.idproducto }}"></td>
                         </tr>
                     {% endfor %}
                     <tr>
                         <th scope="row">Precio Total:</th>
                         <td></td>
                         <td></td>
-                        <td id="precioTotal" class="text-center">{{ precioTotal }}€</td>
-                        <td></td>
+                        <td class="text-center" resumenTotal>{{ precioTotal }}€</td>
                     </tr>
                     </tbody>
                 </table>
@@ -148,6 +137,12 @@
             </div>
         </div>
     </div>
+    {% else %}
+        <div class="m-auto col-md-5 text-center">
+            <h6>No se han añadido productos a tu carrito. Añade productos </h6>
+        </div>
+        <button class="page-link pestana m-auto col-5" id="iraTienda">Aqu&iacute;</button>
+    {% endif %}
 {% endblock %}
 
 {% block script %}
