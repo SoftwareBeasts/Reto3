@@ -10,24 +10,66 @@
 </h1>
 <h5 align="center">Página web para la realización de pedidos para la Escuela de Hosterería de Egibide</h5>
 
-<!--
-## ¿Para qué sirve?
-Esta página web sirve para que los operarios de la empresa de latas de conservas puedan controlar el autómata de una manera más sencilla e intuitiva que directamente usando el programa base.
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg?longCache=true&style=flat" alt="Gitter">
+  </a>
+  <a href="https://github.com/SoftwareBeasts/Reto2/releases">
+    <img src="https://img.shields.io/badge/version-v1.0-green.svg">
+  </a>
+  
+</p>
+
+<p align="center">
+  <a href="#en-qué-consiste">¿En qué consiste?</a> •
+  <a href="#descarga">Descarga</a> •
+  <a href="#instalación">Instalación</a> •
+  <a href="#documentación">Documentación</a> •
+  <a href="#demo">Demo</a> •
+  <a href="#relacionado">Relacionado</a> •
+  <a href="#licencia">Licencia</a>
+</p>
+
+---
+
+## ¿En qué consiste?
+La escuela de hostelería de Mendizorrotza de Egibide, nos ha pedido que creemos una web que permita a sus clientes hacer
+sus pedidos de una forma mas conveniente a cómo lo tienen actualmente, y que además les permita gestionar a ellos todo lo
+relacionado con los productos y los pedidos desde la misma página.
 
 ## Descarga
-Disponemos de un [manual de usuario](/Documentaci%C3%B3n/Manual%20de%20Usuario.pdf) en el que explicamos los pasos a seguir 
+Disponemos de un [manual de administrador](docs/Documentacion/Manual%20de%20Administrador.pdf) en el que explicamos los pasos a seguir 
 para la descarga y el funcionamiento de nuestra página web.
 
+## Instalación
+
+Una vez tengamos instalado XAMPP y Composer iremos al source de nuestro proyecto y ejecutaremos el siguiente comando:
+
+```
+.../app-eventos/$ composer i
+```
+
+Ya estaría listo, a disfrutar de la aplicación.
+
 ## Documentación
-Documentación general del proyecto [aquí](/Documentación/Documentacion.pdf)
+Documentación general del proyecto [aquí](docs/Documentacion)
 
 | Enlaces específicos |
 | ------------- |
-| Seguimiento semanal: [Semana 1](/Documentaci%C3%B3n/Seguimiento%20Semana%201%20Software%20Beasts.pdf), [Semana 2](/Documentaci%C3%B3n/Seguimiento%20Semana%202%20Software%20Beasts.pdf), [Semana 3](/Documentaci%C3%B3n/Seguimiento%20Semana%203%20Software%20Beasts.pdf)|
-| Reunión con el equipo de ARI [documento](/Documentaci%C3%B3n/Reuni%C3%B3n%20con%20ARI.pdf) |
-| Plataforma de planificación que hemos usado de una forma diaria <a href="https://trello.com/b/96znWmkJ/" target="_blank">link a Trello</a>|
-| Version 0.0 de Sketch [imagen](/Documentaci%C3%B3n/Sketch%20v0.0.jpg) |
-| Github pages [link](https://softwarebeasts.github.io/) |
--->
+| Seguimiento semanal: [aquí](docs/Documentacion/SeguimientoSemanal.zip)|
+| Guía de estilos [documento](docs/Documentacion/Gu%C3%ADa%20de%20estilo.pdf) |
+| Plataforma de planificación que hemos usado de una forma diaria <a href="https://trello.com/b/96znWmkJ/" target="_blank">enlace a Trello</a>|
+| Web frame de todo el sitio web [carpeta](docs/Documentacion/WebFrame.zip) |
+
+## Demo
+
+Puedes ver una demo de esta aplicación web en funcionamiento haciendo click [aquí](https://sfescuelahosteleria.ml)
+
+## Relacionado
+
+[Web_Aergibide.SL](https://github.com/SoftwareBeasts/Reto2) - Aplicación web para gestión de la información de la empresa Aergibide.S.L
+[Web autómata](https://github.com/SoftwareBeasts/Reto1) - Aplicación web para gestión de un autómata
+
+## Licencia
 
 ###### Realizado por Software Beasts bajo licencia [MIT](/LICENSE). 2018.

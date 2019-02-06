@@ -70,9 +70,9 @@ abstract class controller
 
     /**
      * Envia un email con los datos que se le pasen a la funcion
-     * @param $userEmail destinatario
-     * @param $subject tema
-     * @param $body cuerpo del email
+     * @param $userEmail string destinatario
+     * @param $subject string tema del mail
+     * @param $body string cuerpo del email
      */
     public function enviarEmail($userEmail, $type, $datosEmail){
         require_once __DIR__ . '/../config/plantillasemail.php';
