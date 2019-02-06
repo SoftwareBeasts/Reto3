@@ -297,7 +297,7 @@ class PedidoController extends Controller
 
     private function generateCartHtml($producto, $cantidad, $precio)
     {
-        return "<tr><td style=\"padding-bottom: 5px\">$producto</td><td style=\"padding-bottom: 5px\">$cantidad</td><td style=\"padding-bottom: 5px\">$precio</td></tr>";
+        return "<tr style=\"border-bottom: 1px solid #f2f2f2;\"><td style=\"padding: 4px;\">$producto</td><td style=\"padding: 4px;\">$cantidad</td><td style=\"padding: 4px;\">$precio</td></tr>";
     }
 
     public function confirmarPedido($id)
@@ -313,12 +313,12 @@ class PedidoController extends Controller
 
             $pedido = new Pedido($this->conexion);
             $pedido->setId($id);
-            $pedido->getByID();
-            $cliente =  new Cliente();
-            $cliente->setId($pedido['cliente_idcliente']);
-            $cliente->getByID();
+            $pedidoData = $pedido->getByID();
+            $cliente =  new Cliente($this->conexion);
+            $cliente->setId($pedidoData['cliente_idcliente']);
+            $clienteData = $cliente->getByID();
 
-            $this->enviarEmail($cliente['email'],3, null);
+            $this->enviarEmail($clienteData['email'],3, null);
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
@@ -362,7 +362,7 @@ class PedidoController extends Controller
             if (isset($_POST['asunto'])) {$asunto = $_POST['asunto'];}
             if (isset($_POST['contenido'])) {$contenido = $_POST['contenido'];}
 
-            $this->enviarEmail($email,$asunto,$contenido);
+            $this->enviarEmail($email, 4,["asunto" => $asunto, "mensaje" => $contenido]);
         }else{
             header("Location: index.php?controller=producto");
         }
