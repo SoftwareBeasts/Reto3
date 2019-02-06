@@ -297,7 +297,7 @@ class PedidoController extends Controller
 
     private function generateCartHtml($producto, $cantidad, $precio)
     {
-        return "<tr style=\"border-bottom: 1px solid #f2f2f2;\"><td style=\"padding: 4px;\">$producto</td><td style=\"padding: 4px;\">$cantidad</td><td style=\"padding: 4px;\">$precio</td></tr>";
+        return "<tr style=\"border-bottom: 1px solid #f2f2f2;\"><td style=\"padding: 4px;\">".$producto."</td><td style=\"padding: 4px;\">".$cantidad."</td><td style=\"padding: 4px;\">".$precio."€</td></tr>";
     }
 
     public function confirmarPedido($id)
@@ -318,7 +318,7 @@ class PedidoController extends Controller
             $cliente->setId($pedidoData['cliente_idcliente']);
             $clienteData = $cliente->getByID();
 
-            $this->enviarEmail($clienteData['email'],3, null);
+            $this->enviarEmail($clienteData['email'],3, ["idPedido" => $pedidoData['idPedido'], "fecha" => $pedidoData['fecha']]);
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
