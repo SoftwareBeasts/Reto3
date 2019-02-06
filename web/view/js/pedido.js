@@ -22,7 +22,10 @@ $(document).ready(function () {
             data: {id : idPedido}
         }).done(function () {
             // alert("confirmado");
-            location.reload();
+            let currentId = $("#"+idPedido);
+            $("#confirmados").append(currentId);
+            $(currentId).find("div div :button").remove();
+            $(currentId).find("div div").append("<button class=\"btn btn-success btnBorrar\" id=\"\" value=\"{{ pedido.idpedido }}\"><i class=\"fas fa-check-double\"></i> Finalizado</button>\n");
         });
     });
 
@@ -34,7 +37,7 @@ $(document).ready(function () {
             data: {id : idPedido}
         }).done(function () {
             // alert("rechazado");
-            location.reload();
+            $("#"+idPedido).remove();
         });
     });
 });

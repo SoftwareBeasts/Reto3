@@ -30,3 +30,19 @@ INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Unai', '
 INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-26', '1', '30', '3');
 INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('3', '1', '6');
 INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('3', '5', '1');
+
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Aitor', 'aitor@email.com', '666112233');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-24', '0', '10', '1');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('4', '1', '2');
+
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Aitor', 'aitor@email.com', '666112233');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-24', '0', '10', '1');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('5', '1', '2');
+
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Aitor', 'aitor@email.com', '666112233');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-24', '0', '10', '1');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('6', '1', '2');
+
+INSERT INTO cliente (idcliente, nombre, email, telefono) VALUES (NULL, 'Aitor', 'aitor@email.com', '666112233');
+INSERT INTO pedido (idpedido, fecha, estado, precioTotal, cliente_idcliente) VALUES (NULL, '2019-01-24', '0', '10', '1');
+INSERT INTO pedido_has_producto (pedido_idpedido, producto_idproducto, cantidad) VALUES ('7', '1', '2');
