@@ -124,17 +124,24 @@
                         </div>
                     </div>
                     <div class="col-12" style="overflow-x: auto">
-                    <table class="table">
-                        <thead>
-                        <tr class="text-center">
-                            <th scope="col">Producto</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Subtotal</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for clave, producto in productos %}
+                        <table class="table">
+                            <thead>
+                            <tr class="text-center">
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for clave, producto in productos %}
+                                <tr>
+                                    <th class="align-middle" scope="row">{{ producto.nombre }}</th>
+                                    <td class="align-middle text-center" resumenCantidad="{{ producto.idproducto }}"></td>
+                                    <td class="text-center align-middle">{{ producto.precio }}€</td>
+                                    <td class="text-center align-middle" resumenSubTotal="{{ producto.idproducto }}"></td>
+                                </tr>
+                            {% endfor %}
                             <tr>
                                 <th scope="row">Precio Total:</th>
                                 <td></td>
