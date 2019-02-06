@@ -9,7 +9,7 @@ if (isset($_GET['t'])){
 /*No tengo ni idea de para que era esto*/
 if (isset ($_SESSION['admin'])&&!isset($_GET['c'])){
    $admin = $_SESSION['admin'];
-    header("Location: index.php?controller=producto&action=adminCatalogoView&c=true");
+    header("Location: index.php?controller=pedido&action=adminPedidosView&c=true");
 }
 /*Obtiene el controllador de la URL, si no encuentra ninguno, se cogera el que este por defecto*/
 if(isset($_GET['controller'])){
