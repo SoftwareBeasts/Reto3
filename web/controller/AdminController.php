@@ -73,7 +73,7 @@ class AdminController extends Controller
             $this->twigView('loginAdminView.php.twig',['falloLogin'=>true]);
         }
         else{
-            header("Location: index.php?controller=pedido &action=adminPedidosView&t");
+            header("Location: index.php?controller=pedido&action=adminPedidosView&t");
 
             /*Hay que mirar en el controlller de pedido cuando se accedan a las acciones
             de administrador que
