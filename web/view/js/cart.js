@@ -13,8 +13,23 @@ $(document).ready(function () {
                 $('#resumenCarrito').html($('#contenido').html());
                 break;
             case 'iraFin':
-                $('#pestanaFin').toggleClass("disabled");
-                $('#pestanaFin').trigger('click');
+                $nombreOK = false;
+                $fechaOK = false;
+                $emailOK = false;
+                $telOK = false;
+                //Nombre
+                if($('#nombre').val().length < 2){$nombreOK = true;}
+                //fecha
+                if(/((19|20)[0-9]{2})\-([0-2][0-9])\-([0-2][0-9]|[3][0-1])/.test(text)){$fechaOK = true;}
+                //email
+                if(/^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/.test($('#email'))){$emailOK = true;}
+                //telefono
+                if(!/^[9|6|7][0-9]{8}$/.test($('#telefono').val())){$telOK = true;}
+
+                if($nombreOK && $fechaOK && $emailOK && $telOK){
+                    $('#pestanaFin').toggleClass("disabled");
+                    $('#pestanaFin').trigger('click');
+                }
                 break;
             case 'iraTienda':
                 window.location.href = "index.php";
@@ -44,24 +59,43 @@ $(document).ready(function () {
         $('td[resumenSubTotal="'+$(this).attr("valorId")+'"').html($(this).text());
     });
     $('#nombre').on("change", function () {
-        $('#nombreResumen').text($(this).val());
+        if($('#nombre').val().length < 2){
+            $('#nombre').css({"box-shadow": "inset 0px 0px 10px 1px red"})
+        }else{
+            $('#nombre').css({"box-shadow": ""});
+            $('#nombreResumen').text($(this).val());
+        }
     });
-    // $('#nombre').on("blur", function () {
-    //     if ($('#nombre').val().length < 2){
-    //         // alert('El nombre debe tener como mínimo 2 letras');
-    //         $('#nombre').focus();
-    //     }
-    // });
     $('#fecha').on("change", function () {
-        $('#fechaResumen').text($(this).val());
+        if(!/^((19|20)[0-9]{2})\-([0-2][0-9])\-([0-2][0-9]|[3][0-1])$/.test($('#fecha').val())){
+            $('#fecha').css({"box-shadow": "inset 0px 0px 10px 1px red"})
+        }else{
+            $('#fecha').css({"box-shadow": ""});
+            $('#fechaResumen').text($(this).val());
+        }
     });
     $('#email').on("change", function () {
-        $('#emailResumen').text($(this).val());
+        let a = new RegExp("^([a-z\\d!#$%&'*+\\-\\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\\.[a-z\\d!#$%&'*+\\-\\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|\"((([ \\t]*\\r\\n)?[ \\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \\t]*\\r\\n)?[ \\t]+)?\")@(([a-z\\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\\d\\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\\d\\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\\.?$");
+        if(!a.test($('#email').val())){
+            $('#email').css({"box-shadow": "inset 0px 0px 10px 1px red"})
+        }else{
+            $('#email').css({"box-shadow": ""});
+            $('#emailResumen').text($(this).val());
+        }
     });
     $('#telefono').on("change", function () {
-        $('#telResumen').text($(this).val());
+        if(!/^[9|6|7][0-9]{8}$/.test($('#telefono').val())){
+            $('#telefono').css({
+                "box-shadow": "inset 0px 0px 10px 1px red"
+            })
+        }else{
+            $('#telefono').css({"box-shadow": ""});
+            $('#telResumen').text($(this).val());
+        }
     });
-
+    $('#enviarSegundo').on("click", function () {
+        $('#enviarPrimero').trigger('click');
+    });
     $("#formCarrito").validate({
         rules: {
             nombre: {
@@ -73,7 +107,10 @@ $(document).ready(function () {
                 required: true,
                 email: true
             },
-            telefono: "required"
+            telefono: {
+                required: true,
+                minlength: 9
+            }
         },
         messages: {
             nombre: {
@@ -82,11 +119,13 @@ $(document).ready(function () {
             },
             fecha: "Por favor introduce una fecha",
             email: "Por favor introduce tu email",
-            telefono: "Por favor introduce tu teléfono"
+            telefono: {
+                required: "Por favor indica tu telefono",
+                minlength: "El telefono debe tener al menos 9 dígitos"
+            }
         },
         submitHandler: function(form) {
-            // form.submit();
-            $('#enviarPrimero').trigger('click');
+            form.submit();
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {
