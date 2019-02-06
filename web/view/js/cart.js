@@ -1,7 +1,9 @@
 $(document).ready(function () {
+    //Elimina un producto de el carrito al hacer click
     $(".eliminar").on("click", function () {
         deleteProduct(this);
     });
+    //Modifica el subtotal cuando cambias la cantidad
     $(".cuantity").on("change", function () {
         refreshPrice(this);
         $('td[resumenCantidad="'+$(this).attr("valorId")+'"').html($(this).val());

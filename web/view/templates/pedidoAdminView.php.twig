@@ -32,18 +32,18 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" method="post" class="form-group">
+                                    <form action="" method="post" class="form-group" id="form{{ pedido.cliente.idcliente }}">
                                         <label for="email">Email</label>
-                                        <input type="text" id="email" class="col-12 form-control" value="{{ pedido.cliente.email }}" disabled>
+                                        <input type="text" id="email{{ pedido.cliente.idcliente }}" class="col-12 form-control" value="{{ pedido.cliente.email }}" disabled>
                                         <label for="asunto" class="mt-3">Asunto</label>
-                                        <input type="text" id="asunto" class="col-12 form-control">
+                                        <input type="text" id="asunto{{ pedido.cliente.idcliente }}" class="col-12 form-control">
                                         <label for="contenido" class="mt-3">Contenido</label>
-                                        <textarea id="contenido" class="col-12 form-control"></textarea>
+                                        <textarea id="contenido{{ pedido.cliente.idcliente }}" class="col-12 form-control"></textarea>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary enviarEmail">Enviar</button>
+                                    <button type="button" class="btn btn-primary enviarEmail" form="{{ pedido.cliente.idcliente }}">Enviar</button>
                                 </div>
                             </div>
                         </div>

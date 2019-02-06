@@ -42,4 +42,28 @@ $(document).ready(function () {
             $("#"+idPedido).remove();
         });
     });
+
+    /*Enviar correo custom*/
+    $('.enviarEmail').on('click', function () {
+        let boton = $(this);
+        let id = boton.attr("form");
+        // let emailD = $(this).parent().siblings(".modal-body").child(".form-group").child("#email").val();
+        let emailD = $('#email'+id).val();
+        let asuntoD = $('#asunto'+id).val();
+        let cuerpo = $('#contenido'+id).val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "./index.php?controller=pedido&action=customEmail",
+            data: {
+                email : emailD,
+                asunto : asuntoD,
+                contenido : cuerpo
+            }
+        }).done(function () {
+            $('#enviarEmail').trigger("click");
+            // alert(emailD+asuntoD+cuerpo);
+        });
+    });
 });
