@@ -1,6 +1,6 @@
 <?php
 
-define("SEND_MAIL", true);
+define("SEND_MAIL", false);
 define("API_KEY", "");
 define("EMAIL_SENDER", "escueladehosteleria@softwarebeasts.ml");
 define("JS_NAME", "enviaremail.js");

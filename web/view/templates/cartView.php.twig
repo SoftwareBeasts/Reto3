@@ -81,7 +81,7 @@
                             </div>
                             <div class="row form-group col-12 mt-3" id="formFechaDatepicker">
                                 <label for="fecha" class="col-12 col-sm-5">Fecha de recogida</label>
-                                <input type="text" name="fecha" id="fecha" class="form-control col-12 col-sm-7" autocomplete="off">
+                                <input type="text" name="fecha" id="fecha" class="form-control col-12 col-sm-7" autocomplete="off" placeholder="Introduce una fecha">
                                 <div class="col-5"></div>
                                 <small class="col-12 col-sm-7 form-text text-muted">La fecha debe ser como mínimo 4 días después de la del pedido.</small>
                             </div>
@@ -96,10 +96,10 @@
                             </div>
                             <!-- Verificación reCaptcha para bots -->
                             <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
-                            <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5" id="enviarPrimero">Terminar pedido</button>
+                            <button type="submit" form="formCarrito" class="d-none" id="enviarPrimero"></button>
                         </form>
                     </div>
-                    <small class="form-text text-muted text-center col-12">No compartimos tu informaci&oacute;n con nadie.</small>
+                    <small class="form-text text-muted text-center col-12">Todos los campos son obligatorios pero tranquilo,<br>no compartimos tu informaci&oacute;n con nadie.</small>
                     <button class="page-link pestana m-auto col-5" id="iraFin">Ver resumen</button>
                 </div>
             </div>
@@ -124,32 +124,32 @@
                         </div>
                     </div>
                     <div class="col-12" style="overflow-x: auto">
-                    <table class="table">
-                        <thead>
-                        <tr class="text-center">
-                            <th scope="col">Producto</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Subtotal</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for clave, producto in productos %}
-                            <tr>
-                                <th class="align-middle" scope="row">{{ producto.nombre }}</th>
-                                <td class="align-middle text-center" resumenCantidad="{{ producto.idproducto }}"></td>
-                                <td class="text-center align-middle">{{ producto.precio }}€</td>
-                                <td class="text-center align-middle" resumenSubTotal="{{ producto.idproducto }}"></td>
+                        <table class="table">
+                            <thead>
+                            <tr class="text-center">
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Subtotal</th>
                             </tr>
-                        {% endfor %}
-                        <tr>
-                            <th scope="row">Precio Total:</th>
-                            <td></td>
-                            <td></td>
-                            <td class="text-center" resumenTotal>{{ precioTotal }}€</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for clave, producto in productos %}
+                                <tr>
+                                    <th class="align-middle" scope="row">{{ producto.nombre }}</th>
+                                    <td class="align-middle text-center" resumenCantidad="{{ producto.idproducto }}"></td>
+                                    <td class="text-center align-middle">{{ producto.precio }}€</td>
+                                    <td class="text-center align-middle" resumenSubTotal="{{ producto.idproducto }}"></td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="row">Precio Total:</th>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center" resumenTotal>{{ precioTotal }}€</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <button type="submit" form="formCarrito" class="btn btn-primary m-auto col-5" id="enviarSegundo">Terminar pedido</button>
                 </div>
