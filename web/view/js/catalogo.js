@@ -1,4 +1,5 @@
 var toastCounter = 0;
+/*Añade prductos al carrito de la compra*/
 $(document).ready(function () {
     $(".addCart").on("click", function () {
         addCart(this);
@@ -21,7 +22,10 @@ $(".contenidoCategoria").on("hide.bs.collapse",function(){
     $(activador).parent().parent().addClass("categoria-closed");
 })
 
-
+/**
+ * Añade el producto al que se le haya hecho click al carrito de la compra y llama a la funcion que muestra un toast
+ * @param buttonThis buttonElement El botón que ha ejecutado la accion
+ */
 function addCart(buttonThis) {
     let button = $(buttonThis);
     let productId = button.val();
@@ -38,6 +42,10 @@ function addCart(buttonThis) {
     });
 }
 
+/**
+ * Aumenta la cantidad de la medalla que hay en el icono del carrito en la parte superior de la pantalla
+ * @param cuantity Que cantidad aumenta
+ */
 function addCartNumber(cuantity) {
     let badge = $("#cartBadge");
     if(badge.hasClass("d-none"))
@@ -45,6 +53,11 @@ function addCartNumber(cuantity) {
     badge.html(parseInt(badge.html())+parseInt(cuantity));
 }
 
+/**
+ * Genera el mensaje del toast a mostrar
+ * @param cuantity La cantidad de productos que se ha añadido
+ * @returns {string} El mensaje
+ */
 function generateMessage(cuantity) {
     let message = "Se han añadido "+cuantity+" productos a tu carrito";
     if(cuantity<=1){
@@ -53,6 +66,12 @@ function generateMessage(cuantity) {
     return message;
 }
 
+/**
+ * Comprueba que haya algun toast en el paso de mostrarse y retrasa a los siguientes
+ *
+ * Si hay algun toast mostrandose, la aparicion de los siguientes toasts se retrasa 2 segundos
+ * @param toastId El id del toast que se quiere mostrar
+ */
 function checkToastShown(toastId) {
     if ($(".toast-container>.toast").hasClass("showing")){
         setTimeout(()=>{
@@ -71,6 +90,10 @@ function checkToastShown(toastId) {
     }
 }
 
+/**
+ * Crea el toast que se va a mostrar, y le introduce el mensaje apropiado, después, llama a la funcion checkToastShown
+ * @param message
+ */
 function showMessage(message) {
     $(".toast-container").html($(".toast-container").html()+
         "        <div  class=\"toast alertBotstrap\" data-autohide='false' id='"+toastCounter+"'>\n" +

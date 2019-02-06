@@ -1,3 +1,4 @@
+/*Obtiene los datos de la BBDD y llama a la libreria Chart.js para crear las estadisticas*/
 $(document).ready(function () {
     $.ajax({
         type: "POST",
