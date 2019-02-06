@@ -55,7 +55,7 @@ class AdminController extends Controller
         if(!isset($_SESSION['admin']))
             $this->twigView('loginAdminView.php.twig');
         else
-            header("Location: index.php?controller=producto&action=adminCatalogoView");
+            header("Location: index.php?controller=catalogo&action=adminCatalogoView");
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminController extends Controller
             $this->twigView('loginAdminView.php.twig',['falloLogin'=>true]);
         }
         else{
-            header("Location: index.php?controller=producto&action=adminPedidosView&t");
+            header("Location: index.php?controller=pedido &action=adminPedidosView&t");
 
             /*Hay que mirar en el controlller de pedido cuando se accedan a las acciones
             de administrador que
@@ -152,6 +152,7 @@ class AdminController extends Controller
         if (parent::verifyAdmin()){
             session_destroy();
             session_start();
+            $this->toIndex();
         }else{
             $this->toIndex();
         }

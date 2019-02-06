@@ -4,11 +4,17 @@ include_once __DIR__ .'/../controller/Controller.php';
 
 class ProductoController extends Controller
 {
+    /**
+     * ProductoController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Carga los archivos necesarios para el controlador
+     */
     public function cargarArchivos()
     {
         parent::cargarArchivos();
@@ -16,20 +22,39 @@ class ProductoController extends Controller
         require_once __DIR__ . '/../model/Categoria.php';
     }
 
+    /**
+     * Ejecuta la funcion que se le pase como parametro
+     * @param string $action
+     * @param null $id
+     */
     public function run($action = 'defaultCase', $id = null)
     {
         parent::run($action, $id);
     }
 
+    /**
+     * Llama a la funcion de twig que renderiza la pagina que se le pase como parametto, con los datos que se le envien
+     * @param string $page la pagina a mostrar
+     * @param array $data los datos qye necesita la pagina
+     */
     public function twigView($page, $data=["a"=>"a"])
     {
         parent::twigView($page, $data);
     }
 
+    /**
+     * Llama a la funcion que se encarga de enviar un email al usuario
+     * @param string $userEmail detinatario
+     * @param $type el tipo del email
+     * @param $datosEmail array los datos del email
+     */
     public function enviarEmail($userEmail, $type, $datosEmail){
         parent::enviarEmail($userEmail, $type, $datosEmail);
     }
 
+    /**
+     * Si no se encuentra ninguna accion se ejecutara esta por defecto
+     */
     public function defaultCase(){
         $categoria = new Categoria($this->conexion);
         $categorias = $categoria->getAll();
@@ -49,6 +74,12 @@ class ProductoController extends Controller
 
     }
 
+    /**
+     * Ordena los productos por categorias
+     * @param $categorias array con las categorias
+     * @param $productos array con los productos
+     * @return mixed
+     */
     public function formatData($categorias, $productos)
     {
         foreach ($categorias as $x => $categoria){
@@ -68,7 +99,9 @@ class ProductoController extends Controller
     /*ADMIN CATALOGO*/
 
 
-
+    /**
+     * Carga la vista de administrador, si no se esta como administradror, redirige a la pagina principal
+     */
     public function adminCatalogoView(){
         if(parent::verifyAdmin()){
             $categoria = new Categoria($this->conexion);
@@ -82,6 +115,9 @@ class ProductoController extends Controller
         }
     }
 
+    /**
+     * Añade un producto a la base de datos, con los atributos que tenga el producto
+     */
     public function annadirProducto(){
         if (parent::verifyAdmin()){
             $imagen = $this->tratarImagen();
@@ -93,6 +129,9 @@ class ProductoController extends Controller
         }
     }
 
+    /**
+     * Elimina un producto de la base de datos, con el id que tenga el Objeto
+     */
     public function deleteProducto(){
         if(parent::verifyAdmin()){
             $producto = new Producto($this->conexion);
@@ -103,6 +142,9 @@ class ProductoController extends Controller
         }
     }
 
+    /**
+     * Actualiza un producto de la base de datos con los parametros que tenga el producto y la id que se le pase
+     */
     public function updateProducto()
     {
         if (parent::verifyAdmin()) {
@@ -121,6 +163,10 @@ class ProductoController extends Controller
         }
     }
 
+    /**
+     * Verifica si se ha subido la imagen para insertarla, y si no, pone la default
+     * @return string
+     */
     public function tratarImagen(){
         if(!is_uploaded_file($_FILES['imagen']['tmp_name'])){
             $_POST['imagen'] = "./view/media/productImg/default_product.jpg";
@@ -130,6 +176,11 @@ class ProductoController extends Controller
             return $imagen;
         }
     }
+
+    /**
+     * Guarda la imagen en el directorio de imagenes de productos y le cambia el nombre.
+     * @return string
+     */
     public function aImagen(){
             $file = pathinfo($_FILES['imagen']['name']);
             $extension = $file['extension'];
