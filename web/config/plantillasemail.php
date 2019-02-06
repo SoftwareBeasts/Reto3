@@ -11,6 +11,9 @@ switch ($type)
     case 3:
         defineEmail("Pedido confirmado", "Hemos confirmado tu pedido, lo recibirá en la fecha escogida");
     break;
+    case 4:
+        defineEmail($datosEmail["asunto"], $datosEmail["mensaje"]);
+    break;
 }
 
 function defineEmail($asunto, $mensaje)
@@ -21,5 +24,5 @@ function defineEmail($asunto, $mensaje)
 
 function generateCartEmail($datosEmail)
 {
-    return "<html><head></head><body><table width=\"100%\" style=\"border-collapse: collapse\"><tr rowspan=\"2\" style=\"background-color: #333;\"><td colspan=\"2\"><img src=\"http://sfescuelahosteleria.ml/web/view/media/logo-hosteleria.png\" alt=\"LogoEgibide\"></td><td style=\"display: flex;flex-flow: row nowrap;align-items: center;justify-content: center;min-height: 76px\"><h4 id=\"fechaCorreo\" style=\"color: #FFF;\">".$datosEmail["fecha"]."</h4></td></tr><tr style=\"background-color: #e1e1e1;\"><td><h4>Nombre</h4></td><td><h4>Cantidad</h4></td><td><h4>Precio</h4></td></tr>".$datosEmail["cartHtml"]."<tr style=\"color: #FFF; background-color: #333333\"><td colspan=\"2\" style=\"text-align: right;padding: 5px 0px\"><span>Precio Total:</span></td><td style=\"padding:5px 0px\"><span>".$datosEmail["precioTotal"]."</span></td></tr><tr style=\"background-color: #e1e1e1\"><td colspan=\"3\" style=\"text-align: center\"><a href=\"#\"><button style=\"background-color: #82005e;color: #FFF;padding: 10px;margin: 5px 0px;border: none\">Confirmar tu pedido</button></a></td></tr></table></body></html>";
+    return "<html><head></head><body style=\"font-family: Arial;\"><table width=\"35%\" style=\"border-collapse: collapse\"><tr rowspan=\"2\" style=\"boder: 1px sollid\"><td colspan=\"2\"><img src=\"http://sfescuelahosteleria.ml/web/view/media/logo-hosteleria.png\" alt=\"LogoEgibide\"></td><td style=\"display: flex;flex-flow: row nowrap;align-items: center;justify-content: center;min-height: 38px\"><p id=\"pedido\" style=\"color: #000;\"><strong>".$datosEmail["idPedido"]."</strong></p></td><td style=\"display: flex;flex-flow: row nowrap;align-items: center;justify-content: center;min-height: 38px\"><p id=\"fechaCorreo\" style=\"color: #000;\"><strong>".$datosEmail["fecha"]."</strong></p></td></tr><tr style=\"background-color: #f2f2f2;\"><td style=\"padding: 10px;\" ><strong>Nombre</strong></td><td><strong>Cantidad</strong></td><td><strong>Precio</strong></td></tr>".$datosEmail["cartHtml"]."<tr style=\"color: #000; \"><td colspan=\"2\" style=\"text-align: right;padding: 5px 0px\"></td><td style=\"padding:5px 0px\"><h2><span>".$datosEmail["precioTotal"]."</span></h2></td></tr></table></body></html>";
 }
