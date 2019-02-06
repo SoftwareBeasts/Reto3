@@ -4,6 +4,9 @@ include_once __DIR__ .'/../controller/Controller.php';
 
 class CategoriaController extends Controller
 {
+    /**
+     * CategoriaController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
