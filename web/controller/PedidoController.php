@@ -7,11 +7,17 @@ class PedidoController extends Controller
     private $sinConfirmar = array();
     private $confirmados = array();
 
+    /**
+     * PedidoController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Carga los archivos necesarios para este controlador
+     */
     public function cargarArchivos()
     {
         parent::cargarArchivos();
@@ -21,24 +27,39 @@ class PedidoController extends Controller
         require_once __DIR__ . '/../model/PedidoHasProducto.php';
     }
 
+    /**
+     * Llama a la funcion que ejecuta la funcion que se le haya pasado como string
+     * @param string $action la funcion a ejecutar
+     * @param null $id
+     */
     public function run($action = 'defaultCase', $id = null)
     {
         parent::run($action, $id);
     }
 
+    /**
+     * Llama a la funcion que llama a twig, para renderizar la pagina que se le pasa como string
+     * @param string $page la pagina a cargar
+     * @param array $data un array con los datos que necesita esa pagina
+     */
     public function twigView($page, $data=["a"=>"a"])
     {
         parent::twigView($page, $data);
     }
 
+    /**
+     * Envio de email
+     * @param destinatario $userEmail el email del destinatariao
+     * @param $type int el tipo de email
+     * @param $datosEmail array los datos del email
+     */
     public function enviarEmail($userEmail, $type, $datosEmail){
         parent::enviarEmail($userEmail, $type, $datosEmail);
     }
 
-    public function defaultCase(){
-
-    }
-
+    /**
+     * Muestra la pantalla de los pedidos que se han realizado
+     */
     public function adminPedidosView()
     {
         if (parent::verifyAdmin()){
@@ -68,6 +89,13 @@ class PedidoController extends Controller
 
     }
 
+    /**
+     * Establece los datos de una manera concreta para la vista
+     * @param $pedidos
+     * @param $productos
+     * @param $clientes
+     * @param $pedidoProductos
+     */
     public function formatData($pedidos,$productos,$clientes,$pedidoProductos)
     {
         foreach ($pedidos as $x => $pedido){
@@ -99,17 +127,27 @@ class PedidoController extends Controller
         }
     }
 
-
+    /**
+     * Para recoger el carrito guardado en cookies
+     * @return array con los datos del carrrito
+     */
     public function getCart()
     {
         return unserialize($_COOKIE['cart'], ["allowed_classes" => false]);
     }
 
+    /**
+     * Guarda el carrito en cookies
+     * @param $cart array de carrito
+     */
     public function setCart($cart)
     {
         setcookie('cart', serialize($cart), time()+604800);
     }
 
+    /**
+     * Añadir productos al carrito
+     */
     public function addCart()
     {
         if(!isset($_COOKIE['cart']))
@@ -143,6 +181,9 @@ class PedidoController extends Controller
         die();
     }
 
+    /**
+     * Editar el carrito guardado en cookies
+     */
     public function editCart()
     {
         $cart = $this->getCart();
@@ -159,6 +200,10 @@ class PedidoController extends Controller
         die();
     }
 
+    /**
+     * Eliminar producto del carrito o eliminar el carrito de cookies
+     * @param null $forceDelete true para borrar el carrito de cookies
+     */
     public function deleteCart($forceDelete=null)
     {
         $cart = $this->getCart();
@@ -185,6 +230,9 @@ class PedidoController extends Controller
             die($last);
     }
 
+    /**
+     * Mostrar la ventana de realizar pedido
+     */
     public function mostrarCarrito()
     {
         if(isset($_COOKIE['cart']))
@@ -210,6 +258,11 @@ class PedidoController extends Controller
             $this->twigView('cartView.php.twig');
     }
 
+    /**
+     * Ordenar el array por ids
+     * @param $cart array carrito
+     * @return array carrito ordenado
+     */
     public function arrayOrder($cart)
     {
         usort($cart, function($a, $b) {
@@ -218,6 +271,9 @@ class PedidoController extends Controller
         return $cart;
     }
 
+    /**
+     * Guardar pedido en base de datos y enviar email al cliente
+     */
     public function realizarPedido()
     {
 
@@ -274,6 +330,10 @@ class PedidoController extends Controller
         }
     }
 
+    /**
+     * Verificar si es un bot con la API reCaptcha v3 de google
+     * @return bool true si no es un bot
+     */
     private function verificarBot()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recaptcha_response'])) {
@@ -295,11 +355,22 @@ class PedidoController extends Controller
         }
     }
 
+    /**
+     * Genera el html de los productos que se han pedido para enviarle un correo al cliente
+     * @param $producto producto
+     * @param $cantidad cantidad
+     * @param $precio precio
+     * @return string html del producto
+     */
     private function generateCartHtml($producto, $cantidad, $precio)
     {
         return "<tr style=\"border-bottom: 1px solid #f2f2f2;\"><td style=\"padding: 4px;\">".$producto."</td><td style=\"padding: 4px;\">".$cantidad."</td><td style=\"padding: 4px;\">".$precio."€</td></tr>";
     }
 
+    /**
+     * Confirmar el pedido en la pestana de pedidos sin confirmar
+     * @param $id id del pedido
+     */
     public function confirmarPedido($id)
     {
         if (parent::verifyAdmin()){
@@ -318,7 +389,7 @@ class PedidoController extends Controller
             $cliente->setId($pedidoData['cliente_idcliente']);
             $clienteData = $cliente->getByID();
 
-            $this->enviarEmail($clienteData['email'],3, ["idPedido" => $pedidoData['idPedido'], "fecha" => $pedidoData['fecha']]);
+            $this->enviarEmail($clienteData['email'],3, ["idPedido" => $id, "fecha" => $pedidoData['fecha']]);
 //        header('Location: /index.php?controller=pedido');
             die();
         }else{
@@ -326,6 +397,10 @@ class PedidoController extends Controller
         }
     }
 
+    /**
+     * Eliminar de base de datos el pedido porque se ha denegado o porque ya ha finalizado
+     * @param $idPedido id del pedido
+     */
     public function rechazarFinalizarPedido($idPedido)
     {
         if (parent::verifyAdmin()){
@@ -355,6 +430,9 @@ class PedidoController extends Controller
         }
     }
 
+    /**
+     * Enviar un email personalizado
+     */
     public function customEmail()
     {
         if (parent::verifyAdmin()) {
