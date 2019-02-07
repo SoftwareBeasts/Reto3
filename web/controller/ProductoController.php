@@ -125,7 +125,7 @@ class ProductoController extends Controller
             $producto->setAll($_POST['nombre'],$_POST['descripcion'],$_POST['precio'],$imagen,$_POST['pedidoMin'],$_POST['categoria']);
             $producto->save();
         }else{
-            header("Location: index.php?controller=producto");
+            header("Location: index.php?controller=controller=admin&action=catalogo&c=true");
         }
     }
 
@@ -138,7 +138,7 @@ class ProductoController extends Controller
             $producto->setId($_POST['id']);
             $producto->delete();
         }else{
-            header("Location: index.php?controller=producto");
+            header("Location: index.php?controller=admin&action=catalogo&c=true");
         }
     }
 
@@ -159,7 +159,7 @@ class ProductoController extends Controller
             $producto->update();
 
         } else {
-            header("Location: index.php?controller=producto");
+            header("Location: index.php?controller=admin&action=catalogo&c=true");
         }
     }
 
