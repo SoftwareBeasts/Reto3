@@ -39,7 +39,7 @@ para la descarga y el funcionamiento de nuestra página web.
 Una vez tengamos instalado XAMPP y Composer iremos al source de nuestro proyecto y ejecutaremos el siguiente comando:
 
 ```
-.../app-eventos/$ composer i
+.../web/$ composer i
 ```
 
 Ya estaría listo, a disfrutar de la aplicación.
@@ -65,4 +65,4 @@ Puedes ver una demo de esta aplicación web en funcionamiento haciendo click [aq
 
 ## Licencia
 
-###### Realizado por Software Beasts bajo licencia [MIT](/LICENSE). 2018.
+###### Realizado por Software Beasts bajo licencia [MIT](/LICENSE). 2019.
