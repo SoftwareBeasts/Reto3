@@ -7,18 +7,11 @@
   <img src=https://img.shields.io/github/issues/SoftwareBeasts/Reto3.svg />  
   <img src=https://img.shields.io/github/stars/SoftwareBeasts/Reto3.svg />
   <img src=https://img.shields.io/badge/dependencies-twig-81005d.svg />
-</h1>
-<h5 align="center">Página web para la realización de pedidos para la Escuela de Hosterería de Egibide</h5>
-
-<p align="center">
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg?longCache=true&style=flat" alt="Gitter">
-  </a>
-  <a href="https://github.com/SoftwareBeasts/Reto2/releases">
+  <a href="https://github.com/SoftwareBeasts/Reto3/releases">
     <img src="https://img.shields.io/badge/version-v1.0-green.svg">
   </a>
-  
-</p>
+</h1>
+<h5 align="center">Página web para la realización de pedidos para la Escuela de Hosterería de Egibide</h5>
 
 <p align="center">
   <a href="#en-qué-consiste">¿En qué consiste?</a> •
